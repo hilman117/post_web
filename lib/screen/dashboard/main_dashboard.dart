@@ -68,7 +68,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       width: 20,
                     ),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: 40,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
