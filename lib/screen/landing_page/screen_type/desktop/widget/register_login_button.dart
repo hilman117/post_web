@@ -8,12 +8,14 @@ class RegisterLoginButton extends StatelessWidget {
   final String buttonName;
   final IconData iconData;
   final bool isHover;
+  final BoxConstraints width;
   const RegisterLoginButton(
       {Key? key,
       required this.callback,
       required this.buttonName,
       required this.iconData,
-      required this.isHover})
+      required this.isHover,
+      required this.width})
       : super(key: key);
 
   @override
@@ -25,25 +27,25 @@ class RegisterLoginButton extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutSine,
           alignment: Alignment.center,
-          width: 150,
+          width: width.maxWidth * 0.1,
           height: 40,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(isHover ? 25 : 5),
+              borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.white, width: 2),
               color: isHover ? Colors.white : const Color(0xff3152D9)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: width.maxWidth * 0.01),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Icon(
                   iconData,
-                  size: 20,
+                  size: width.maxWidth * 0.01,
                   color: isHover ? const Color(0xff3152D9) : Colors.white,
                 ),
                 Text(buttonName,
                     style: GoogleFonts.poppins(
-                      fontSize: 15,
+                      fontSize: width.maxWidth * 0.01,
                       color: isHover ? const Color(0xff3152D9) : Colors.white,
                     ))
               ],

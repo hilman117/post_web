@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LeftPoint extends StatelessWidget {
+  final double textBoxSize;
+  final double imageIconSize;
   final Color color;
   final String title;
   final String subtitle;
@@ -11,7 +13,9 @@ class LeftPoint extends StatelessWidget {
       required this.title,
       required this.subtitle,
       required this.imageIcon,
-      required this.color})
+      required this.color,
+      required this.textBoxSize,
+      required this.imageIconSize})
       : super(key: key);
 
   @override
@@ -24,7 +28,7 @@ class LeftPoint extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
-              width: 300,
+              width: textBoxSize,
               child: Text(
                 title,
                 style: GoogleFonts.poppins(
@@ -33,7 +37,7 @@ class LeftPoint extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 300,
+              width: textBoxSize,
               child: Text(
                 subtitle,
                 style: GoogleFonts.poppins(
@@ -46,7 +50,7 @@ class LeftPoint extends StatelessWidget {
         const SizedBox(width: 20),
         Image.asset(
           imageIcon,
-          width: 60,
+          width: imageIconSize,
         )
       ],
     );

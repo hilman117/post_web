@@ -13,6 +13,8 @@ class HomeSectionController with ChangeNotifier {
   bool get isRegisterButtonHover => _isRegisterButtonHover;
   bool _isLoginButtonHover = false;
   bool get isLoginButtonHover => _isLoginButtonHover;
+  bool _isBenefit = false;
+  bool get isBenefit => _isBenefit;
 
   homeHovering(bool value) {
     _isHomeHover = value;
@@ -42,5 +44,17 @@ class HomeSectionController with ChangeNotifier {
   loginButtonHovering(bool value) {
     _isLoginButtonHover = value;
     notifyListeners();
+  }
+
+  benefitToHotelHovering(bool value) {
+    _isBenefit = value;
+    notifyListeners();
+  }
+
+  void scrollToSection(ScrollController scroll, double toPositon) {
+    final position = toPositon;
+    scroll.animateTo(position,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.fastOutSlowIn);
   }
 }

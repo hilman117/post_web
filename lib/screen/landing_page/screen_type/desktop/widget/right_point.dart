@@ -6,12 +6,16 @@ class RightPoint extends StatelessWidget {
   final String title;
   final String subtitle;
   final String imageIcon;
+  final double textboxSize;
+  final double imageIconSize;
   const RightPoint(
       {Key? key,
       required this.title,
       required this.subtitle,
       required this.imageIcon,
-      required this.color})
+      required this.color,
+      required this.textboxSize,
+      required this.imageIconSize})
       : super(key: key);
 
   @override
@@ -22,13 +26,13 @@ class RightPoint extends StatelessWidget {
       children: [
         Image.asset(
           imageIcon,
-          width: 60,
+          width: imageIconSize,
         ),
         const SizedBox(width: 20),
         Column(
           children: [
             SizedBox(
-              width: 300,
+              width: textboxSize,
               child: Text(
                 title,
                 style: GoogleFonts.poppins(
@@ -37,7 +41,7 @@ class RightPoint extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 300,
+              width: textboxSize,
               child: Text(
                 subtitle,
                 style: GoogleFonts.poppins(

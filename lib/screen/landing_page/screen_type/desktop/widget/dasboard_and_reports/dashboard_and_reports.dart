@@ -16,113 +16,95 @@ class DashBoardAndReports extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.maxFinite,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
-        child: Column(
-          children: [
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 500),
-              opacity: (scrollExperience.contains(1800))
-                  ? 1.0
-                  : (pixels >= 1800)
-                      ? 1.0
-                      : 0.0,
-              child: AnimatedPadding(
+      child: LayoutBuilder(
+        builder: (p0, p1) => Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: p1.maxWidth * 0.1, vertical: p1.maxWidth * 0.1),
+          child: Column(
+            children: [
+              AnimatedOpacity(
                 duration: const Duration(milliseconds: 500),
-                padding: EdgeInsets.only(
-                    top: (scrollExperience.contains(1800))
-                        ? 0.0
-                        : (pixels >= 1800)
-                            ? 0.0
-                            : 50.0),
-                child: Text("DASHBOARD & REPORT",
-                    style: GoogleFonts.poppins(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff333333))),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 800),
-                  opacity: (scrollExperience.contains(2000))
-                      ? 1.0
-                      : (pixels >= 2000)
-                          ? 1.0
-                          : 0.0,
-                  child: AnimatedPadding(
-                    duration: const Duration(milliseconds: 800),
-                    padding: EdgeInsets.only(
-                        right: (scrollExperience.contains(2000))
-                            ? 0.0
-                            : (pixels >= 2000)
-                                ? 0.0
-                                : 80.0),
-                    child: Image.asset("image/report.png", width: 500),
-                  ),
+                opacity: (scrollExperience.contains(1800))
+                    ? 1.0
+                    : (pixels >= 1800)
+                        ? 1.0
+                        : 0.0,
+                child: AnimatedPadding(
+                  duration: const Duration(milliseconds: 500),
+                  padding: EdgeInsets.only(
+                      top: (scrollExperience.contains(1800))
+                          ? 0.0
+                          : (pixels >= 1800)
+                              ? 0.0
+                              : 50.0),
+                  child: Text("DASHBOARD & REPORT",
+                      style: GoogleFonts.poppins(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xff333333))),
                 ),
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 800),
-                  opacity: (scrollExperience.contains(2000))
-                      ? 1.0
-                      : (pixels >= 2000)
-                          ? 1.0
-                          : 0.0,
-                  child: AnimatedPadding(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 800),
+                    opacity: (scrollExperience.contains(2000))
+                        ? 1.0
+                        : (pixels >= 2000)
+                            ? 1.0
+                            : 0.0,
+                    child: AnimatedPadding(
                       duration: const Duration(milliseconds: 800),
                       padding: EdgeInsets.only(
-                          left: (scrollExperience.contains(2000))
+                          right: (scrollExperience.contains(2000))
                               ? 0.0
                               : (pixels >= 2000)
                                   ? 0.0
                                   : 80.0),
-                      child: RightPoint(
-                        title: "Realtime",
-                        subtitle:
-                            "Real time dashboards for operators to view pending and closed requests",
-                        imageIcon: "image/accessanywhere.png",
-                        color: mainColor,
-                      )),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                AnimatedOpacity(
-                  duration: const Duration(milliseconds: 800),
-                  opacity: (scrollExperience.contains(2500))
-                      ? 1.0
-                      : (pixels >= 2500)
-                          ? 1.0
-                          : 0.0,
-                  child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 800),
-                      padding: EdgeInsets.only(
-                          right: (scrollExperience.contains(2500))
-                              ? 0.0
-                              : (pixels >= 2500)
-                                  ? 0.0
-                                  : 80.0),
-                      child: LeftPoint(
-                        title: "Analytics",
-                        subtitle:
-                            "Report shows analytics for request families, departments, location, etc",
-                        imageIcon: "image/analisys-report.png",
-                        color: mainColor,
-                      )),
-                ),
-                AnimatedOpacity(
+                      child: Image.asset("image/report.png",
+                          width: p1.maxWidth * 0.5),
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 800),
+                    opacity: (scrollExperience.contains(2000))
+                        ? 1.0
+                        : (pixels >= 2000)
+                            ? 1.0
+                            : 0.0,
+                    child: AnimatedPadding(
+                        duration: const Duration(milliseconds: 800),
+                        padding: EdgeInsets.only(
+                            left: (scrollExperience.contains(2000))
+                                ? 0.0
+                                : (pixels >= 2000)
+                                    ? 0.0
+                                    : 80.0),
+                        child: RightPoint(
+                          title: "Realtime",
+                          subtitle:
+                              "Real time dashboards for operators to view pending and closed requests",
+                          imageIcon: "image/accessanywhere.png",
+                          color: mainColor,
+                          textboxSize: p1.maxWidth * 0.1,
+                          imageIconSize: p1.maxWidth * 0.1,
+                        )),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AnimatedOpacity(
                     duration: const Duration(milliseconds: 800),
                     opacity: (scrollExperience.contains(2500))
                         ? 1.0
@@ -132,15 +114,42 @@ class DashBoardAndReports extends StatelessWidget {
                     child: AnimatedPadding(
                         duration: const Duration(milliseconds: 800),
                         padding: EdgeInsets.only(
-                            left: (scrollExperience.contains(2500))
+                            right: (scrollExperience.contains(2500))
                                 ? 0.0
                                 : (pixels >= 2500)
                                     ? 0.0
                                     : 80.0),
-                        child: Image.asset("image/report.png", width: 500))),
-              ],
-            ),
-          ],
+                        child: LeftPoint(
+                          title: "Analytics",
+                          subtitle:
+                              "Report shows analytics for request families, departments, location, etc",
+                          imageIcon: "image/analisys-report.png",
+                          color: mainColor,
+                          textBoxSize: p1.maxWidth * 0.1,
+                          imageIconSize: p1.maxWidth * 0.1,
+                        )),
+                  ),
+                  AnimatedOpacity(
+                      duration: const Duration(milliseconds: 800),
+                      opacity: (scrollExperience.contains(2500))
+                          ? 1.0
+                          : (pixels >= 2500)
+                              ? 1.0
+                              : 0.0,
+                      child: AnimatedPadding(
+                          duration: const Duration(milliseconds: 800),
+                          padding: EdgeInsets.only(
+                              left: (scrollExperience.contains(2500))
+                                  ? 0.0
+                                  : (pixels >= 2500)
+                                      ? 0.0
+                                      : 80.0),
+                          child: Image.asset("image/report.png",
+                              width: p1.maxWidth * 0.5))),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

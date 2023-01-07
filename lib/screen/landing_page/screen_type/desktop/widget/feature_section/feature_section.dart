@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/feature_section/widget/key_feature/key_features.dart';
+import 'package:post_web/screen/landing_page/screen_type/desktop/widget/feature_section/widget/key_features.dart';
 
 class FeatureSection extends StatelessWidget {
   final TabController tabController;
