@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../../controller/home_section_controller.dart';
-import 'home_section/widget/menu_hover.dart';
-import 'register_login_button.dart';
+import '../../controller/home_section_controller.dart';
+import '../menu_hover.dart';
 
-class AppBarDesktop extends StatelessWidget {
-  const AppBarDesktop({
+class AppBarTablet extends StatelessWidget {
+  const AppBarTablet({
     Key? key,
     required this.pixels,
     required this.size,
@@ -51,14 +50,14 @@ class AppBarDesktop extends StatelessWidget {
                             onEnter: (event) => controller.homeHovering(true),
                             onExit: (event) => controller.homeHovering(false),
                             child: MenuHover(
-                              size: p1.maxWidth * 0.055,
+                              size: p1.maxWidth * 0.070,
                               menu: value.isHomeHover,
                               callback: () => controller.scrollToSection(
                                   scrollController, 0),
                               menuName: "Home",
                               pixels: pixels,
                               startPosition: 0,
-                              endPosition: 653,
+                              endPosition: 398,
                             )),
                         MouseRegion(
                             onEnter: (event) =>
@@ -70,14 +69,14 @@ class AppBarDesktop extends StatelessWidget {
                                 horizontal: p1.maxWidth * 0.01,
                               ),
                               child: MenuHover(
-                                size: p1.maxWidth * 0.055,
+                                size: p1.maxWidth * 0.070,
                                 menu: value.isFeatureHover,
                                 callback: () => controller.scrollToSection(
-                                    scrollController, 1064),
+                                    scrollController, 930),
                                 menuName: "Feature",
                                 pixels: pixels,
-                                startPosition: 653,
-                                endPosition: 1373,
+                                startPosition: 584,
+                                endPosition: 2549,
                               ),
                             )),
                         MouseRegion(
@@ -90,14 +89,14 @@ class AppBarDesktop extends StatelessWidget {
                                 horizontal: p1.maxWidth * 0.01,
                               ),
                               child: MenuHover(
-                                size: p1.maxWidth * 0.1,
+                                size: p1.maxWidth * 0.16,
                                 menu: value.isPreviewHover,
                                 callback: () => controller.scrollToSection(
-                                    scrollController, 1697),
+                                    scrollController, 2966),
                                 menuName: "Benefit to Hotel",
                                 pixels: pixels,
-                                startPosition: 1373,
-                                endPosition: 1963,
+                                startPosition: 2910,
+                                endPosition: 3108,
                               ),
                             )),
                         MouseRegion(
@@ -107,14 +106,14 @@ class AppBarDesktop extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: p1.maxWidth * 0.01),
                               child: MenuHover(
-                                size: p1.maxWidth * 0.055,
+                                size: p1.maxWidth * 0.070,
                                 menu: value.isReportHover,
                                 callback: () => controller.scrollToSection(
-                                    scrollController, 2316),
+                                    scrollController, 3559),
                                 menuName: "Preview",
                                 pixels: pixels,
-                                startPosition: 1963,
-                                endPosition: 2731,
+                                startPosition: 3108,
+                                endPosition: 3712,
                               ),
                             )),
                         MouseRegion(
@@ -126,44 +125,16 @@ class AppBarDesktop extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: p1.maxWidth * 0.01),
                               child: MenuHover(
-                                size: p1.maxWidth * 0.15,
+                                size: p1.maxWidth * 0.18,
                                 menu: value.isBenefit,
                                 callback: () => controller.scrollToSection(
-                                    scrollController, 3104),
+                                    scrollController, 4324),
                                 menuName: "Dashboard and Report",
                                 pixels: pixels,
-                                startPosition: 2731,
-                                endPosition: 4000,
+                                startPosition: 3712,
+                                endPosition: 4393,
                               ),
                             )),
-                        MouseRegion(
-                          onEnter: (event) =>
-                              controller.registerButtonHovering(true),
-                          onExit: (event) =>
-                              controller.registerButtonHovering(false),
-                          child: RegisterLoginButton(
-                            callback: () {},
-                            buttonName: "Register now",
-                            iconData: Icons.whatsapp_rounded,
-                            isHover: value.isRegisterButtonHover,
-                            width: p1,
-                          ),
-                        ),
-                        SizedBox(
-                          width: p1.maxWidth * 0.01,
-                        ),
-                        MouseRegion(
-                            onEnter: (event) =>
-                                controller.loginButtonHovering(true),
-                            onExit: (event) =>
-                                controller.loginButtonHovering(false),
-                            child: RegisterLoginButton(
-                              callback: () {},
-                              buttonName: "User login",
-                              iconData: Icons.login_rounded,
-                              isHover: value.isLoginButtonHover,
-                              width: p1,
-                            ))
                       ],
                     )
                   ],

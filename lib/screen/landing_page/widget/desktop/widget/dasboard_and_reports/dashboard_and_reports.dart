@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/left_point.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/right_point.dart';
+
+import '../../../../widget/left_point.dart';
+import '../../../../widget/right_point.dart';
 
 class DashBoardAndReports extends StatelessWidget {
-  final List<double> scrollExperience;
+  final List<int> scrollExperience;
   final double pixels;
   const DashBoardAndReports(
       {Key? key, required this.scrollExperience, required this.pixels})
@@ -127,6 +128,7 @@ class DashBoardAndReports extends StatelessWidget {
                           color: mainColor,
                           textBoxSize: p1.maxWidth * 0.1,
                           imageIconSize: p1.maxWidth * 0.1,
+                          left: MainAxisAlignment.start,
                         )),
                   ),
                   AnimatedOpacity(

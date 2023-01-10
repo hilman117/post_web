@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/feature_section/widget/key_features.dart';
+
+import 'widget/key_features.dart';
 
 class FeatureSection extends StatelessWidget {
-  final TabController tabController;
-  final List<double> scrollExperience;
+  final List<int> scrollExperience;
   final double pixels;
   const FeatureSection(
-      {Key? key,
-      required this.tabController,
-      required this.scrollExperience,
-      required this.pixels})
+      {Key? key, required this.scrollExperience, required this.pixels})
       : super(key: key);
 
   @override

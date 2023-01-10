@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
 
-import '../../left_point.dart';
-import '../../right_point.dart';
+import '../../../../../widget/left_point.dart';
+import '../../../../../widget/right_point.dart';
 
 class KeyFeatures extends StatelessWidget {
   final double pixels;
-  final List<double> scrollExperience;
+  final List<int> scrollExperience;
   const KeyFeatures(
       {Key? key, required this.scrollExperience, required this.pixels})
       : super(key: key);
@@ -30,7 +30,7 @@ class KeyFeatures extends StatelessWidget {
                 ),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 800),
-                  opacity: (scrollExperience.contains(600))
+                  opacity: pixels > 600
                       ? 1.0
                       : (pixels >= 600)
                           ? 1.0
@@ -56,6 +56,7 @@ class KeyFeatures extends StatelessWidget {
                               color: mainColor,
                               textBoxSize: p1.maxWidth * 0.75,
                               imageIconSize: p1.maxWidth * 0.15,
+                              left: MainAxisAlignment.start,
                             ),
                             const SizedBox(
                               height: 15,
@@ -67,6 +68,7 @@ class KeyFeatures extends StatelessWidget {
                               textBoxSize: p1.maxWidth * 0.75,
                               color: secondaryColor,
                               imageIconSize: p1.maxWidth * 0.15,
+                              left: MainAxisAlignment.start,
                             ),
                             const SizedBox(
                               height: 15,
@@ -78,6 +80,7 @@ class KeyFeatures extends StatelessWidget {
                               textBoxSize: p1.maxWidth * 0.75,
                               color: mainColor,
                               imageIconSize: p1.maxWidth * 0.15,
+                              left: MainAxisAlignment.start,
                             ),
                             const SizedBox(
                               height: 15,
@@ -91,6 +94,7 @@ class KeyFeatures extends StatelessWidget {
                                     textBoxSize: p1.maxWidth * 0.75,
                                     color: secondaryColor,
                                     imageIconSize: p1.maxWidth * 0.15,
+                                    left: MainAxisAlignment.start,
                                   ),
                           ],
                         ),
@@ -238,6 +242,7 @@ class KeyFeatures extends StatelessWidget {
                           textBoxSize: p1.maxWidth * 0.75,
                           color: secondaryColor,
                           imageIconSize: p1.maxWidth * 0.15,
+                          left: MainAxisAlignment.start,
                         ),
                       ),
                     ),

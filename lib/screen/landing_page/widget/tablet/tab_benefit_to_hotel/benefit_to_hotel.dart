@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/benefit_to_hotel/widget/benefit_tab.dart';
 
-class BenefitToHotel extends StatelessWidget {
-  const BenefitToHotel({Key? key}) : super(key: key);
+import 'widget/benefit_tab.dart';
+
+class BenefitToHotelTablet extends StatelessWidget {
+  final int pixels;
+  const BenefitToHotelTablet({Key? key, required this.pixels})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,9 @@ class BenefitToHotel extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const BenefitTab()
+          BenefitTablet(
+            pixels: pixels,
+          )
         ],
       ),
     );

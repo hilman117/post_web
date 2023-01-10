@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/landing_page/screen_type/desktop/widget/benefit_to_hotel/widget/point.dart';
+
+import 'package:post_web/screen/landing_page/widget/desktop/widget/benefit_to_hotel/widget/point.dart';
 
 class BenefitTab extends StatelessWidget {
   const BenefitTab({Key? key}) : super(key: key);

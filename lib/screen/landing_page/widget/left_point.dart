@@ -8,6 +8,7 @@ class LeftPoint extends StatelessWidget {
   final String title;
   final String subtitle;
   final String imageIcon;
+  final MainAxisAlignment left;
   const LeftPoint(
       {Key? key,
       required this.title,
@@ -15,13 +16,14 @@ class LeftPoint extends StatelessWidget {
       required this.imageIcon,
       required this.color,
       required this.textBoxSize,
-      required this.imageIconSize})
+      required this.imageIconSize,
+      required this.left})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: left,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(

@@ -15,6 +15,8 @@ class HomeSectionController with ChangeNotifier {
   bool get isLoginButtonHover => _isLoginButtonHover;
   bool _isBenefit = false;
   bool get isBenefit => _isBenefit;
+  bool _isCollapsing = false;
+  bool get isCollapsing => _isCollapsing;
 
   homeHovering(bool value) {
     _isHomeHover = value;
@@ -48,6 +50,11 @@ class HomeSectionController with ChangeNotifier {
 
   benefitToHotelHovering(bool value) {
     _isBenefit = value;
+    notifyListeners();
+  }
+
+  collapSingPhoneAppbar() {
+    _isCollapsing = !_isCollapsing;
     notifyListeners();
   }
 
