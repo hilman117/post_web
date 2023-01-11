@@ -5,8 +5,8 @@ import 'package:post_web/other.dart';
 import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:provider/provider.dart';
 
-class TabHomeSection extends StatelessWidget {
-  const TabHomeSection({Key? key}) : super(key: key);
+class PhoneHomeSection extends StatelessWidget {
+  const PhoneHomeSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,35 +18,35 @@ class TabHomeSection extends StatelessWidget {
                   builder: (context, value, child) => Stack(
                     children: [
                       SizedBox(
-                        height: 920,
+                        height: 600,
                         child: Stack(
                           children: [
                             Container(
                               alignment: Alignment.center,
 
                               // color: ,
-                              height: 600,
+                              height: 400,
                               width: size.width,
                               color: mainColor,
                               child: Image.asset("image/wavetop.png"),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 600),
+                              padding: const EdgeInsets.only(top: 400),
                               child: Image.asset("image/shadowwave.png"),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 570),
+                              padding: const EdgeInsets.only(top: 370),
                               child: Image.asset("image/wavedown.png"),
                             ),
                             Positioned(
                               left: 20,
                               right: 20,
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 50),
+                                padding: const EdgeInsets.only(top: 25),
                                 child: SizedBox(
                                   width: size.width,
                                   child: SizedBox(
-                                    width: p1.maxWidth * 0.70,
+                                    width: p1.maxWidth * 0.8,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -144,8 +144,8 @@ class TabHomeSection extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          top: 500,
-                          left: p1.maxWidth * 0.33,
+                          top: 325,
+                          left: p1.maxWidth * 0.30,
                           child: Image.asset("image/mokap.png",
                               width: p1.maxWidth * 0.4)),
                     ],

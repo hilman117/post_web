@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/feature_phone/feature_phone.dart';
-import 'package:post_web/screen/landing_page/widget/phone/widget/home_section_tablet/tab_home_section.dart';
+import 'package:post_web/screen/landing_page/widget/phone/widget/phone_home_section/phone_home_section.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_benefit_to_hotel/phone_benefit_to_hotel.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_dasboard_and_reports/phone_dashboard_and_reports.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_preview_section/phone_preview_section.dart';
