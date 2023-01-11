@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/controller/home_section_controller.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
+
 import 'package:provider/provider.dart';
 
 class RegisterLoginButton extends StatelessWidget {
@@ -20,7 +21,7 @@ class RegisterLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeSectionController>(
+    return Consumer<LandingPageController>(
       builder: (context, value, child) => InkWell(
         onTap: callback,
         child: AnimatedContainer(
@@ -28,10 +29,11 @@ class RegisterLoginButton extends StatelessWidget {
           curve: Curves.easeInOutSine,
           alignment: Alignment.center,
           width: width.maxWidth * 0.1,
-          height: 40,
+          height: width.maxWidth * 0.04,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Colors.white, width: 2),
+              border: Border.all(
+                  color: Colors.white, width: width.maxWidth * 0.002),
               color: isHover ? Colors.white : const Color(0xff3152D9)),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: width.maxWidth * 0.01),

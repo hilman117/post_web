@@ -2,9 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../controller/home_section_controller.dart';
 
 class PhoneHomeSection extends StatelessWidget {
   const PhoneHomeSection({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class PhoneHomeSection extends StatelessWidget {
     return SizedBox(
         width: size.width,
         child: LayoutBuilder(
-            builder: (p0, p1) => Consumer<HomeSectionController>(
+            builder: (p0, p1) => Consumer<LandingPageController>(
                   builder: (context, value, child) => Stack(
                     children: [
                       SizedBox(

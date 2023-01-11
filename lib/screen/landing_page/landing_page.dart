@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/screen/landing_page/widget/phone/phone_home_section/phone_screen.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
+import 'package:post_web/screen/landing_page/widget/phone/phone_screen.dart';
 
-import 'package:post_web/screen/landing_page/widget/phone/phone_home_section/widget/appbar_phone_screen.dart';
-import 'package:post_web/screen/landing_page/widget/phone/phone_home_section/widget/custom_drawer.dart';
+import 'package:post_web/screen/landing_page/widget/phone/widget/appbar_phone_screen.dart';
+import 'package:post_web/screen/landing_page/widget/phone/widget/custom_drawer.dart';
 import 'package:provider/provider.dart';
-import 'controller/home_section_controller.dart';
+
 import 'widget/desktop/widget/appbar_desktop.dart';
 import 'widget/desktop/widget/benefit_to_hotel/benefit_to_hotel.dart';
 import 'widget/desktop/widget/dasboard_and_reports/dashboard_and_reports.dart';
@@ -48,7 +49,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final controller =
-        Provider.of<HomeSectionController>(context, listen: false);
+        Provider.of<LandingPageController>(context, listen: false);
     double webScreen = MediaQuery.of(context).size.width;
     double tabletScreen = 820.0;
     double phoneScreen = 414.0;

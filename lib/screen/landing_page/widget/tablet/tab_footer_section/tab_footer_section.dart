@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/controller/home_section_controller.dart';
+
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/widget/register_login_button.dart';
 import 'package:post_web/other.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +14,8 @@ class TabFooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller =
-        Provider.of<HomeSectionController>(context, listen: false);
-    return Consumer<HomeSectionController>(
+        Provider.of<LandingPageController>(context, listen: false);
+    return Consumer<LandingPageController>(
       builder: (context, value, child) => SizedBox(
         width: double.maxFinite,
         child: Column(

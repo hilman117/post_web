@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class HomeSectionController with ChangeNotifier {
+class LandingPageController with ChangeNotifier {
   bool _isHomeHover = false;
   bool get isHomeHover => _isHomeHover;
   bool _isFeatureHover = false;
@@ -15,8 +15,14 @@ class HomeSectionController with ChangeNotifier {
   bool get isLoginButtonHover => _isLoginButtonHover;
   bool _isBenefit = false;
   bool get isBenefit => _isBenefit;
-  bool _isCollapsing = false;
-  bool get isCollapsing => _isCollapsing;
+  final bool _isFeatureShowing = false;
+  bool get isFeatureShowing => _isFeatureShowing;
+  final bool _isBenefitShowing = false;
+  bool get isBenefitShowing => _isBenefitShowing;
+  final bool _isPreviewShowing = false;
+  bool get isPreviewShowing => _isPreviewShowing;
+  final bool _isDasboardShowing = false;
+  bool get isDasboardShowing => _isDasboardShowing;
 
   homeHovering(bool value) {
     _isHomeHover = value;
@@ -50,11 +56,6 @@ class HomeSectionController with ChangeNotifier {
 
   benefitToHotelHovering(bool value) {
     _isBenefit = value;
-    notifyListeners();
-  }
-
-  collapSingPhoneAppbar() {
-    _isCollapsing = !_isCollapsing;
     notifyListeners();
   }
 

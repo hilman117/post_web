@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../other.dart';
-import '../../../../../left_point.dart';
+import '../../../../../../../other.dart';
+import '../../../../left_point.dart';
 
 class LeftFeatureAnimated extends StatelessWidget {
   final int pixels;

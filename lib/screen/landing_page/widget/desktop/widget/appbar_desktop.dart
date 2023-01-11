@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../../controller/home_section_controller.dart';
 import '../../../widget/menu_hover.dart';
 import '../../../widget/register_login_button.dart';
 
@@ -17,7 +17,7 @@ class AppBarDesktop extends StatelessWidget {
 
   final double pixels;
   final Size size;
-  final HomeSectionController controller;
+  final LandingPageController controller;
   final ScrollController scrollController;
 
   @override
@@ -28,7 +28,7 @@ class AppBarDesktop extends StatelessWidget {
       width: size.width,
       height: size.height * 0.1,
       child: LayoutBuilder(
-          builder: (p0, p1) => Consumer<HomeSectionController>(
+          builder: (p0, p1) => Consumer<LandingPageController>(
                 builder: (context, value, child) => Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

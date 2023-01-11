@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
-import 'package:post_web/screen/landing_page/controller/home_section_controller.dart';
+
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -16,7 +17,7 @@ Future<void> main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
-        create: (context) => HomeSectionController(),
+        create: (context) => LandingPageController(),
       )
     ],
     child: const GetMaterialApp(

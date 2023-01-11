@@ -1,8 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/controller/home_section_controller.dart';
+
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:provider/provider.dart';
 
 class HomeSection extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      child: Consumer<HomeSectionController>(
+      child: Consumer<LandingPageController>(
         builder: (context, value, child) => Stack(
           children: [
             Container(

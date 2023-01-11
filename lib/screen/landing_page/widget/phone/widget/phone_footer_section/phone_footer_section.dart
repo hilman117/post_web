@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/widget/register_login_button.dart';
 import 'package:post_web/other.dart';
 import 'package:provider/provider.dart';
 
-class FooterSection extends StatelessWidget {
+class PhoneFooterSection extends StatelessWidget {
   final ScrollController scrollController;
-  const FooterSection({Key? key, required this.scrollController})
+  const PhoneFooterSection({Key? key, required this.scrollController})
       : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class FooterSection extends StatelessWidget {
                       colors: [mainColor, Colors.blue.shade200])),
               child: LayoutBuilder(
                 builder: (p0, p1) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: p1.maxWidth * 0.1),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Column(
                     children: [
                       Row(
@@ -68,7 +68,7 @@ class FooterSection extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () => controller.scrollToSection(
-                                    scrollController, 1064),
+                                    scrollController, 930),
                                 child: Text(
                                   "Feature",
                                   style: GoogleFonts.poppins(
@@ -83,7 +83,22 @@ class FooterSection extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () => controller.scrollToSection(
-                                    scrollController, 2819),
+                                    scrollController, 2966),
+                                child: Text(
+                                  "Benefit to Hotel",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: p1.maxWidth * 0.015,
+                                      color: Colors.white,
+                                      height: 1.5),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              InkWell(
+                                onTap: () => controller.scrollToSection(
+                                    scrollController, 3559),
                                 child: Text(
                                   "Preview",
                                   style: GoogleFonts.poppins(
@@ -98,24 +113,9 @@ class FooterSection extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () => controller.scrollToSection(
-                                    scrollController, 3618),
+                                    scrollController, 4324),
                                 child: Text(
                                   "Dashboard & Report",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: p1.maxWidth * 0.015,
-                                      color: Colors.white,
-                                      height: 1.5),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              InkWell(
-                                onTap: () => controller.scrollToSection(
-                                    scrollController, 1697),
-                                child: Text(
-                                  "Benefit to Hotel",
                                   style: GoogleFonts.poppins(
                                       fontSize: p1.maxWidth * 0.015,
                                       color: Colors.white,
@@ -143,7 +143,7 @@ class FooterSection extends StatelessWidget {
                                   onTap: () {},
                                   child: Image.asset(
                                     "image/Apple.png",
-                                    width: p1.maxWidth * 0.1,
+                                    width: p1.maxWidth * 0.2,
                                   )),
                               const SizedBox(
                                 height: 8,
@@ -152,7 +152,7 @@ class FooterSection extends StatelessWidget {
                                   onTap: () {},
                                   child: Image.asset(
                                     "image/Google.png",
-                                    width: p1.maxWidth * 0.1,
+                                    width: p1.maxWidth * 0.2,
                                   )),
                             ],
                           ),
@@ -162,7 +162,7 @@ class FooterSection extends StatelessWidget {
                               Text(
                                 "Register",
                                 style: GoogleFonts.poppins(
-                                    fontSize: p1.maxWidth * 0.020,
+                                    fontSize: p1.maxWidth * 0.025,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.left,

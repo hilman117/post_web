@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/landing_page/controller/home_section_controller.dart';
+
+import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
 import 'package:provider/provider.dart';
 
 class AppBarPhoneScreen extends StatelessWidget {
@@ -9,9 +10,7 @@ class AppBarPhoneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final controller =
-        Provider.of<HomeSectionController>(context, listen: false);
-    return Consumer<HomeSectionController>(
+    return Consumer<LandingPageController>(
       builder: (context, value, child) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           width: size.width,
@@ -23,7 +22,7 @@ class AppBarPhoneScreen extends StatelessWidget {
                 InkWell(
                   onTap: () => Scaffold.of(context).openDrawer(),
                   child: Icon(
-                    value.isCollapsing ? Icons.cancel : Icons.menu,
+                    Icons.menu,
                     color: mainColor,
                     size: 30,
                   ),

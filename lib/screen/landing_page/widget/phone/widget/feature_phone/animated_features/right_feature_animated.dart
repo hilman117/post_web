@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../other.dart';
-import '../../../../../right_point.dart';
+import '../../../../../../../other.dart';
+import '../../../../right_point.dart';
 
 class RightFeatureAnimated extends StatelessWidget {
   final int pixels;
@@ -24,7 +24,7 @@ class RightFeatureAnimated extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedPadding(
       duration: const Duration(milliseconds: 500),
-      padding: EdgeInsets.only(top: pixels > position ? 0 : 150),
+      padding: EdgeInsets.only(top: (pixels > position) ? 0 : 150),
       child: AnimatedOpacity(
         opacity: pixels > position ? 1 : 0,
         duration: const Duration(milliseconds: 500),
