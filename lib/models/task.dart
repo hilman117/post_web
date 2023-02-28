@@ -1,92 +1,81 @@
 class TaskModel {
-  TaskModel({
-    this.isClose,
-    this.image,
-    this.taskModelImageProfile,
-    this.receiver,
-    this.unread,
-    this.description,
-    this.title,
-    this.schedule,
-    this.sender,
-    this.imageProfile,
-    this.comment,
-    this.location,
-    this.id,
-    this.time,
-    this.position,
-    this.status,
-    this.commentsender,this.sendTo, this.priority, this.from
-  });
+  TaskModel(
+      {this.receiver,
+      this.description,
+      this.title,
+      this.setDate,
+      this.setTime,
+      this.sender,
+      this.comment,
+      this.assigned,
+      this.location,
+      this.id,
+      this.time,
+      this.status,
+      this.sendTo,
+      this.emailSender,
+      this.profileImageSender,
+      this.positionSender,
+      this.from});
 
-  bool? isClose;
-  String? image;
-  bool? taskModelImageProfile;
-  bool? isDiscribed;
   String? receiver;
-  String? priority;
-  String? unread;
   String? description;
-  bool? isUpdated;
-  bool? isScheduled;
   String? title;
-  bool? havePicture;
-  String? schedule;
+  String? setDate;
+  String? setTime;
   String? sender;
-  String? imageProfile;
+  String? emailSender;
+  String? profileImageSender;
+  String? positionSender;
   List<dynamic>? comment;
+  List<String>? assigned;
   String? location;
   String? id;
   DateTime? time;
-  String? position;
   String? status;
-  String? commentsender;
+
   String? sendTo;
   String? from;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
-        isClose: json["isClose"],
-        image: json["image"],
-        taskModelImageProfile: json["imageProfile?"],
-        receiver: json["receiver"],
-        unread: json["unread"],
-        description: json["description"],
-        title: json["title"],
-        schedule: json["schedule"],
-        sender: json["sender"],
-        imageProfile: json["imageProfile"],
-        comment: List<dynamic>.from(json["comment"].map((x) => x)),
-        location: json["location"],
-        id: json["id"],
-        time: DateTime.parse(json["time"]),
-        position: json["position"],
-        status: json["status"],
-        commentsender: json["commentsender"],
-        sendTo: json["sendTo"],
-        priority: json["priority"],
-        from: json["from"]
-      );
+      receiver: json["receiver"],
+      description: json["description"],
+      title: json["title"],
+      emailSender: json["emailSender"],
+      profileImageSender: json["profileImageSender"],
+      positionSender: json["positionSender"],
+      setDate: json["setDate"],
+      setTime: json["setTime"],
+      sender: json["sender"],
+      comment: List<dynamic>.from(json["comment"].map((x) => x)),
+      assigned: List<String>.from(json["assigned"].map((x) => x)),
+      location: json["location"],
+      id: json["id"],
+      time: DateTime.parse(json["time"]),
+      status: json["status"],
+      sendTo: json["sendTo"],
+      from: json["from"]);
 
   Map<String, dynamic> toJson() => {
-        "isClose": isClose,
-        "image": image,
         "receiver": receiver,
-        "unread": unread,
+        "emailSender": emailSender,
+        "profileImageSender": profileImageSender,
+        "positionSender": positionSender,
         "description": description,
         "title": title,
-        "schedule": schedule,
+        "setDate": setDate,
+        "setTime": setTime,
         "sender": sender,
         "from": from,
-        "imageProfile": imageProfile,
         "comment":
-            comment == null ? null : List<dynamic>.from(comment!.map((x) => x)),
+            comment == null ? [] : List<dynamic>.from(comment!.map((x) => x)),
+        "assigned": assigned == null
+            ? null
+            : List<dynamic>.from(assigned!.map((x) => x)),
         "location": location,
         "id": id,
         "time": time!.toIso8601String(),
-        "position": position,
         "status": status,
-        "commentsender": commentsender,
         "sendTo": sendTo,
-        "priority": priority,
       };
 }

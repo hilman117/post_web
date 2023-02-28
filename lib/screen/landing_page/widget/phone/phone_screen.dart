@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
+import 'package:post_web/screen/landing_page/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/feature_phone/feature_phone.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_home_section/phone_home_section.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_benefit_to_hotel/phone_benefit_to_hotel.dart';
@@ -37,7 +37,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(pixels.toInt());
+    // print(pixels.toInt());
     return Consumer<LandingPageController>(
       builder: (context, value, child) => ListView(
         controller: scrollController,

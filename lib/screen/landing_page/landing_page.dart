@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/screen/landing_page/landing_page_controller.dart';
 import 'package:post_web/screen/landing_page/widget/phone/phone_screen.dart';
 
 import 'package:post_web/screen/landing_page/widget/phone/widget/appbar_phone_screen.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/custom_drawer.dart';
 import 'package:provider/provider.dart';
 
-import 'widget/desktop/widget/appbar_desktop.dart';
+import 'widget/desktop/appbar_desktop.dart';
 import 'widget/desktop/widget/benefit_to_hotel/benefit_to_hotel.dart';
 import 'widget/desktop/widget/dasboard_and_reports/dashboard_and_reports.dart';
 import 'widget/desktop/widget/feature_section/feature_section.dart';
@@ -51,8 +53,8 @@ class _LandingPageState extends State<LandingPage> {
     final controller =
         Provider.of<LandingPageController>(context, listen: false);
     double webScreen = MediaQuery.of(context).size.width;
-    double tabletScreen = 820.0;
-    double phoneScreen = 414.0;
+    double tabletScreen = 820.0.w;
+    double phoneScreen = 414.0.w;
     return Scaffold(
       drawerEnableOpenDragGesture: false,
       drawer: webScreen < phoneScreen
@@ -69,7 +71,7 @@ class _LandingPageState extends State<LandingPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: (pixels > 95)
+        backgroundColor: (pixels > 95.h)
             ? Colors.white
             : (webScreen < phoneScreen)
                 ? Colors.white

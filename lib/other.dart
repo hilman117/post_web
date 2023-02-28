@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 Color mainColor = const Color(0xff3152D9);
+Color mainColor2 = const Color(0xff0071B1);
 Color secondaryColor = const Color(0xff0FD0B6);
+Color colorTextCard = Colors.black54;
+String hotelListCollection = "Hotel List";
+String userCollection = "users";
+String taskCollection = "tasks";
+String departementDoc = "Departement";
+String lfCollection = "Lost And Found";
+String administrator = "Administrator";
+String deptAdmin = "Dept. Admin";
+String noAdmin = "Non-admin";
 String forAllDepartment =
     "Every department on one system to improve productivity and efficiency through the automation of all requests such as Maintenance, Housekeeping, Room service, Concierge, IT… and much more.";
 String easyToUse =

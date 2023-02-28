@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
 
-import 'package:post_web/screen/landing_page/controller/landing_page_controller.dart';
+import 'package:post_web/screen/landing_page/landing_page_controller.dart';
 import 'package:provider/provider.dart';
 
 class AppBarPhoneScreen extends StatelessWidget {
