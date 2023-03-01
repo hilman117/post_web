@@ -51,6 +51,8 @@ class RegisterNewDepartement {
           .collection("Department")
           .doc(dept)
           .update({"isActive": newBool});
-    } catch (e) {}
+    } catch (e) {
+      ShowDialog().errorDialog(context, "Something went wrong");
+    }
   }
 }

@@ -56,7 +56,7 @@ class Department extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.network(
+                      Image.asset(
                         icon,
                         width: 25.w,
                       ),

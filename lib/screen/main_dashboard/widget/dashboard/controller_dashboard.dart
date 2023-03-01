@@ -63,10 +63,10 @@ class DashboardController with ChangeNotifier {
 
 //funtion for selecting index in a list
   int hoveringIndex = 0;
-  int selectedDepartement = 0;
+  int selectedDepartement = -1;
   selectIndex({int? newIndex, int? hoverIndex}) {
-    selectedDepartement = newIndex ?? selectedDepartement;
-    hoveringIndex = hoverIndex ?? 0;
+    selectedDepartement = newIndex ?? -1;
+    hoveringIndex = hoverIndex ?? -1;
     notifyListeners();
   }
 

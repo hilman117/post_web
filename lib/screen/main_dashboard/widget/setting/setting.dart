@@ -29,6 +29,7 @@ class _SettingViewState extends State<SettingView> {
   void initState() {
     // Provider.of<GetController>(context, listen: false).getDepartementData();
     Provider.of<GetController>(context, listen: false).getGeneralData();
+
     super.initState();
   }
 

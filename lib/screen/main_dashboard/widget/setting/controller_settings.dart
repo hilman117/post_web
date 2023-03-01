@@ -4,16 +4,15 @@ import 'package:get/get.dart';
 import 'package:post_web/common_widget/show_dialog.dart';
 import 'package:post_web/firebase/post/register_departement.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/departments_setting/departments_setting.dart';
+
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/employee_account/employee_account.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/task_settings/task_settings.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/your_account/account_setting.dart';
 
 import '../../../../controller/c_user.dart';
+import 'widget/departments_setting/departments_setting.dart';
 
 class SettingsController with ChangeNotifier {
-  int _sectionMenu = 0;
-  int get sectionMenu => _sectionMenu;
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -131,31 +130,6 @@ class SettingsController with ChangeNotifier {
   void selectSettingMenu(int index) {
     menuSettingSelected = index;
     notifyListeners();
-  }
-
-  currentScrollPosition(int position) {
-    //this is position for account section
-    if (position <= 96) {
-      _sectionMenu = 0;
-      notifyListeners();
-    }
-    //this is position for team account section
-    if (position >= 201 && position <= 609) {
-      _sectionMenu = 1;
-      notifyListeners();
-    }
-    //this is position for department section
-
-    if (position >= 609 && position <= 788) {
-      _sectionMenu = 2;
-      notifyListeners();
-    }
-    //this is position for task setting section
-    if (position > 788) {
-      _sectionMenu = 3;
-      notifyListeners();
-    }
-    // print(_sectionMenu);
   }
 
   final user = Get.put(CUser());

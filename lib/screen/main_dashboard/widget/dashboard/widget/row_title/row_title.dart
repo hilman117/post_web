@@ -6,20 +6,37 @@ import 'package:post_web/models/task.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../../firebase/get/stream_task.dart';
 import '../../controller_dashboard.dart';
 import 'widget/filter_by_status.dart';
 import 'widget/request_card.dart';
 import 'widget/search_box.dart';
 import 'widget/table_title.dart';
 
-class RowTitle extends StatelessWidget {
+class RowTitle extends StatefulWidget {
+  final String departement;
+  final String status;
   final BoxConstraints p1;
-  final Stream<QuerySnapshot<Map<String, dynamic>>> streamTask;
+
   const RowTitle({
     Key? key,
     required this.p1,
-    required this.streamTask,
+    required this.departement,
+    required this.status,
   }) : super(key: key);
+
+  @override
+  State<RowTitle> createState() => _RowTitleState();
+}
+
+class _RowTitleState extends State<RowTitle> {
+  // late Stream<QuerySnapshot<Map<String, dynamic>>> streamTask;
+
+  // @override
+  // void initState() {
+  //   streamTask =
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +143,8 @@ class RowTitle extends StatelessWidget {
                         height: 600.h,
                         child:
                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                          stream: streamTask,
+                          stream: StreamTask()
+                              .task(widget.departement, widget.status),
                           builder:
                               (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasError) {

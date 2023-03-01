@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
-import 'package:post_web/firebase/get/stream_task.dart';
 
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
@@ -87,8 +86,8 @@ class Dashboard extends StatelessWidget {
                         Consumer<DashboardController>(
                             builder: (context, value, child) => RowTitle(
                                   p1: p1,
-                                  streamTask: StreamTask().task(
-                                      value.department, value.filterbyStatus),
+                                  departement: value.department,
+                                  status: value.filterbyStatus,
                                 ))
                       ],
                     )),

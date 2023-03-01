@@ -93,34 +93,31 @@ class _AddNewDepartementState extends State<AddNewDepartement> {
                           )),
                       SizedBox(
                           width: 500.w,
-                          height: 100.h,
+                          // height: 100.h,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 50.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: value.departementIcon.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () => controller.selectIcon(
-                                          value.departementIcon[index]),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          value.departementIcon[index],
-                                          width: 35.w,
-                                          height: 35.h,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
+                                  // height: 200.h,
+                                  child: Wrap(
+                                children: List.generate(
+                                    value.departementIcon.length,
+                                    (index) => InkWell(
+                                          onTap: () => controller.selectIcon(
+                                              value.departementIcon[index]),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                              value.departementIcon[index],
+                                              width: 35.w,
+                                              height: 35.h,
+                                            ),
+                                          ),
+                                        )),
+                              )),
                               Container(
                                 alignment: Alignment.centerLeft,
-                                height: 50.h,
+                                // height: 50.h,
                                 child: Wrap(
                                   children: [
                                     value.iconSelected == ""
