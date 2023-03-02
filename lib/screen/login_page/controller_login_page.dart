@@ -13,7 +13,7 @@ import 'package:post_web/shared_prefferences/save_general_data.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared_prefferences/session_user.dart';
-import '../../common_widget/show_dialog.dart';
+import '../../reusable_widget/show_dialog.dart';
 
 class LoginController with ChangeNotifier {
   bool _isObsecure = true;

@@ -5,7 +5,7 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/other.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 
-import 'package:post_web/common_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {

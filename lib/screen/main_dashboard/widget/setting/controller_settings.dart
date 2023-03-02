@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:post_web/common_widget/show_dialog.dart';
-import 'package:post_web/firebase/post/register_departement.dart';
+import 'package:post_web/extension/string_extention.dart';
+import 'package:post_web/firebase/firebase_title.dart';
+import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/other.dart';
-
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/employee_account/employee_account.dart';
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/task_settings/task_settings.dart';
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/your_account/account_setting.dart';
-
 import '../../../../controller/c_user.dart';
-import 'widget/departments_setting/departments_setting.dart';
+import '../../../../firebase/firebase_departement.dart';
 
 class SettingsController with ChangeNotifier {
+  //Note: meaning of the line
+  //new method that start
+  //-------------------------------------------the last line of the method
+
+  //employee account settings
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -103,34 +104,6 @@ class SettingsController with ChangeNotifier {
     deptAdmin,
     noAdmin,
   ];
-  List<String> departments = [
-    "Housekeeping",
-    "Front Office",
-    "Engineering",
-    "Butler",
-    "Room Service",
-    "Concierge",
-    "IT Support"
-  ];
-  List<String> menuSettings = [
-    "Profile",
-    "Team account",
-    "Department",
-    "Task Settings"
-  ];
-
-  int menuSettingSelected = 0;
-  List<Widget> settingMenuWidget = [
-    const YourAccount(),
-    const EmployeeAccount(),
-    const DepartmentSettings(),
-    const TaskSettings()
-  ];
-
-  void selectSettingMenu(int index) {
-    menuSettingSelected = index;
-    notifyListeners();
-  }
 
   final user = Get.put(CUser());
   final db = FirebaseFirestore.instance;
@@ -139,12 +112,6 @@ class SettingsController with ChangeNotifier {
         .collection("users")
         .where("hotel", isEqualTo: user.data.hotel)
         .get();
-    // employees.map((e) {
-    //   return employee = UserDetails.fromJson(e);
-    // });
-    // if (employees.isEmpty) {
-    //   return ShowDialog().loadingDialog(context);
-    // }
   }
 
   bool isPosition = false;
@@ -164,7 +131,7 @@ class SettingsController with ChangeNotifier {
     notifyListeners();
   }
 
-  //function for expand widget on departement section
+  // [Departement Settings]
   bool isExpand = false;
   expandTheWidget() {
     isExpand = !isExpand;
@@ -201,7 +168,7 @@ class SettingsController with ChangeNotifier {
     } else if (iconSelected == "") {
       return ShowDialog().alerDialog(context, "No icon selected");
     } else {
-      final db = RegisterNewDepartement();
+      final db = FirebaseDepartement();
       await db.registerNewDepartement(context, newDepartement, iconSelected);
       isExpand = false;
       newDepartement.clear();
@@ -209,17 +176,52 @@ class SettingsController with ChangeNotifier {
       notifyListeners();
     }
   }
+  //----------------------------------------------------------------------
 
   removeDepartement(BuildContext context, String dept) {
-    final db = RegisterNewDepartement();
-
+    final db = FirebaseDepartement();
     db.removeDepartement(context, dept);
   }
 
   //function for switch button on departement list
   bool isActive = false;
   activateSwith(BuildContext context, String dept, bool newBool) {
-    final db = RegisterNewDepartement();
+    final db = FirebaseDepartement();
     db.updateDepartement(context, dept, newBool);
   }
+  //--------------------------------------------
+
+  ///////////////////////////////////////////////////////[Title Settings]
+
+  //function search title
+  String searchTitle = "";
+  searchingTitle(String text) {
+    searchTitle = text;
+    notifyListeners();
+  }
+//-----------------------------------------------------------------------
+
+//add new title
+  bool isLoadingLoadTitle = false;
+  addNewTitle(BuildContext context, String toDepartement,
+      TextEditingController newTitle) async {
+    var db = FirebaseTitle();
+    try {
+      if (toDepartement == "") {
+        return ShowDialog().alerDialog(context, "Select departement");
+      } else if (newTitle.text == "") {
+        return ShowDialog().alerDialog(context, "Please input new title");
+      } else {
+        isLoadingLoadTitle = true;
+        notifyListeners();
+        await db.addNewTitle(toDepartement, newTitle.text.toTitleCase());
+        newTitle.clear();
+        isLoadingLoadTitle = false;
+        notifyListeners();
+      }
+    } catch (e) {
+      ShowDialog().errorDialog(context, "Upps, Someting wrong");
+    }
+  }
+  //-----------------------------------------------------------------------
 }

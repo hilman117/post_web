@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/common_widget/no_button.dart';
-import 'package:post_web/common_widget/yes_button.dart';
+import 'package:post_web/reusable_widget/no_button.dart';
+import 'package:post_web/reusable_widget/yes_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/controller_create_task.dart';

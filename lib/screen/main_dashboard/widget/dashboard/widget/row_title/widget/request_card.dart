@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:post_web/firebase/post/accept_task.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/other.dart';
 import 'package:post_web/style.dart';
-import 'package:post_web/common_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../../firebase/firebase_action_task.dart';
 import '../../../controller_dashboard.dart';
 import 'status_widget.dart';
 import 'timer.dart';
@@ -38,7 +38,7 @@ class _RequestCardState extends State<RequestCard> {
 
   @override
   Widget build(BuildContext context) {
-    final function = Provider.of<AcceptTask>(context, listen: false);
+    final function = Provider.of<FirebaseActionTask>(context, listen: false);
 
     // final local = AppLocalizations.of(context)!;
 

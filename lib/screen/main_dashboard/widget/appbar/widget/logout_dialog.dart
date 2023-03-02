@@ -4,8 +4,8 @@ import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:get/get.dart';
 import 'package:post_web/other.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
-import 'package:post_web/common_widget/no_button.dart';
-import 'package:post_web/common_widget/yes_button.dart';
+import 'package:post_web/reusable_widget/no_button.dart';
+import 'package:post_web/reusable_widget/yes_button.dart';
 
 logoutDialog(BuildContext context) {
   final size = MediaQuery.of(context).size;

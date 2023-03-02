@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:post_web/firebase/get/get_controller.dart';
-import 'package:post_web/firebase/get/get_deprtement.dart';
-import 'package:post_web/firebase/post/accept_task.dart';
-
-import 'package:post_web/firebase/post/account_controller.dart';
+import 'package:post_web/firebase/firebase_general_data.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
@@ -22,10 +18,12 @@ import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_ta
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
-
 import 'package:post_web/shared_prefferences/session_user.dart';
 import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
+import 'firebase/firebase_account.dart';
+import 'firebase/steam_deprtement.dart';
+import 'firebase/firebase_action_task.dart';
 
 Box? box;
 final db = DepartementData();
@@ -71,13 +69,13 @@ Future<void> main() async {
           create: (context) => SettingsController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AccountController(),
+          create: (context) => FirebaseAccount(),
         ),
         ChangeNotifierProvider(
-          create: (context) => GetController(),
+          create: (context) => FirebaseGeneralData(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AcceptTask(),
+          create: (context) => FirebaseActionTask(),
         ),
         StreamProvider<List<Departement>>(
           create: (BuildContext context) => db.getDepartementData(),

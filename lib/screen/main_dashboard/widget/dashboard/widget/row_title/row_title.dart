@@ -5,8 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../firebase/get/stream_task.dart';
+import '../../../../../../firebase/stream_task.dart';
 import '../../controller_dashboard.dart';
 import 'widget/filter_by_status.dart';
 import 'widget/request_card.dart';

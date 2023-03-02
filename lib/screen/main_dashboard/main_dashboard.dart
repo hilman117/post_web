@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
-import 'package:post_web/firebase/get/get_controller.dart';
 import 'package:post_web/other.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/floating_chatroom.dart';
 import 'package:provider/provider.dart';
+import '../../firebase/firebase_general_data.dart';
 import 'widget/appbar/appbar_dashboard.dart';
 import 'widget/dashboard/widget/create_task_dialog/controller/controller_task.dart';
 import 'widget/dashboard/widget/create_task_dialog/create_task_dialog.dart';
@@ -21,20 +21,20 @@ class _MainDashboardState extends State<MainDashboard>
   @override
   void initState() {
     Provider.of<TaskController>(context, listen: false).getDeptartement();
-    Provider.of<GetController>(context, listen: false).getGeneralData();
+    Provider.of<FirebaseGeneralData>(context, listen: false).getGeneralData();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    Provider.of<GetController>(context, listen: false).getGeneralData();
+    Provider.of<FirebaseGeneralData>(context, listen: false).getGeneralData();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<GetController>(context, listen: false);
+    Provider.of<FirebaseGeneralData>(context, listen: false);
 
     //this is tabcontroller for craete task page
     TabController _tabController = TabController(length: 2, vsync: this);
