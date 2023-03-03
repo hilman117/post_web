@@ -103,11 +103,7 @@ class LoginController with ChangeNotifier {
           // Provider.of<ChatRoomController>(context, listen: false)
           //     .getTotalAcceptedAndClose();
           Navigator.of(context).pop();
-          await Future.delayed(const Duration(milliseconds: 500), () {
-            Provider.of<DashboardController>(context, listen: false)
-                .getListOfDepartement(context);
-            Navigator.pushReplacementNamed(context, Routes.mainDashBoard);
-          });
+          Navigator.pushReplacementNamed(context, Routes.mainDashBoard);
         }
       } on FirebaseAuthException catch (e) {
         // print(e);

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:post_web/extension/string_extention.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/other.dart';
@@ -16,9 +17,9 @@ class FirebaseDepartement {
           .collection(hotelListCollection)
           .doc(user.data.hotel)
           .collection("Department")
-          .doc(newDepartement.text)
+          .doc(newDepartement.text.toTitleCase())
           .set({
-        "departement": newDepartement.text,
+        "departement": newDepartement.text.toTitleCase(),
         "departementIcon": icon,
         "isActive": false,
         "title": []

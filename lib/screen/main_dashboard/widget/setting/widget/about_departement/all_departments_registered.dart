@@ -5,7 +5,7 @@ import 'package:post_web/screen/main_dashboard/widget/setting/controller_setting
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
-import 'add_departments.dart';
+import 'widget/add_departments.dart';
 
 class AllDepartmentRegistered extends StatelessWidget {
   const AllDepartmentRegistered({

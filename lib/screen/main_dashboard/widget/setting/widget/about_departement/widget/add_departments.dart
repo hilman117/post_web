@@ -37,6 +37,10 @@ class _AddNewDepartementState extends State<AddNewDepartement> {
                     "Turn on the switch button to make the group be able to receive request",
                     style: style15Normal,
                   ),
+                  Text(
+                    "Groups with inactive buttons can only send requests",
+                    style: style15Normal,
+                  ),
                 ],
               ),
               children: [
@@ -146,11 +150,18 @@ class _AddNewDepartementState extends State<AddNewDepartement> {
                               backgroundColor: mainColor2),
                           onPressed: () => controller.registeNewDepartement(
                               context, departementName),
-                          child: Text(
-                            "Register",
-                            style:
-                                TextStyle(fontSize: 16.sp, color: Colors.white),
-                          ))),
+                          child: value.isNewDepartementLoading
+                              ? Transform.scale(
+                                  scale: 0.5,
+                                  child: const CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2.0,
+                                  ))
+                              : Text(
+                                  "Register",
+                                  style: TextStyle(
+                                      fontSize: 16.sp, color: Colors.white),
+                                ))),
                 )
               ],
             ));

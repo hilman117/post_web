@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/models/general_data.dart';
 import 'package:post_web/reusable_widget/item_list.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/reusable_widget/pop_up_mac.dart';
@@ -7,7 +8,6 @@ import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../../../firebase/firebase_account.dart';
-import '../../../../../../../../../firebase/firebase_general_data.dart';
 import '../../../../../../../../models/departement.dart';
 import 'widget/buttons.dart';
 import 'widget/register_form.dart';
@@ -16,6 +16,7 @@ createAccountDialog(
   BuildContext context,
 ) {
   var data = Provider.of<List<Departement>>(context, listen: false);
+  var generalData = Provider.of<GeneralData>(context, listen: false);
   final controller = Provider.of<SettingsController>(context, listen: false);
   return showDialog(
     context: context,
@@ -77,27 +78,25 @@ createAccountDialog(
                   SizedBox(
                     height: 24.h,
                   ),
-                  Consumer<FirebaseGeneralData>(
-                    builder: (context, val, child) => FormRegister(
-                      emailDoamin: Container(
-                        width: 200.w,
-                        alignment: Alignment.center,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 5.h),
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            val.getData!.domain!,
-                            style: style15Normal,
-                          ),
+                  FormRegister(
+                    emailDoamin: Container(
+                      width: 200.w,
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.h),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Text(
+                          generalData.domain!,
+                          style: style15Normal,
                         ),
                       ),
-                      textController: value.emailController,
-                      label: "Email Address",
-                      hint: "johndoe",
                     ),
+                    textController: value.emailController,
+                    label: "Email Address",
+                    hint: "johndoe",
                   ),
                   SizedBox(
                     height: 24.h,

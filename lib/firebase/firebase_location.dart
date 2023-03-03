@@ -4,18 +4,13 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/extension/string_extention.dart';
 import 'package:post_web/other.dart';
 
-class FirebaseTitle {
+class FirebaseLocation {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
 
-  addNewTitle(String toDepartement, String newTitle) async {
-    await db
-        .collection(hotelListCollection)
-        .doc(user.data.hotel)
-        .collection(departementDoc)
-        .doc(toDepartement)
-        .update({
-      "title": FieldValue.arrayUnion([newTitle.toTitleCase()])
+  addNewLocation(String newLocation) async {
+    await db.collection(hotelListCollection).doc(user.data.hotel).update({
+      "location": FieldValue.arrayUnion([newLocation.toTitleCase()])
     });
   }
 }

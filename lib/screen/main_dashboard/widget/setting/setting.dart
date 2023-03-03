@@ -3,35 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_title/title.dart';
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_departement/widget/all_departments_registered.dart';
+import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_departement/all_departments_registered.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_location/location.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../firebase/firebase_general_data.dart';
 import 'widget/about_employee_account/employee_account_list.dart';
 
-class SettingView extends StatefulWidget {
+class SettingView extends StatelessWidget {
   const SettingView({Key? key}) : super(key: key);
-
-  @override
-  State<SettingView> createState() => _SettingViewState();
-}
-
-class _SettingViewState extends State<SettingView> {
-  double pixel = 0.0;
-
-  late ScrollController scrollController;
-  OverlayState? overlay;
-  OverlayEntry? entry;
-
-  @override
-  void initState() {
-    // Provider.of<GetController>(context, listen: false).getDepartementData();
-    Provider.of<FirebaseGeneralData>(context, listen: false).getGeneralData();
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +59,9 @@ class _SettingViewState extends State<SettingView> {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 70.h,
                   )
                 ],
               ),

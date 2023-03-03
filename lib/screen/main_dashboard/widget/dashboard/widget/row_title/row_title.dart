@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:post_web/firebase/firebase_stream_data.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../firebase/stream_task.dart';
 import '../../controller_dashboard.dart';
 import 'widget/filter_by_status.dart';
 import 'widget/request_card.dart';
@@ -142,7 +142,7 @@ class _RowTitleState extends State<RowTitle> {
                         height: 600.h,
                         child:
                             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                          stream: StreamTask()
+                          stream: FirebaseStreamData()
                               .task(widget.departement, widget.status),
                           builder:
                               (context, AsyncSnapshot<QuerySnapshot> snapshot) {

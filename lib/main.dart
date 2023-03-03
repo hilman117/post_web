@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:post_web/firebase/firebase_general_data.dart';
 import 'package:post_web/models/departement.dart';
+import 'package:post_web/models/general_data.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
 import 'package:post_web/screen/login_page/login_page.dart';
@@ -22,11 +22,11 @@ import 'package:post_web/shared_prefferences/session_user.dart';
 import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
 import 'firebase/firebase_account.dart';
-import 'firebase/steam_deprtement.dart';
+import 'firebase/firebase_stream_data.dart';
 import 'firebase/firebase_action_task.dart';
 
 Box? box;
-final db = DepartementData();
+final db = FirebaseStreamData();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,14 +72,15 @@ Future<void> main() async {
           create: (context) => FirebaseAccount(),
         ),
         ChangeNotifierProvider(
-          create: (context) => FirebaseGeneralData(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => FirebaseActionTask(),
         ),
         StreamProvider<List<Departement>>(
           create: (BuildContext context) => db.getDepartementData(),
           initialData: const [],
+        ),
+        StreamProvider<GeneralData?>(
+          create: (BuildContext context) => db.streamGeneralData(),
+          initialData: null,
         ),
       ],
       child: ScreenUtilInit(
