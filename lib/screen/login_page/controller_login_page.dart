@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/main.dart';
 import 'package:post_web/models/general_data.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/shared_prefferences/save_general_data.dart';
-import 'package:provider/provider.dart';
-
 import '../../shared_prefferences/session_user.dart';
 import '../../reusable_widget/show_dialog.dart';
 

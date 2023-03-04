@@ -9,7 +9,7 @@ import 'package:post_web/screen/main_dashboard/widget/setting/controller_setting
 import 'package:provider/provider.dart';
 
 import 'add_title.dart';
-import 'list_title.dart';
+import 'item_title.dart';
 
 class TitleList extends StatelessWidget {
   const TitleList({
@@ -54,6 +54,14 @@ class TitleList extends StatelessWidget {
                                       .doc(value.selecteddepartement)
                                       .snapshots(includeMetadataChanges: true),
                                   builder: (context, snapshot) {
+                                    if (settingController.loadingToRemove) {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          color: mainColor2,
+                                          strokeWidth: 2,
+                                        ),
+                                      );
+                                    }
                                     if (snapshot.data == null) {
                                       return const Center(
                                         child: Text("No data found"),
@@ -77,8 +85,11 @@ class TitleList extends StatelessWidget {
                                         itemBuilder: (context, index) {
                                           if (settingController.searchTitle ==
                                               "") {
-                                            return ListItemTitle(
-                                                title: list[index]);
+                                            return ItemTitle(
+                                              title: list[index],
+                                              currentList: list,
+                                              index: index,
+                                            );
                                           }
                                           if (list[index]
                                               .toString()
@@ -86,8 +97,11 @@ class TitleList extends StatelessWidget {
                                               .contains(settingController
                                                   .searchTitle
                                                   .toLowerCase())) {
-                                            return ListItemTitle(
-                                                title: list[index]);
+                                            return ItemTitle(
+                                              title: list[index],
+                                              currentList: list,
+                                              index: index,
+                                            );
                                           }
                                           return const SizedBox();
                                         });

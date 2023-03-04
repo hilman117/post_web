@@ -228,11 +228,33 @@ class SettingsController with ChangeNotifier {
       ShowDialog().errorDialog(context, "Upps, Someting wrong");
     }
   }
+
+//remove title
+  bool loadingToRemove = false;
+  removeTitle(
+      {required BuildContext context,
+      required String toDepartement,
+      required List currentList,
+      required int indexToRemove}) async {
+    var db = FirebaseTitle();
+    try {
+      loadingToRemove = true;
+      notifyListeners();
+      await db.removeTitle(toDepartement, currentList, indexToRemove);
+      loadingToRemove = false;
+      notifyListeners();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      ShowDialog().errorDialog(context, "Upps, Someting wrong");
+    }
+  }
+
   //-----------------------------------------------------------------------
 
   ///////////////////////////////////////////////////////[Location Setting]
 
-  //function search title
+  //function search location
   String searchLocation = "";
   searchingLocation(String text) {
     searchLocation = text;
