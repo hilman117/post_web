@@ -1,3 +1,4 @@
+import 'package:acronym/acronym.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ class SettingsController with ChangeNotifier {
   //-------------------------------------------the last line of the method
 
   //employee account settings
+  String deptCodeExample = "In Rooom Dining";
+
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -97,7 +100,8 @@ class SettingsController with ChangeNotifier {
     "Commis Chef",
     "Kitchen Steward",
     "Massage Therapist",
-    "Fitness Trainer"
+    "Fitness Trainer",
+    "Engineering Attendant"
   ];
   List<String> accountType = [
     administrator,
@@ -130,6 +134,7 @@ class SettingsController with ChangeNotifier {
     isHover = newBool;
     notifyListeners();
   }
+  //---------------------------------------------------------------
 
   // [Departement Settings]
   bool isExpand = false;

@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
-
+import 'package:acronym/acronym.dart';
+import 'package:post_web/extension/string_extention.dart';
 import '../reusable_widget/show_dialog.dart';
 
 class FirebaseAccount with ChangeNotifier {
@@ -15,6 +16,22 @@ class FirebaseAccount with ChangeNotifier {
   bool success = false;
   statusSucces(bool val) {
     success = val;
+    notifyListeners();
+  }
+
+  String deptCode = "";
+  getDeptCode(String dept) {
+    var words = dept.split(" ");
+    if (words.length < 2 && dept == "Housekeeping") {
+      deptCode = dept.toAcronym(splitSyllables: true);
+      notifyListeners();
+    } else if (words.length > 1) {
+      deptCode = dept.toAcronym(stopWords: []);
+      notifyListeners();
+    } else {
+      deptCode = dept.substring(0, 3);
+      notifyListeners();
+    }
     notifyListeners();
   }
 
@@ -51,12 +68,13 @@ class FirebaseAccount with ChangeNotifier {
       try {
         isLoading = true;
         notifyListeners();
+        await getDeptCode(userDepartement);
         await auth.createUserWithEmailAndPassword(
             email: email.text + domain.capitalizeFirst!,
             password: password.text);
         db.collection('users').doc(email.text.toLowerCase() + domain).set({
           "name":
-              "${firstName.text.capitalizeFirst} ${lastName.text.capitalizeFirst}",
+              "(${deptCode.toUpperCase()}) ${firstName.text.toTitleCase()} ${lastName.text.toTitleCase()}",
           "position": userPosition,
           "hotelid": user.data.hotel,
           "department": userDepartement,

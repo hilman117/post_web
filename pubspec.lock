@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.12"
+  acronym:
+    dependency: "direct main"
+    description:
+      name: acronym
+      sha256: d0b9b22d9e47d15ca4b28506818917891b61f3d66425765e2b884fad32bbefce
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   analyzer:
     dependency: transitive
     description:
@@ -861,6 +869,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
