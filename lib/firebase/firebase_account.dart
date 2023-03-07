@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:acronym/acronym.dart';
 import 'package:post_web/extension/string_extention.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import '../reusable_widget/show_dialog.dart';
 
 class FirebaseAccount with ChangeNotifier {
@@ -46,7 +46,7 @@ class FirebaseAccount with ChangeNotifier {
       required String userDepartement,
       required String accountType,
       required String domain,
-      required colorUser}) async {
+      required String colorUser}) async {
     if (email.text == "") {
       return ShowDialog().alerDialog(context!, "Please to complete the email");
     }

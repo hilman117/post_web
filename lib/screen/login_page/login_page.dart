@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/screen/login_page/controller_login_page.dart';
 
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/login_page/widget/form_password.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';

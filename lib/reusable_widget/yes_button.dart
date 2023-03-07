@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 class YesButton extends StatelessWidget {
   const YesButton({
@@ -22,7 +22,7 @@ class YesButton extends StatelessWidget {
       width: width ?? 150.w,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: mainColor,
+              backgroundColor: mainColor2,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),

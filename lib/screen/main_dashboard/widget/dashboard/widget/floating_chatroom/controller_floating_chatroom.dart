@@ -27,6 +27,7 @@ class ChatroomControlller with ChangeNotifier {
         notifyListeners();
       }
     }
+    // ignore: avoid_print
     print(imageList.length);
   }
 
@@ -49,6 +50,12 @@ class ChatroomControlller with ChangeNotifier {
     notifyListeners();
   }
 
+  String currentStatus = "";
+  newStatus(String newStatus) {
+    currentStatus = newStatus;
+    notifyListeners();
+  }
+
   sendComment(BuildContext context, ScrollController scrollController,
       String idTask, TextEditingController commentBody) async {
     imageUrl.clear();
@@ -64,9 +71,11 @@ class ChatroomControlller with ChangeNotifier {
           await ref.getDownloadURL().then((value) async {
             imageUrl.add(value);
             notifyListeners();
-            print("ini image list sebelum di upload ${imageList.length}");
-            print(
-                "ini image list stelah di upload di upload ${imageUrl.length}");
+            // ignore: avoid_print
+            // print("ini image list sebelum di upload ${imageList.length}");
+            // print(
+            //     "ini image list stelah di upload di upload ${imageUrl.length}");
+            // ignore: avoid_print
             print("$imageUrl");
             if (imageUrl.length == imageList.length) {
               imageList.clear();
@@ -87,4 +96,6 @@ class ChatroomControlller with ChangeNotifier {
       print(e);
     }
   }
+
+  closeTask() {}
 }

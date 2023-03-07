@@ -31,7 +31,7 @@ class ActionBubble extends StatelessWidget {
         isMe
             ? Padding(
                 padding: EdgeInsets.only(
-                    right: !isMe ? 30.w : 5.w, left: isMe ? 30.w : 5.w),
+                    right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
                   width: 330.w,
                   child: Text(
@@ -58,7 +58,7 @@ class ActionBubble extends StatelessWidget {
               )
             : Padding(
                 padding: EdgeInsets.only(
-                    right: !isMe ? 30.w : 5.w, left: isMe ? 30.w : 5.w),
+                    right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
                   width: 330.w,
                   child: Text(

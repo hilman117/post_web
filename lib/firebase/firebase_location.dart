@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/extension/string_extention.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 class FirebaseLocation {
   final db = FirebaseFirestore.instance;

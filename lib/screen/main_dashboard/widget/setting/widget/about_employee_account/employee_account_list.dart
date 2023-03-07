@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/style.dart';
 import 'package:post_web/reusable_widget/photo_profile.dart';
@@ -37,7 +37,7 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
     final controllerAccount =
         Provider.of<FirebaseAccount>(context, listen: false);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.h),
+      padding: EdgeInsets.symmetric(vertical: 0.h),
       child: Container(
         width: double.infinity,
         alignment: Alignment.bottomCenter,
@@ -102,73 +102,38 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                     )
                   ],
                 )),
-            Container(
-                width: double.infinity,
-                height: 420.h,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      data.sort((a, b) => a.name!.compareTo(b.name!));
-                      UserDetails employee = data[index];
-                      if (data.isEmpty) {
+            Expanded(
+              child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        data.sort((a, b) => a.name!.compareTo(b.name!));
+                        UserDetails employee = data[index];
+                        if (data.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "No data",
+                              style: style18Normal,
+                            ),
+                          );
+                        }
+                        if (employee.hotel == user.data.hotel) {
+                          return EmployeeTile(
+                              employee: employee,
+                              controllerAccount: controllerAccount);
+                        }
                         return Center(
                           child: Text(
-                            "No data",
+                            "Loading data...",
                             style: style18Normal,
                           ),
                         );
-                      }
-                      if (employee.hotel == user.data.hotel) {
-                        return EmployeeTile(
-                            employee: employee,
-                            controllerAccount: controllerAccount);
-                      }
-                      return Center(
-                        child: Text(
-                          "Loading data...",
-                          style: style18Normal,
-                        ),
-                      );
-                    })
-                // StreamBuilder(
-                //     stream: FirebaseFirestore.instance
-                //         .collection("users")
-                //         .where("hotel", isEqualTo: user.data.hotel)
-                //         .snapshots(),
-                //     builder: (BuildContext context,
-                //         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                //             snapshot) {
-                //       // if (snapshot.connectionState ==
-                //       //     ConnectionState.active) {
-                //       //   return const Center(
-                //       //     child: CircularProgressIndicator.adaptive(),
-                //       //   );
-                //       // }
-                //       if (snapshot.data == null) {
-                //         return const Center(
-                //           child: Text("No Data"),
-                //         );
-                //       }
-                //       List<QueryDocumentSnapshot<Map<String, dynamic>>>
-                //           employeeList = snapshot.data!.docs;
-                // employeeList
-                //     .sort((a, b) => a["name"].compareTo(b["name"]));
-                //       return ListView.builder(
-                //           itemCount: employeeList.length,
-                //           itemBuilder: (context, index) {
-                //             Map<String, dynamic> dataEmployee =
-                //                 employeeList[index].data();
-                //             UserDetails employee =
-                //                 UserDetails.fromJson(dataEmployee);
-                //             return EmployeeTile(
-                //                 employee: employee,
-                //                 controllerAccount: controllerAccount);
-                //           });
-                //     })
-                ),
+                      })),
+            ),
           ],
         ),
       ),
@@ -258,7 +223,7 @@ class EmployeeTile extends StatelessWidget {
                 );
                 editEmployeeProfile(context, employee);
               },
-              child: Text(
+              child: const Text(
                 "Edit",
                 style: TextStyle(
                     fontSize: 11,

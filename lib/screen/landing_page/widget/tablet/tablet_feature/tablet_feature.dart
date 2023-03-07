@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../../../other.dart';
+import '../../../../../const.dart';
 
 import '../../../screen_type/tablet/tablet_feature/animated_features/right_feature_animated.dart';
 import 'animated_features/left_feature_animated.dart';

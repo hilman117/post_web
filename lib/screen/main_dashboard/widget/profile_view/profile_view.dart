@@ -2,7 +2,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 
 import 'package:post_web/reusable_widget/photo_profile.dart';

@@ -35,7 +35,7 @@ class DashboardController with ChangeNotifier {
   int get statusSelected => _statusSelected;
   String _filterbyStatus = "";
   String get filterbyStatus => _filterbyStatus;
-  List<String> status = ["Accepted", "Close", "Assigned", "Hold"];
+  List<String> status = ["Open", "Close", "Assigned", "Hold"];
 
   TaskModel? _taskModel = TaskModel();
   TaskModel? get taskModel => _taskModel;

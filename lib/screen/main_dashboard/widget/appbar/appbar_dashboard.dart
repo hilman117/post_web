@@ -5,7 +5,7 @@ import 'package:post_web/controller/c_user.dart';
 
 import 'package:post_web/custom_react_twin.dart';
 import 'package:post_web/hero_dialog_route.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/appbar/widget/logout_dialog.dart';
 
@@ -177,7 +177,7 @@ class AppbarDashboard extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.logout_outlined,
                           color: mainColor,
                         ),

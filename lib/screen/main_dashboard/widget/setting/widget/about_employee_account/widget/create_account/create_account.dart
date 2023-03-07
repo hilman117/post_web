@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../../../../firebase/firebase_account.dart';
 import '../../../../../../../../models/departement.dart';
+import '../../../../../../../../const.dart';
 import 'widget/buttons.dart';
 import 'widget/register_form.dart';
 
@@ -163,10 +164,10 @@ createAccountDialog(
                     child: PopUpMac(
                       maxHeight: 500.h,
                       listItem: List.generate(
-                          value.role.length,
+                          role.length,
                           (index) => InkWell(
-                                onTap: () => controller
-                                    .selectPosition(value.role[index]),
+                                onTap: () =>
+                                    controller.selectPosition(role[index]),
                                 child: ItemList(
                                   onEnterHover: (event) {
                                     controller.selectIndex(hoverIndex: index);
@@ -176,7 +177,7 @@ createAccountDialog(
                                       controller.hovering(false),
                                   valueController: value,
                                   index: index,
-                                  items: value.role[index],
+                                  items: role[index],
                                 ),
                               )),
                     ),

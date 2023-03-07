@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/feature_phone/animated_features/right_feature_animated.dart';
-import '../../../../../../other.dart';
+import '../../../../../../const.dart';
 
 import 'animated_features/left_feature_animated.dart';
 

@@ -154,10 +154,6 @@ class _MyAppState extends State<MyApp> {
                   child: Image.asset("images/error.png"),
                 ),
               );
-            } else if (userSnapshot.connectionState ==
-                ConnectionState.waiting) {
-              return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()));
             }
             return const Scaffold(
                 body: Center(child: CircularProgressIndicator()));

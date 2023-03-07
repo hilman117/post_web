@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/landing_page/widget/phone/widget/phone_benefit_to_hotel/widget/point.dart';
 
 class BenefitTablet extends StatelessWidget {

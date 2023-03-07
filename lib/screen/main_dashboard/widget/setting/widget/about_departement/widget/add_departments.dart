@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
@@ -105,14 +105,14 @@ class _AddNewDepartementState extends State<AddNewDepartement> {
                                   // height: 200.h,
                                   child: Wrap(
                                 children: List.generate(
-                                    value.departementIcon.length,
+                                    departementIcon.length,
                                     (index) => InkWell(
                                           onTap: () => controller.selectIcon(
-                                              value.departementIcon[index]),
+                                              departementIcon[index]),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Image.asset(
-                                              value.departementIcon[index],
+                                              departementIcon[index],
                                               width: 35.w,
                                               height: 35.h,
                                             ),

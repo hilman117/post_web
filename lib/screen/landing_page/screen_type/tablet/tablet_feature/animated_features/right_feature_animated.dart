@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../other.dart';
+import '../../../../../../const.dart';
 import '../../../../widget/right_point.dart';
 
 class RightFeatureAnimated extends StatelessWidget {

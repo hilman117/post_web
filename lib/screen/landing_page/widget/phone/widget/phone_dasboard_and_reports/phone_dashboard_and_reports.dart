@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/landing_page/widget/left_point.dart';
 import 'package:post_web/screen/landing_page/widget/right_point.dart';
 

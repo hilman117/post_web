@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:post_web/extension/string_extention.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 class FirebaseDepartement {
   final db = FirebaseFirestore.instance;

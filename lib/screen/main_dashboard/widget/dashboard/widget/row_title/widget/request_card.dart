@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/models/task.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
+import 'package:post_web/reusable_widget/reopen_button.dart';
 import 'package:post_web/style.dart';
 import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../firebase/firebase_action_task.dart';
 import '../../../controller_dashboard.dart';
+import '../../floating_chatroom/controller_floating_chatroom.dart';
 import 'status_widget.dart';
 import 'timer.dart';
 
@@ -27,16 +29,6 @@ class RequestCard extends StatefulWidget {
 }
 
 class _RequestCardState extends State<RequestCard> {
-  // @override
-  // void initState() {
-  //   Timer.periodic(const Duration(minutes: 1), (Timer timer) {
-  //     if (mounted) {
-  //       setState(() {});
-  //     }
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final function = Provider.of<FirebaseActionTask>(context, listen: false);
@@ -56,6 +48,8 @@ class _RequestCardState extends State<RequestCard> {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 0, vertical: 5.h),
                 onTap: () {
+                  Provider.of<ChatroomControlller>(context, listen: false)
+                      .newStatus(widget.taskModel.status!);
                   controller.selectingCardRequest(widget.index);
                   // controller.overlayChatroom(context, true,
                   //     FloatingChatroom(taskModel: widget.taskModel));
@@ -144,39 +138,48 @@ class _RequestCardState extends State<RequestCard> {
                           Container(
                               alignment: Alignment.centerLeft,
                               width: 200.w,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Tooltip(
-                                    message: 'Accept',
-                                    child: ActionButton(
-                                      callback: () => function.acceptTask(
-                                          context, widget.taskModel.id!),
-                                      color: Colors.green,
-                                      icon: Icons.check,
-                                    ),
-                                  ),
-                                  Tooltip(
-                                    message: "Assign",
-                                    child: ActionButton(
-                                      callback: () {
-                                        // print("Assign");
-                                      },
-                                      color: Colors.blue,
-                                      icon: Icons.assignment,
-                                    ),
-                                  ),
-                                  Tooltip(
-                                    message: "Close",
-                                    child: ActionButton(
-                                      callback: () => closeTaskDialog(context),
-                                      color: Colors.grey,
-                                      icon: Icons.close_rounded,
-                                    ),
-                                  ),
-                                ],
-                              )),
+                              child: Consumer<ChatroomControlller>(
+                                  builder: (context, chatCtrl, child) => widget
+                                              .taskModel.status ==
+                                          "Close"
+                                      ? ReopenButton(
+                                          idTask: widget.taskModel.id!)
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Tooltip(
+                                              message: 'Accept',
+                                              child: ActionButton(
+                                                callback: () =>
+                                                    function.acceptTask(context,
+                                                        widget.taskModel.id!),
+                                                color: Colors.green,
+                                                icon: Icons.check,
+                                              ),
+                                            ),
+                                            Tooltip(
+                                              message: "Assign",
+                                              child: ActionButton(
+                                                callback: () {
+                                                  // print("Assign");
+                                                },
+                                                color: Colors.blue,
+                                                icon: Icons.assignment,
+                                              ),
+                                            ),
+                                            Tooltip(
+                                              message: "Close",
+                                              child: ActionButton(
+                                                callback: () => closeTaskDialog(
+                                                    context,
+                                                    widget.taskModel.id!),
+                                                color: Colors.grey,
+                                                icon: Icons.close_rounded,
+                                              ),
+                                            ),
+                                          ],
+                                        ))),
                           Container(
                             alignment: Alignment.center,
                             width: 200.w,

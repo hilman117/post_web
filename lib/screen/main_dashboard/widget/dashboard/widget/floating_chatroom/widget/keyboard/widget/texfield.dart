@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +51,7 @@ class TextFieldArea extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(vertical: 0),
             prefixIcon: IconButton(
               onPressed: () => ctrl.selectImage(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.camera_alt_rounded,
                 color: mainColor2,
               ),

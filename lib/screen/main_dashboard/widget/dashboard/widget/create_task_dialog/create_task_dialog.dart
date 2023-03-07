@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/controller_create_task.dart';
@@ -33,7 +33,7 @@ createDialog(BuildContext context, TabController tabController) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Create",
                       style: TextStyle(color: mainColor, fontSize: 10),
                     ),

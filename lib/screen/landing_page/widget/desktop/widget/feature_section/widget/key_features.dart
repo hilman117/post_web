@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 import '../../../../../widget/left_point.dart';
 import '../../../../../widget/right_point.dart';

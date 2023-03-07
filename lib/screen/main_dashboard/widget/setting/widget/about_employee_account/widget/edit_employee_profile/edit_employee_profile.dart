@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/reusable_widget/pop_up_mac.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/models/user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
 import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
@@ -98,9 +98,9 @@ editEmployeeProfile(BuildContext context, UserDetails dataEmployee) {
                       topPosition: 120.h,
                       child: ListView.builder(
                           padding: const EdgeInsets.all(0),
-                          itemCount: settingValue.role.length,
+                          itemCount: role.length,
                           itemBuilder: (context, index) {
-                            if (settingValue.role[index].toLowerCase().contains(
+                            if (role[index].toLowerCase().contains(
                                 settingValue.selectedPosition.toLowerCase())) {
                               return InkWell(
                                 onTap: () {},
@@ -109,7 +109,7 @@ editEmployeeProfile(BuildContext context, UserDetails dataEmployee) {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 10.w, vertical: 10.h),
                                   child: Text(
-                                    settingValue.role[index],
+                                    role[index],
                                     style: style15Normal,
                                   ),
                                 ),

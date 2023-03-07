@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/firebase/firebase_action_task.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/reusable_widget/no_button.dart';
 import 'package:post_web/reusable_widget/texfield.dart';
 import 'package:post_web/reusable_widget/yes_button.dart';
 import 'package:post_web/style.dart';
+import 'package:provider/provider.dart';
 
-closeTaskDialog(BuildContext context) {
+closeTaskDialog(BuildContext context, String idTask) {
+  final ctrl = Provider.of<FirebaseActionTask>(context, listen: false);
+  final TextEditingController commentBody = TextEditingController();
   return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -23,6 +27,7 @@ closeTaskDialog(BuildContext context) {
                     style: style18Normal,
                   ),
                   TexfieldWidget(
+                    controller: commentBody,
                     height: 50.h,
                     bgCOlor: mainColor2.withOpacity(0.2),
                     hintText: "Decription",
@@ -44,10 +49,12 @@ closeTaskDialog(BuildContext context) {
                       SizedBox(
                         height: 45.h,
                         child: YesButton(
-                          width: 150.w,
-                          nameButton: "Yes",
-                          callback: () {},
-                        ),
+                            width: 150.w,
+                            nameButton: "Yes",
+                            callback: () {
+                              ctrl.closeTask(context, idTask, commentBody);
+                              Navigator.pop(context);
+                            }),
                       )
                     ],
                   )

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/user.dart';
 import '../../models/departement.dart';
-import '../../other.dart';
+import '../const.dart';
 import '../models/general_data.dart';
 import '../models/task.dart';
 
@@ -44,7 +44,6 @@ class FirebaseStreamData {
           .collection(hotelListCollection)
           .doc(user.data.hotelid)
           .collection(taskCollection)
-          .where("status", isNotEqualTo: "Close")
           .snapshots(includeMetadataChanges: true);
     }
     if (dept != "" && status == "") {
@@ -56,12 +55,20 @@ class FirebaseStreamData {
           .where("assigned", arrayContains: dept)
           .snapshots(includeMetadataChanges: true);
     }
-    if (status != "" && dept == "") {
+    if (status != "" && status != "Open" && dept == "") {
       return FirebaseFirestore.instance
           .collection(hotelListCollection)
           .doc(user.data.hotelid)
           .collection(taskCollection)
           .where("status", isEqualTo: status)
+          .snapshots(includeMetadataChanges: true);
+    }
+    if (status == "Open" && dept == "") {
+      return FirebaseFirestore.instance
+          .collection(hotelListCollection)
+          .doc(user.data.hotelid)
+          .collection(taskCollection)
+          .where("status", isNotEqualTo: "Close")
           .snapshots(includeMetadataChanges: true);
     }
     if (status != "" && dept != "") {

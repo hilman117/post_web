@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +55,7 @@ class TitleList extends StatelessWidget {
                                       .snapshots(includeMetadataChanges: true),
                                   builder: (context, snapshot) {
                                     if (settingController.loadingToRemove) {
-                                      return Center(
+                                      return const Center(
                                         child: CircularProgressIndicator(
                                           color: mainColor2,
                                           strokeWidth: 2,

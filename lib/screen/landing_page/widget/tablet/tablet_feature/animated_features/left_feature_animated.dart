@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../other.dart';
+import '../../../../../../const.dart';
 import '../../../left_point.dart';
 
 class LeftFeatureAnimated extends StatelessWidget {

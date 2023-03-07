@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/models/general_data.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
 
 import 'package:provider/provider.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
 
 class ShowDialog {
@@ -51,7 +51,7 @@ class ShowDialog {
       builder: (context) => Center(
         child: Transform.scale(
           scale: 2.0,
-          child: CircularProgressIndicator.adaptive(
+          child: const CircularProgressIndicator.adaptive(
             backgroundColor: mainColor,
           ),
         ),

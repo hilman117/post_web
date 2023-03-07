@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 import 'package:post_web/screen/landing_page/landing_page_controller.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,7 @@ class AppBarPhoneScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () => Scaffold.of(context).openDrawer(),
-                  child: Icon(
+                  child: const Icon(
                     Icons.menu,
                     color: mainColor,
                     size: 30,

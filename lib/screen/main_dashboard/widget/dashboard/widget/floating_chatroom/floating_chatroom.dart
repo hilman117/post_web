@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/chat_model.dart';
 import 'package:post_web/models/task.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +13,7 @@ import '../../controller_dashboard.dart';
 import '../row_title/widget/status_widget.dart';
 import 'widget/bubble_chat/bubble_chat.dart';
 import 'widget/keyboard/keyboard.dart';
+import '../../../../../../reusable_widget/reopen_button.dart';
 
 class FloatingChatroom extends StatefulWidget {
   const FloatingChatroom({Key? key, required this.taskModel}) : super(key: key);
@@ -134,7 +135,9 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                               fontSize: 13.sp,
                               verticalPadding: 1.h,
                               horizontalPadding: 2.w,
-                              status: widget.taskModel.status!)
+                              status: context
+                                  .watch<ChatroomControlller>()
+                                  .currentStatus)
                         ],
                       ),
                     ],
@@ -198,11 +201,20 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                         return const SizedBox();
                                       }))),
                         ),
-                        keyboardChat(
-                            context: context,
-                            p1: p1,
-                            idTask: widget.taskModel.id!,
-                            scrollController: scrollController)
+                        Consumer<ChatroomControlller>(
+                            builder: (context, value, child) =>
+                                value.currentStatus == "Close"
+                                    ? Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.w, vertical: 20.h),
+                                        child: ReopenButton(
+                                            idTask: widget.taskModel.id!),
+                                      )
+                                    : keyboardChat(
+                                        context: context,
+                                        p1: p1,
+                                        idTask: widget.taskModel.id!,
+                                        scrollController: scrollController))
                       ],
                     ),
                   ),

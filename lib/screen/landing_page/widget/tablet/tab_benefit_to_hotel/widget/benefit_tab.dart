@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/landing_page/widget/tablet/tab_benefit_to_hotel/widget/point.dart';
 
 class BenefitTablet extends StatelessWidget {
@@ -18,7 +18,7 @@ class BenefitTablet extends StatelessWidget {
             opacity: pixels > 2874 ? 1 : 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 Point(
                     imageIcon: "image/eficiency.png",
                     title: "Efficiency",
@@ -47,7 +47,7 @@ class BenefitTablet extends StatelessWidget {
             opacity: pixels > 3104 ? 1 : 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: const [
                 Point(
                     imageIcon: "image/easy_communication.png",
                     title: "Communication",

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 import 'package:post_web/screen/landing_page/widget/desktop/widget/benefit_to_hotel/widget/point.dart';
 
@@ -12,7 +12,7 @@ class BenefitTab extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: const [
             Point(
                 imageIcon: "image/eficiency.png",
                 title: "Efficiency",
@@ -33,7 +33,7 @@ class BenefitTab extends StatelessWidget {
         const SizedBox(height: 40),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: const [
             Point(
                 imageIcon: "image/easy_communication.png",
                 title: "Communication",

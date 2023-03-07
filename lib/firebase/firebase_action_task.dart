@@ -2,21 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
+import 'package:post_web/reusable_widget/show_dialog.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseActionTask with ChangeNotifier {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
-
-  int _acceptedTotal = 0;
-  int get acceptedTotal => _acceptedTotal;
-  final int _closeTotal = 0;
-  int get closeTotal => _closeTotal;
-  getTotalAcceptedAndClose() async {
-    _acceptedTotal = user.data.acceptRequest!;
-    notifyListeners();
-  }
 
   int? _newTotalAccepted;
   int? get newTotalAccepted => _newTotalAccepted;
@@ -75,6 +69,8 @@ class FirebaseActionTask with ChangeNotifier {
       ])
     });
     await addNewAcceptedTotal(context, 1);
+    Provider.of<ChatroomControlller>(context, listen: false)
+        .newStatus("Accepted");
     Future.delayed(
       const Duration(seconds: 4),
       () async {
@@ -139,5 +135,140 @@ class FirebaseActionTask with ChangeNotifier {
             .update({'isFading': false});
       },
     );
+  }
+
+  int? newTotalClose;
+  addNewCLoseTotal(BuildContext context, int addOne) {
+    if (newTotalClose == null) {
+      newTotalClose = user.data.closeRequest! + addOne;
+      db
+          .collection(userCollection)
+          .doc(user.data.email)
+          .update({'closeRequest': newTotalClose});
+      notifyListeners();
+    } else {
+      newTotalClose = (newTotalAccepted! + addOne);
+      db
+          .collection(userCollection)
+          .doc(user.data.email)
+          .update({'closeRequest': newTotalClose});
+      notifyListeners();
+    }
+  }
+
+  closeTask(BuildContext context, String idTask,
+      TextEditingController commentBody) async {
+    try {
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(taskCollection)
+          .doc(idTask)
+          .update({
+        "status": "Close",
+        'isFading': true,
+        "receiver": "${user.data.name}",
+        "emailReceiver": user.data.email,
+        "comment": FieldValue.arrayUnion([
+          {
+            "timeSent": DateTime.now(),
+            'accepted': "",
+            'colorUser': user.data.userColor,
+            'assignTask': "",
+            'assignTo': "",
+            'commentBody': commentBody.text != ""
+                ? 'has close this request \n${commentBody.text}'
+                : 'has close this request',
+            'commentId': const Uuid().v4(),
+            'description': "",
+            'esc': '',
+            'imageComment': [],
+            'sender': user.data.name,
+            'senderemail': user.data.email,
+            'setDate': '',
+            'setTime': '',
+            'time': DateTime.now(),
+            'titleChange': "",
+            'newlocation': "",
+            'hold': "",
+            'resume': "",
+            'scheduleDelete': "",
+          }
+        ])
+      });
+      Provider.of<ChatroomControlller>(context, listen: false)
+          .newStatus("Close");
+      await addNewCLoseTotal(context, 1);
+      commentBody.clear();
+      // Navigator.of(context).pop();
+      Future.delayed(
+        const Duration(seconds: 4),
+        () async {
+          FirebaseFirestore.instance
+              .collection(hotelListCollection)
+              .doc(user.data.hotel)
+              .collection(taskCollection)
+              .doc(idTask)
+              .update({'isFading': false});
+        },
+      );
+    } catch (e) {
+      // ShowDialog().errorDialog(context, "Something went wrong");
+    }
+  }
+
+  reopenTask(BuildContext context, String idTask) async {
+    try {
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(taskCollection)
+          .doc(idTask)
+          .update({
+        "status": "Reopen",
+        'isFading': true,
+        "receiver": "${user.data.name}",
+        "emailReceiver": user.data.email,
+        "comment": FieldValue.arrayUnion([
+          {
+            "timeSent": DateTime.now(),
+            'accepted': "",
+            'colorUser': user.data.userColor,
+            'assignTask': "",
+            'assignTo': "",
+            'commentBody': "has reopen this request",
+            'commentId': const Uuid().v4(),
+            'description': "",
+            'esc': '',
+            'imageComment': [],
+            'sender': user.data.name,
+            'senderemail': user.data.email,
+            'setDate': '',
+            'setTime': '',
+            'time': DateTime.now(),
+            'titleChange': "",
+            'newlocation': "",
+            'hold': "",
+            'resume': "",
+            'scheduleDelete': "",
+          }
+        ])
+      });
+      Provider.of<ChatroomControlller>(context, listen: false)
+          .newStatus("Reopen");
+      Future.delayed(
+        const Duration(seconds: 4),
+        () async {
+          FirebaseFirestore.instance
+              .collection(hotelListCollection)
+              .doc(user.data.hotel)
+              .collection(taskCollection)
+              .doc(idTask)
+              .update({'isFading': false});
+        },
+      );
+    } catch (e) {
+      ShowDialog().errorDialog(context, "Something went wrong");
+    }
   }
 }

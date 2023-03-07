@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/controller/c_user.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 
 import 'package:uuid/uuid.dart';
 

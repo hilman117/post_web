@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../../other.dart';
+import '../../../../../../../const.dart';
 import '../../../controller_dashboard.dart';
 
 class ChipFilter extends StatelessWidget {

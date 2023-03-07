@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/models/general_data.dart';
-import 'package:post_web/other.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_location/widget/add_location.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class AllLocation extends StatelessWidget {
                           },
                         );
                         if (value.isLoadingLoadLocation) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(
                               color: mainColor2,
                               strokeWidth: 2.0,

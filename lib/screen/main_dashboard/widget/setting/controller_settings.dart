@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:post_web/firebase/firebase_location.dart';
 import 'package:post_web/firebase/firebase_title.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
-import 'package:post_web/other.dart';
-import '../../../../controller/c_user.dart';
+import 'package:post_web/const.dart';
 import '../../../../firebase/firebase_departement.dart';
 
 class SettingsController with ChangeNotifier {
@@ -65,56 +62,11 @@ class SettingsController with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> role = [
-    "General Manager",
-    "Assistant Executive Manager",
-    "Hotel Manager",
-    "Front Office Manager",
-    "Director of Sales and Marketing",
-    "Revenue Manager",
-    "Guest Services Manager",
-    "Executive Housekeeper",
-    "Housekeeping Manager",
-    "Food and Beverage Director",
-    "Executive Chef",
-    "Sous Chef",
-    "Banquet Manager",
-    "Bar Manager",
-    "Restaurant Manager",
-    "Spa Manager",
-    "Guest Relations Manager",
-    "Bellman",
-    "Concierge",
-    "Front Desk Agent",
-    "Reservations Agent",
-    "Night Auditor",
-    "Housekeeping Attendant",
-    "Laundry Attendant",
-    "Room Service Attendant",
-    "Bartender",
-    "Waiter/Waitress",
-    "Barista",
-    "Chef de Partie",
-    "Commis Chef",
-    "Kitchen Steward",
-    "Massage Therapist",
-    "Fitness Trainer",
-    "Engineering Attendant"
-  ];
   List<String> accountType = [
     administrator,
     deptAdmin,
     noAdmin,
   ];
-
-  final user = Get.put(CUser());
-  final db = FirebaseFirestore.instance;
-  getEmployeelist() async {
-    await db
-        .collection("users")
-        .where("hotel", isEqualTo: user.data.hotel)
-        .get();
-  }
 
   bool isPosition = false;
   bool isAccountTypeFocus = false;
@@ -140,26 +92,6 @@ class SettingsController with ChangeNotifier {
     isExpand = !isExpand;
     notifyListeners();
   }
-
-  List<String> departementIcon = [
-    "image/Engineering.png",
-    "image/Entertainment.png",
-    "image/Front Office.png",
-    "image/IT Support.png",
-    "image/Room Service.png",
-    "image/Housekeeping.png",
-    "image/Butler.png",
-    "image/Concierge.png",
-    "image/entertain-2.png",
-    "image/guard.png",
-    "image/hr-manager.png",
-    "image/laundry.png",
-    "image/hotel-bell.png",
-    "image/kitchen-utensils.png",
-    "image/police.png",
-    "image/chef.png",
-    "image/menu.png"
-  ];
 
   String iconSelected = "";
   selectIcon(String icon) {
