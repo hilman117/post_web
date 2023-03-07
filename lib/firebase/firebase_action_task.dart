@@ -87,4 +87,57 @@ class FirebaseActionTask with ChangeNotifier {
       },
     );
   }
+
+  sendComment(
+      {required BuildContext context,
+      required String idTask,
+      String? commentBody,
+      List<String>? imageUrl}) async {
+    await db
+        .collection(hotelListCollection)
+        .doc(user.data.hotel)
+        .collection(taskCollection)
+        .doc(idTask)
+        .update({
+      "status": "Accepted",
+      'isFading': true,
+      "receiver": "${user.data.name}",
+      "emailReceiver": user.data.email,
+      "comment": FieldValue.arrayUnion([
+        {
+          "timeSent": DateTime.now(),
+          'accepted': user.data.name,
+          'colorUser': user.data.userColor,
+          'assignTask': "",
+          'assignTo': "",
+          'commentBody': commentBody ?? "",
+          'commentId': const Uuid().v4(),
+          'description': "",
+          'esc': '',
+          'imageComment': imageUrl ?? [],
+          'sender': user.data.name,
+          'senderemail': user.data.email,
+          'setDate': '',
+          'setTime': '',
+          'time': DateTime.now(),
+          'titleChange': "",
+          'newlocation': "",
+          'hold': "",
+          'resume': "",
+          'scheduleDelete': "",
+        }
+      ])
+    });
+    Future.delayed(
+      const Duration(seconds: 4),
+      () async {
+        FirebaseFirestore.instance
+            .collection(hotelListCollection)
+            .doc(user.data.hotel)
+            .collection(taskCollection)
+            .doc(idTask)
+            .update({'isFading': false});
+      },
+    );
+  }
 }

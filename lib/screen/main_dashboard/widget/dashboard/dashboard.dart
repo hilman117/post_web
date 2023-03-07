@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/models/task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 
 import 'package:post_web/style.dart';
@@ -19,6 +20,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var data = Provider.of<List<Departement>>(context);
+    var task = Provider.of<List<TaskModel>>(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
     return Container(
         alignment: Alignment.topCenter,
@@ -54,28 +56,34 @@ class Dashboard extends StatelessWidget {
                                       itemCount: data.length,
                                       itemBuilder: (context, index) {
                                         Departement departement = data[index];
-                                        return MouseRegion(
-                                          onEnter: (event) =>
-                                              controller.hovering(
-                                                  isDeptementInHover: true,
-                                                  departementIndex: index),
-                                          onExit: (event) =>
-                                              controller.hovering(
-                                                  isDeptementInHover: false),
-                                          child: Department(
-                                            buttonName:
-                                                departement.departement!,
-                                            callback: () =>
-                                                controller.selectDepartment(
-                                                    index,
-                                                    departement.departement!),
-                                            p1: p1,
-                                            index: index,
-                                            color: Colors.white,
-                                            totalRequest: 0,
-                                            icon: departement.departementIcon!,
-                                          ),
-                                        );
+
+                                        //filtering only departement with isactive == true that will display
+                                        if (departement.isActive == true) {
+                                          return MouseRegion(
+                                            onEnter: (event) =>
+                                                controller.hovering(
+                                                    isDeptementInHover: true,
+                                                    departementIndex: index),
+                                            onExit: (event) =>
+                                                controller.hovering(
+                                                    isDeptementInHover: false),
+                                            child: Department(
+                                              buttonName:
+                                                  departement.departement!,
+                                              callback: () =>
+                                                  controller.selectDepartment(
+                                                      index,
+                                                      departement.departement!),
+                                              p1: p1,
+                                              index: index,
+                                              color: Colors.white,
+                                              totalRequest: task.length,
+                                              icon:
+                                                  departement.departementIcon!,
+                                            ),
+                                          );
+                                        }
+                                        return const SizedBox();
                                       })),
                             )
                           ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/main_dashboard/widget/setting/widget/search_field_setting.dart';
+import 'package:post_web/reusable_widget/texfield.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class _AddNewLocationState extends State<AddNewLocation> {
                     style: style18Bold,
                   ),
                   const Spacer(),
-                  SearchFieldSettings(
+                  TexfieldWidget(
                     controller: searchLocation,
                     searchFunction: (value) =>
                         controller.searchingLocation(value),

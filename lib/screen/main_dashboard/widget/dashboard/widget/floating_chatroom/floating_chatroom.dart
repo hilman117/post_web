@@ -6,6 +6,7 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/chat_model.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
@@ -40,9 +41,10 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
+    final chatCtrl = Provider.of<ChatroomControlller>(context, listen: false);
     return Positioned(
       right: 20.w,
-      bottom: 100.h,
+      bottom: 30.h,
       child: Material(
         borderRadius: BorderRadius.circular(10),
         child: Container(
@@ -110,6 +112,7 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                             onTap: () {
                               controller.clearCardRequest();
                               controller.hideChatroom();
+                              chatCtrl.clearImage();
                             },
                             child: Icon(
                               Icons.close_rounded,
@@ -161,15 +164,16 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                                   String,
                                                   dynamic>)['comment'] as List;
 
-                                          // commentList.sort((a, b) =>
-                                          //     b['time'].compareTo(a['time']));
+                                          commentList.sort((a, b) =>
+                                              b['time'].compareTo(a['time']));
                                           List<ChatModel> chatModel =
                                               commentList
                                                   .map((e) =>
                                                       ChatModel.fromJson(e))
                                                   .toList();
+
                                           return ListView.builder(
-                                              // reverse: true,
+                                              reverse: true,
                                               padding: const EdgeInsets.only(
                                                   bottom: 2),
                                               controller: scrollController,
@@ -194,7 +198,11 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                         return const SizedBox();
                                       }))),
                         ),
-                        keyboardChat(context: context, p1: p1)
+                        keyboardChat(
+                            context: context,
+                            p1: p1,
+                            idTask: widget.taskModel.id!,
+                            scrollController: scrollController)
                       ],
                     ),
                   ),

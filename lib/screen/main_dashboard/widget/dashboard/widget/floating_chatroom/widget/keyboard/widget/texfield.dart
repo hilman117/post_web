@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldArea extends StatelessWidget {
   const TextFieldArea({
     Key? key,
     required this.p1,
+    required this.commentText,
   }) : super(key: key);
   final BoxConstraints p1;
+  final TextEditingController commentText;
 
   @override
   Widget build(BuildContext context) {
-    final text = TextEditingController();
+    final ctrl = Provider.of<ChatroomControlller>(context, listen: false);
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -18,7 +22,7 @@ class TextFieldArea extends StatelessWidget {
             color: mainColor.withOpacity(0.1)),
         height: p1.maxWidth * 0.1,
         child: TextFormField(
-          controller: text,
+          controller: commentText,
           cursorColor: mainColor,
           cursorWidth: 1,
           textAlignVertical: TextAlignVertical.center,
@@ -46,10 +50,10 @@ class TextFieldArea extends StatelessWidget {
             hintStyle: TextStyle(fontSize: p1.maxWidth * 0.035),
             contentPadding: const EdgeInsets.symmetric(vertical: 0),
             prefixIcon: IconButton(
-              onPressed: () {},
+              onPressed: () => ctrl.selectImage(),
               icon: Icon(
                 Icons.camera_alt_rounded,
-                color: mainColor,
+                color: mainColor2,
               ),
             ),
           ),

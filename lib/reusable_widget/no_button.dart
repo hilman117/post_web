@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NoButton extends StatelessWidget {
   const NoButton({
     Key? key,
-    required this.p2,
+    required this.width,
     required this.callback,
     this.icon,
   }) : super(key: key);
-  final BoxConstraints p2;
+  final double width;
   final VoidCallback callback;
   final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: p2.maxWidth * 0.05),
-      width: p2.maxWidth * 0.15,
+      margin: EdgeInsets.only(bottom: 5.h),
+      width: width,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey.shade200,
@@ -32,14 +33,13 @@ class NoButton extends StatelessWidget {
               icon != null
                   ? Icon(
                       icon,
-                      size: p2.maxWidth * 0.015,
+                      size: 20.sp,
                       color: Colors.black54,
                     )
                   : const SizedBox(),
               Text(
                 "Cancel",
-                style: TextStyle(
-                    fontSize: p2.maxWidth * 0.015, color: Colors.black54),
+                style: TextStyle(fontSize: 20.sp, color: Colors.black54),
               )
             ],
           )),

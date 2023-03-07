@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../style.dart';
+import '../style.dart';
 
-class SearchFieldSettings extends StatelessWidget {
-  const SearchFieldSettings({
+class TexfieldWidget extends StatelessWidget {
+  const TexfieldWidget({
     Key? key,
     this.controller,
     this.searchFunction,
+    this.bgCOlor,
+    this.width,
+    this.height,
+    this.hintText,
   }) : super(key: key);
 
   final TextEditingController? controller;
   final Function(String)? searchFunction;
+  final Color? bgCOlor;
+  final double? width;
+  final double? height;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        width: 150.w,
-        height: 50.h,
+        width: width ?? 150.w,
+        height: height ?? 50.h,
         padding: const EdgeInsets.symmetric(
           vertical: 4,
         ),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.grey.shade200),
+              color: bgCOlor ?? Colors.grey.shade200),
           // padding: const EdgeInsets.only(left: 3),
           child: TextFormField(
             onChanged: searchFunction,
@@ -40,7 +48,7 @@ class SearchFieldSettings extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: 9),
               filled: true,
               // alignLabelWithHint: true,
-              hintText: "Search...",
+              hintText: hintText ?? "Search...",
               hintStyle: style15Normal,
               // prefixIcon: const Icon(
               //   Icons.search,

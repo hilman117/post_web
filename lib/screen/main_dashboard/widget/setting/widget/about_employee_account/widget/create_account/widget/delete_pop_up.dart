@@ -47,7 +47,7 @@ deletePopUp(BuildContext context, String name, String email) {
               }),
               actions: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     alignment: Alignment.center,
                     width: 100.w,

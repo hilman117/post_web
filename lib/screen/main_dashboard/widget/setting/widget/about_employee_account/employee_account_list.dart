@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,7 @@ import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../firebase/firebase_account.dart';
-import '../search_field_setting.dart';
+import '../../../../../../reusable_widget/texfield.dart';
 import 'widget/create_account/create_account.dart';
 import 'widget/create_account/widget/delete_pop_up.dart';
 import 'widget/edit_employee_profile/edit_employee_profile.dart';
@@ -31,6 +30,7 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
 
   @override
   Widget build(BuildContext context) {
+    var data = Provider.of<List<UserDetails>>(context);
     final user = Get.put(CUser());
     final controllerSetting =
         Provider.of<SettingsController>(context, listen: false);
@@ -75,7 +75,7 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                       ],
                     ),
                     const Spacer(),
-                    const SearchFieldSettings(),
+                    const TexfieldWidget(),
                     SizedBox(
                       width: 50.w,
                     ),
@@ -108,123 +108,164 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
-                child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection("users")
-                        .where("hotel", isEqualTo: user.data.hotel)
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                            snapshot) {
-                      // if (snapshot.connectionState ==
-                      //     ConnectionState.active) {
-                      //   return const Center(
-                      //     child: CircularProgressIndicator.adaptive(),
-                      //   );
-                      // }
-                      if (snapshot.data == null) {
-                        return const Center(
-                          child: Text("No Data"),
+                child: ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      data.sort((a, b) => a.name!.compareTo(b.name!));
+                      UserDetails employee = data[index];
+                      if (data.isEmpty) {
+                        return Center(
+                          child: Text(
+                            "No data",
+                            style: style18Normal,
+                          ),
                         );
                       }
-                      List<QueryDocumentSnapshot<Map<String, dynamic>>>
-                          employeeList = snapshot.data!.docs;
-                      employeeList
-                          .sort((a, b) => b["name"].compareTo(a["name"]));
-                      return ListView.builder(
-                          itemCount: employeeList.length,
-                          itemBuilder: (context, index) {
-                            Map<String, dynamic> dataEmployee =
-                                employeeList[index].data();
-                            UserDetails employee =
-                                UserDetails.fromJson(dataEmployee);
-                            return ListTile(
-                              title: Row(
-                                children: [
-                                  PhotoProfile(
-                                      lebar: 25.w,
-                                      tinggi: 25.h,
-                                      radius: 25.sp,
-                                      urlImage: employee.profileImage!),
-                                  SizedBox(
-                                    width: 15.w,
-                                  ),
-                                  SizedBox(
-                                    width: 350.w,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          employee.name!,
-                                          style: style18Normal,
-                                        ),
-                                        Text(
-                                          employee.email!,
-                                          style: style18Normal,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    width: 150.w,
-                                    child: Text(
-                                      employee.department!,
-                                      style: style18Normal,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 120.w,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      employee.accountType!,
-                                      style: TextStyle(
-                                          fontSize: 18.sp,
-                                          color: Colors.black87,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  TextButton(
-                                      onPressed: () {
-                                        controllerAccount.successTrueToFalse();
-                                        deletePopUp(context, employee.name!,
-                                            employee.email!);
-                                      },
-                                      child: const Text(
-                                        "Delete",
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey),
-                                      )),
-                                  TextButton(
-                                      onPressed: () {
-                                        controllerAccount.clearEditProfile();
-                                        controllerAccount.getCurrentProfile(
-                                          currentName: employee.name!,
-                                          currentPosition: employee.position!,
-                                          currentEmail: employee.email!,
-                                          currentDepartement:
-                                              employee.department!,
-                                        );
-                                        editEmployeeProfile(context, employee);
-                                      },
-                                      child: Text(
-                                        "Edit",
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: mainColor),
-                                      )),
-                                ],
-                              ),
-                            );
-                          });
-                    })),
+                      if (employee.hotel == user.data.hotel) {
+                        return EmployeeTile(
+                            employee: employee,
+                            controllerAccount: controllerAccount);
+                      }
+                      return Center(
+                        child: Text(
+                          "Loading data...",
+                          style: style18Normal,
+                        ),
+                      );
+                    })
+                // StreamBuilder(
+                //     stream: FirebaseFirestore.instance
+                //         .collection("users")
+                //         .where("hotel", isEqualTo: user.data.hotel)
+                //         .snapshots(),
+                //     builder: (BuildContext context,
+                //         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                //             snapshot) {
+                //       // if (snapshot.connectionState ==
+                //       //     ConnectionState.active) {
+                //       //   return const Center(
+                //       //     child: CircularProgressIndicator.adaptive(),
+                //       //   );
+                //       // }
+                //       if (snapshot.data == null) {
+                //         return const Center(
+                //           child: Text("No Data"),
+                //         );
+                //       }
+                //       List<QueryDocumentSnapshot<Map<String, dynamic>>>
+                //           employeeList = snapshot.data!.docs;
+                // employeeList
+                //     .sort((a, b) => a["name"].compareTo(b["name"]));
+                //       return ListView.builder(
+                //           itemCount: employeeList.length,
+                //           itemBuilder: (context, index) {
+                //             Map<String, dynamic> dataEmployee =
+                //                 employeeList[index].data();
+                //             UserDetails employee =
+                //                 UserDetails.fromJson(dataEmployee);
+                //             return EmployeeTile(
+                //                 employee: employee,
+                //                 controllerAccount: controllerAccount);
+                //           });
+                //     })
+                ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class EmployeeTile extends StatelessWidget {
+  const EmployeeTile({
+    Key? key,
+    required this.employee,
+    required this.controllerAccount,
+  }) : super(key: key);
+
+  final UserDetails employee;
+  final FirebaseAccount controllerAccount;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Row(
+        children: [
+          PhotoProfile(
+              lebar: 25.w,
+              tinggi: 25.h,
+              radius: 25.sp,
+              urlImage: employee.profileImage!),
+          SizedBox(
+            width: 15.w,
+          ),
+          SizedBox(
+            width: 350.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  employee.name!,
+                  style: style18Normal,
+                ),
+                Text(
+                  employee.email!,
+                  style: style18Normal,
+                )
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            width: 150.w,
+            child: Text(
+              employee.department!,
+              style: style18Normal,
+            ),
+          ),
+          Container(
+            width: 120.w,
+            alignment: Alignment.center,
+            child: Text(
+              employee.accountType!,
+              style: TextStyle(
+                  fontSize: 18.sp,
+                  color: Colors.black87,
+                  fontStyle: FontStyle.italic),
+            ),
+          ),
+          const Spacer(),
+          TextButton(
+              onPressed: () {
+                controllerAccount.successTrueToFalse();
+                deletePopUp(context, employee.name!, employee.email!);
+              },
+              child: const Text(
+                "Delete",
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              )),
+          TextButton(
+              onPressed: () async {
+                controllerAccount.clearEditProfile();
+                await controllerAccount.getCurrentProfile(
+                  currentName: employee.name!,
+                  currentPosition: employee.position!,
+                  currentEmail: employee.email!,
+                  currentDepartement: employee.department!,
+                );
+                editEmployeeProfile(context, employee);
+              },
+              child: Text(
+                "Edit",
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: mainColor),
+              )),
+        ],
       ),
     );
   }

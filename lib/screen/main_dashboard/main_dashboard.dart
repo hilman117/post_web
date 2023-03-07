@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/floating_chatroom.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/selected_image.dart';
 import 'package:provider/provider.dart';
 import 'widget/appbar/appbar_dashboard.dart';
 import 'widget/dashboard/widget/create_task_dialog/create_task_dialog.dart';
@@ -54,7 +57,25 @@ class _MainDashboardState extends State<MainDashboard>
             builder: (context, value, child) =>
                 value.isChatroomOpen == true && value.taskModel != null
                     ? FloatingChatroom(taskModel: value.taskModel!)
-                    : const SizedBox())
+                    : const SizedBox()),
+        Consumer<ChatroomControlller>(
+            builder: (context, value, child) => value.imageList.isNotEmpty
+                ? Column(
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SelectedImage(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 50.h,
+                      )
+                    ],
+                  )
+                : const SizedBox())
       ],
     );
   }

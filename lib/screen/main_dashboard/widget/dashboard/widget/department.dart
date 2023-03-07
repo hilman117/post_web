@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 
 import 'package:provider/provider.dart';
@@ -67,15 +66,20 @@ class Department extends StatelessWidget {
                         width: 150.w,
                         child: Text(
                           buttonName,
-                          style:
-                              TextStyle(fontSize: 20.sp, color: Colors.black54),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: value.selectedDepartment == index
+                                ? Colors.green
+                                : Colors.black54,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
                   ),
                   Text(
-                    "26.273",
-                    style: GoogleFonts.sarabun(
+                    totalRequest.toString(),
+                    style: TextStyle(
                         fontSize: 30.sp,
                         color: value.selectedDepartment == index
                             ? Colors.green

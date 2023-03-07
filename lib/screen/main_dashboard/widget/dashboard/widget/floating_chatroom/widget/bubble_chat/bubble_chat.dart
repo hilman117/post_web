@@ -31,10 +31,10 @@ class BubbleChat extends StatelessWidget {
     var dateChat =
         DateFormat("MMM d, ''yy'").format(convertedTimeStampToDatetime);
     bool isVisible = false;
-    if (index == 0) {
+    if (listMessage.length - 1 == index) {
       isVisible = true;
     } else {
-      var previousChat = listMessage[index - 1];
+      var previousChat = listMessage[index + 1];
       var currentChat = listMessage[index];
       var previousTime = DateFormat("MMM d, ''yy'")
           .format(DateTime.parse(previousChat.time!.toDate().toString()));

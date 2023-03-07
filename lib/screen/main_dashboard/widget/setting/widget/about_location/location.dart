@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/models/general_data.dart';
+import 'package:post_web/other.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_location/widget/add_location.dart';
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
+
+import 'widget/location_item.dart';
 
 class AllLocation extends StatelessWidget {
   const AllLocation({
@@ -13,7 +15,7 @@ class AllLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<GeneralData>(context);
+    var data = Provider.of<GeneralData?>(context);
     return Container(
       alignment: Alignment.bottomCenter,
       width: 300.w,
@@ -33,26 +35,42 @@ class AllLocation extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: ListView.builder(
-                      itemCount: data.location?.length,
+                      itemCount: data!.location!.length,
                       itemBuilder: (context, index) {
-                        data.location?.sort(
+                        data.location!.sort(
                           (a, b) {
                             return a.compareTo(b);
                           },
                         );
+                        if (value.isLoadingLoadLocation) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: mainColor2,
+                              strokeWidth: 2.0,
+                            ),
+                          );
+                        }
                         if (data.location == null) {
                           return const Center(
                             child: Text("No Data"),
                           );
                         }
-                        if (value.searchLocation == " ") {
-                          return LocationItem(location: data.location![index]);
+                        if (value.searchLocation == "") {
+                          return LocationItem(
+                            location: data.location![index],
+                            currentLocationList: data.location!,
+                            indexToRemove: index,
+                          );
                         }
                         if (data.location![index]
                             .toString()
                             .toLowerCase()
                             .contains(value.searchLocation.toLowerCase())) {
-                          return LocationItem(location: data.location![index]);
+                          return LocationItem(
+                            location: data.location![index],
+                            currentLocationList: data.location!,
+                            indexToRemove: index,
+                          );
                         }
                         return const SizedBox();
                       })),
@@ -60,61 +78,6 @@ class AllLocation extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class LocationItem extends StatelessWidget {
-  const LocationItem({
-    Key? key,
-    required this.location,
-  }) : super(key: key);
-
-  final String location;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              width: 170.w,
-              child: Text(
-                location,
-                style: style18Normal,
-              ),
-            ),
-            const Spacer(),
-            Material(
-              color: Colors.transparent,
-              child: IconButton(
-                  splashColor: Colors.grey,
-                  splashRadius: 15.sp,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.delete_outlined,
-                    size: 25.sp,
-                    color: Colors.grey,
-                  )),
-            ),
-            Material(
-              color: Colors.transparent,
-              child: IconButton(
-                  splashColor: Colors.blue,
-                  splashRadius: 15.sp,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.edit,
-                    size: 25.sp,
-                    color: Colors.blue,
-                  )),
-            ),
-          ],
-        ),
-        const Divider()
-      ],
     );
   }
 }

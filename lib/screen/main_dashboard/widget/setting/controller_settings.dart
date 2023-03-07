@@ -1,4 +1,3 @@
-import 'package:acronym/acronym.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +14,6 @@ class SettingsController with ChangeNotifier {
   //-------------------------------------------the last line of the method
 
   //employee account settings
-  String deptCodeExample = "In Rooom Dining";
 
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
@@ -159,7 +157,8 @@ class SettingsController with ChangeNotifier {
     "image/hotel-bell.png",
     "image/kitchen-utensils.png",
     "image/police.png",
-    "image/chef.png"
+    "image/chef.png",
+    "image/menu.png"
   ];
 
   String iconSelected = "";
@@ -283,6 +282,25 @@ class SettingsController with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
+      ShowDialog().errorDialog(context, "Upps, Someting wrong");
+    }
+  }
+
+  bool loadingLocation = false;
+  removeLocation(
+      {required BuildContext context,
+      required List currentList,
+      required int indexToRemove}) async {
+    var db = FirebaseLocation();
+    try {
+      loadingLocation = true;
+      notifyListeners();
+      await db.removeLocation(currentList, indexToRemove);
+      loadingLocation = false;
+      notifyListeners();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
       ShowDialog().errorDialog(context, "Upps, Someting wrong");
     }
   }

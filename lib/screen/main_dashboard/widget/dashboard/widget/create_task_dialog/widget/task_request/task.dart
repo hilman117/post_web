@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/other.dart';
 import 'package:post_web/reusable_widget/no_button.dart';
 import 'package:post_web/reusable_widget/yes_button.dart';
@@ -332,14 +333,14 @@ class Task extends StatelessWidget {
                     children: [
                       NoButton(
                         icon: Icons.close,
-                        p2: p2,
+                        width: 200.w,
                         callback: () => Navigator.of(context).pop(),
                       ),
                       YesButton(
                         icon: Icons.send_outlined,
                         callback: () {},
                         nameButton: 'Send',
-                        p2: p2,
+                        width: 200.w,
                       ),
                     ],
                   )

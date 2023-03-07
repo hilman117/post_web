@@ -13,4 +13,23 @@ class FirebaseLocation {
       "location": FieldValue.arrayUnion([newLocation.toTitleCase()])
     });
   }
+
+  removeLocation(List currentLocation, int indexToRemove) async {
+    // because firestore doesn't provide delete method for spesific field item inside the document
+    //so we create our own method with following step.
+    //first step we get all list data from firestore document
+    //second we delete index that we want to delete
+    currentLocation.removeAt(indexToRemove);
+
+    // third, delete entire current list within firestore document
+    await db
+        .collection(hotelListCollection)
+        .doc(user.data.hotel)
+        .update({"location": FieldValue.arrayRemove(currentLocation)});
+    //fourth, restore new list to the same firestore document without item that we want to delele
+    await db
+        .collection(hotelListCollection)
+        .doc(user.data.hotel)
+        .update({"location": currentLocation});
+  }
 }

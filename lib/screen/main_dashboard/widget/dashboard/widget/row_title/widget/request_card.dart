@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/other.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
 import 'package:post_web/style.dart';
 import 'package:post_web/reusable_widget/photo_profile.dart';
 import 'package:provider/provider.dart';
@@ -169,9 +170,7 @@ class _RequestCardState extends State<RequestCard> {
                                   Tooltip(
                                     message: "Close",
                                     child: ActionButton(
-                                      callback: () {
-                                        // print("Close");
-                                      },
+                                      callback: () => closeTaskDialog(context),
                                       color: Colors.grey,
                                       icon: Icons.close_rounded,
                                     ),

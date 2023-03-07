@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
-
+import 'package:post_web/models/user.dart';
 import '../../models/departement.dart';
 import '../../other.dart';
 import '../models/general_data.dart';
@@ -27,6 +27,15 @@ class FirebaseStreamData {
         .doc(user.data.hotel)
         .snapshots()
         .map((snapshot) => GeneralData.fromJson(snapshot.data()!));
+  }
+
+  Stream<List<UserDetails>> streamEmployeeData() {
+    return db
+        .collection(userCollection)
+        .where("hotel", isEqualTo: user.data.hotel)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((e) => UserDetails.fromJson(e.data())).toList());
   }
 
   task(String dept, String status) {

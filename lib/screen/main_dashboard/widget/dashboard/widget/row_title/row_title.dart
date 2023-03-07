@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:post_web/firebase/firebase_stream_data.dart';
 import 'package:post_web/models/task.dart';
+import 'package:post_web/other.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
@@ -60,37 +60,12 @@ class _RowTitleState extends State<RowTitle> {
                       width: double.infinity,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 170,
-                            child: Row(
-                              children: [
-                                Text(
-                                  value.selectedDepartment >= 0
-                                      ? value.department
-                                      : "All Departement",
-                                  style: GoogleFonts.sarabun(
-                                      fontSize: 20.sp,
-                                      // fontWeight: FontWeight.w700,
-                                      color: Colors.blue),
-                                ),
-                                value.selectedDepartment >= 0 ||
-                                        value.statusSelected >= 0
-                                    ? SizedBox(
-                                        height: 15.h,
-                                        child: TextButton(
-                                            onPressed: () =>
-                                                controller.clearFilter(),
-                                            child: Text(
-                                              "Clear filter",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.blue),
-                                            )),
-                                      )
-                                    : const SizedBox(),
-                              ],
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              height: 50.h,
+                              child: ChipFilter(controller: controller),
                             ),
                           ),
                           Container(
@@ -121,7 +96,12 @@ class _RowTitleState extends State<RowTitle> {
                                       )),
                             ),
                           ),
-                          const SearchBox()
+                          Expanded(
+                            child: Container(
+                                alignment: Alignment.centerRight,
+                                height: 50.h,
+                                child: const SearchBox()),
+                          )
                         ],
                       ),
                     ),
@@ -200,5 +180,52 @@ class _RowTitleState extends State<RowTitle> {
         ),
       ],
     );
+  }
+}
+
+class ChipFilter extends StatelessWidget {
+  const ChipFilter({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final DashboardController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<DashboardController>(
+        builder: (context, value, child) => FittedBox(
+              child: Container(
+                // width: 200.w,
+                padding: EdgeInsets.all(5.sp),
+                decoration: BoxDecoration(
+                    border: Border.all(color: mainColor2.withOpacity(0.2)),
+                    borderRadius: BorderRadius.circular(6)),
+                child: Row(
+                  children: [
+                    Text(
+                      value.selectedDepartment >= 0
+                          ? value.department
+                          : "All Departement",
+                      style: TextStyle(fontSize: 18.sp, color: Colors.black54),
+                      overflow: TextOverflow.clip,
+                    ),
+                    value.selectedDepartment >= 0 || value.statusSelected >= 0
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: InkWell(
+                              onTap: () => controller.clearFilter(),
+                              child: Icon(
+                                Icons.cancel_outlined,
+                                size: 20.sp,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
+              ),
+            ));
   }
 }

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:post_web/other.dart';
-import 'package:post_web/screen/landing_page/landing_page.dart';
+
 import 'package:post_web/reusable_widget/no_button.dart';
 import 'package:post_web/reusable_widget/yes_button.dart';
+import 'package:post_web/screen/landing_page/landing_page.dart';
 
 logoutDialog(BuildContext context) {
   final size = MediaQuery.of(context).size;
@@ -45,16 +47,17 @@ logoutDialog(BuildContext context) {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       NoButton(
-                        p2: p1,
+                        width: 200.w,
                         callback: () => Navigator.of(context).pop(),
                       ),
                       YesButton(
-                        p2: p1,
+                        width: 200.w,
                         nameButton: "Yes",
                         callback: () async {
                           Navigator.of(context).pop();
                           await auth.signOut();
-                          Get.to(() => const LandingPage());
+                          Get.offAll(const LandingPage(),
+                              transition: Transition.rightToLeft);
                         },
                       )
                     ],

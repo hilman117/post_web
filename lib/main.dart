@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/models/general_data.dart';
+import 'package:post_web/models/task.dart';
+import 'package:post_web/models/user.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
 import 'package:post_web/screen/login_page/login_page.dart';
@@ -16,6 +18,7 @@ import 'package:post_web/screen/login_page/controller_login_page.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_task.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/shared_prefferences/session_user.dart';
@@ -38,9 +41,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyB48e286_xyb3imd4HioBfzLjznIh_n3Io",
-          appId: "1:992209537475:web:9e9ce94d54c1f0261a9576",
+          authDomain: "post-212c8.firebaseapp.com",
+          projectId: "post-212c8",
           messagingSenderId: "992209537475",
-          projectId: "post-212c8"));
+          // storageBucket: "gs://post-212c8.appspot.com",
+          appId: "1:992209537475:web:9e9ce94d54c1f0261a9576"));
 
   runApp(MultiProvider(
       providers: [
@@ -74,6 +79,9 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (context) => FirebaseActionTask(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ChatroomControlller(),
+        ),
         StreamProvider<List<Departement>>(
           create: (BuildContext context) => db.getDepartementData(),
           initialData: const [],
@@ -81,6 +89,14 @@ Future<void> main() async {
         StreamProvider<GeneralData?>(
           create: (BuildContext context) => db.streamGeneralData(),
           initialData: null,
+        ),
+        StreamProvider<List<TaskModel>>(
+          create: (BuildContext context) => db.streamTask(),
+          initialData: const [],
+        ),
+        StreamProvider<List<UserDetails>>(
+          create: (BuildContext context) => db.streamEmployeeData(),
+          initialData: const [],
         ),
       ],
       child: ScreenUtilInit(

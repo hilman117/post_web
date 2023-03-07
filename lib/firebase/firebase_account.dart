@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:acronym/acronym.dart';
 import 'package:post_web/extension/string_extention.dart';
+import 'package:post_web/other.dart';
 import '../reusable_widget/show_dialog.dart';
 
 class FirebaseAccount with ChangeNotifier {
@@ -72,7 +73,10 @@ class FirebaseAccount with ChangeNotifier {
         await auth.createUserWithEmailAndPassword(
             email: email.text + domain.capitalizeFirst!,
             password: password.text);
-        db.collection('users').doc(email.text.toLowerCase() + domain).set({
+        db
+            .collection(userCollection)
+            .doc(email.text.toLowerCase() + domain)
+            .set({
           "name":
               "(${deptCode.toUpperCase()}) ${firstName.text.toTitleCase()} ${lastName.text.toTitleCase()}",
           "position": userPosition,

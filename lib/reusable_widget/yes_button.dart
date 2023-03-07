@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/other.dart';
 
 class YesButton extends StatelessWidget {
   const YesButton({
     Key? key,
-    required this.p2,
+    this.width,
     required this.nameButton,
     required this.callback,
     this.icon,
   }) : super(key: key);
-  final BoxConstraints p2;
+  final double? width;
   final String nameButton;
   final VoidCallback callback;
   final IconData? icon;
@@ -17,8 +18,8 @@ class YesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: p2.maxWidth * 0.05),
-      width: p2.maxWidth * 0.15,
+      margin: EdgeInsets.only(bottom: 5.h),
+      width: width ?? 150.w,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: mainColor,
@@ -35,12 +36,12 @@ class YesButton extends StatelessWidget {
               icon != null
                   ? Icon(
                       icon,
-                      size: p2.maxWidth * 0.015,
+                      size: 20.sp,
                     )
                   : const SizedBox(),
               Text(
                 nameButton,
-                style: TextStyle(fontSize: p2.maxWidth * 0.015),
+                style: TextStyle(fontSize: 20.sp),
               )
             ],
           )),

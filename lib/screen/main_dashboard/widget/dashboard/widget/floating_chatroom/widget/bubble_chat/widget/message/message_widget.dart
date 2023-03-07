@@ -27,7 +27,7 @@ class MessageWidget extends StatelessWidget {
 
     Widget bubble = Container(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      width: 250.w,
+      width: 350.w,
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: p2.maxWidth * 0.04, vertical: p2.maxHeight * 0.01),
@@ -41,7 +41,7 @@ class MessageWidget extends StatelessWidget {
               chatModel.sender!,
               style: TextStyle(
                   fontSize: 15.sp,
-                  color: isMe ? Colors.blue.shade50 : Color(color),
+                  color: isMe ? Colors.black87 : Color(color),
                   fontWeight: FontWeight.bold),
               overflow: TextOverflow.fade,
             ),

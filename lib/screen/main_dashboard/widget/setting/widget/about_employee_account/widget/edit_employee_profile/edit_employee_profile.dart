@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/reusable_widget/pop_up_mac.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/other.dart';
@@ -119,29 +120,30 @@ editEmployeeProfile(BuildContext context, UserDetails dataEmployee) {
                     )
                   : const SizedBox(),
               settingValue.isDepartement
-                  ? PopUpSuggestion(
-                      leftPosition: 24.w,
-                      topPosition: 450.h,
-                      height: 200.h,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(0),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            Departement dept = data[index];
-                            return InkWell(
-                              onTap: () {},
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
-                                child: Text(
-                                  dept.departement!,
-                                  style: style15Normal,
-                                ),
-                              ),
-                            );
-                          }),
-                    )
+                  ? PopUpMac(
+                      listItem: List.generate(data.length, (index) {
+                      Departement dept = data[index];
+                      return InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 10.h),
+                          child: Text(
+                            dept.departement!,
+                            style: style15Normal,
+                          ),
+                        ),
+                      );
+                    })
+                      // ListView.builder(
+                      //         shrinkWrap: true,
+                      //         padding: const EdgeInsets.all(0),
+                      //         itemCount: data.length,
+                      //         itemBuilder: (context, index) {
+                      //           Departement dept = data[index];
+                      //           return
+                      //         }),
+                      )
                   : const SizedBox()
             ],
           ),
