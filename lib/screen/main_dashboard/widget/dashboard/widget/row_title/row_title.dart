@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/firebase/firebase_stream_data.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/const.dart';
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
 import 'widget/filter_by_status.dart';
@@ -40,6 +39,7 @@ class _RowTitleState extends State<RowTitle> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
+    final valueDashboard = context.watch<DashboardController>();
     // var tasks = Provider.of<List<TaskModel>>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -133,24 +133,6 @@ class _RowTitleState extends State<RowTitle> {
                             if (snapshot.data == null) {
                               return const CircularProgressIndicator.adaptive();
                             }
-                            if (snapshot.data!.docs.isEmpty) {
-                              return Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      "image/empty-box.png",
-                                      width: 200.w,
-                                    ),
-                                    Text(
-                                      "Tak ada data",
-                                      style: style15Normal,
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
                             List<QueryDocumentSnapshot<Object?>> list =
                                 snapshot.data!.docs;
                             list.sort((a, b) => b["time"].compareTo(a["time"]));
@@ -161,16 +143,91 @@ class _RowTitleState extends State<RowTitle> {
                                       .data()! as Map<String, dynamic>;
                                   TaskModel taskModel =
                                       TaskModel.fromJson(data);
-                                  return MouseRegion(
-                                    onEnter: (event) => controller.hovering(
-                                        cardRequestHover: true, index: index),
-                                    onExit: (event) => controller.hovering(
-                                        cardRequestHover: false),
-                                    child: RequestCard(
-                                      index: index,
-                                      taskModel: taskModel,
-                                    ),
-                                  );
+                                  if (valueDashboard.department.toLowerCase().contains(
+                                          taskModel.sendTo!.toLowerCase()) &&
+                                      valueDashboard.filterbyStatus == "") {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  } else if (valueDashboard.filterbyStatus.toLowerCase().contains(
+                                          taskModel.status!.toLowerCase()) &&
+                                      valueDashboard.department == "") {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  } else if (valueDashboard.filterbyStatus.toLowerCase().contains(
+                                          taskModel.status!.toLowerCase()) &&
+                                      valueDashboard.department.toLowerCase().contains(
+                                          taskModel.sendTo!.toLowerCase())) {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  } else if (valueDashboard.filterbyStatus
+                                          .toLowerCase()
+                                          .contains("open") &&
+                                      taskModel.status != "Close" &&
+                                      valueDashboard.department == "") {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  } else if (valueDashboard.filterbyStatus
+                                          .toLowerCase()
+                                          .contains("open") &&
+                                      taskModel.status != "Close" &&
+                                      valueDashboard.department.toLowerCase().contains(
+                                          taskModel.sendTo!.toLowerCase())) {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  } else if (valueDashboard.filterbyStatus == "" &&
+                                      valueDashboard.department == "") {
+                                    return MouseRegion(
+                                      onEnter: (event) => controller.hovering(
+                                          cardRequestHover: true, index: index),
+                                      onExit: (event) => controller.hovering(
+                                          cardRequestHover: false),
+                                      child: RequestCard(
+                                        index: index,
+                                        taskModel: taskModel,
+                                      ),
+                                    );
+                                  }
+                                  return const SizedBox();
                                 });
                           },
                         ))

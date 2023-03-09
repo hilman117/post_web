@@ -271,4 +271,59 @@ class FirebaseActionTask with ChangeNotifier {
       ShowDialog().errorDialog(context, "Something went wrong");
     }
   }
+
+  holdTask(BuildContext context, String idTask) async {
+    try {
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(taskCollection)
+          .doc(idTask)
+          .update({
+        "status": "Hold",
+        'isFading': true,
+        "receiver": "${user.data.name}",
+        "emailReceiver": user.data.email,
+        "comment": FieldValue.arrayUnion([
+          {
+            "timeSent": DateTime.now(),
+            'accepted': "",
+            'colorUser': user.data.userColor,
+            'assignTask': "",
+            'assignTo': "",
+            'commentBody': "",
+            'commentId': const Uuid().v4(),
+            'description': "",
+            'esc': '',
+            'imageComment': [],
+            'sender': user.data.name,
+            'senderemail': user.data.email,
+            'setDate': '',
+            'setTime': '',
+            'time': DateTime.now(),
+            'titleChange': "",
+            'newlocation': "",
+            'hold': "${user.data.name} hold this request",
+            'resume': "",
+            'scheduleDelete': "",
+          }
+        ])
+      });
+      Provider.of<ChatroomControlller>(context, listen: false)
+          .newStatus("Hold");
+      Future.delayed(
+        const Duration(seconds: 4),
+        () async {
+          FirebaseFirestore.instance
+              .collection(hotelListCollection)
+              .doc(user.data.hotel)
+              .collection(taskCollection)
+              .doc(idTask)
+              .update({'isFading': false});
+        },
+      );
+    } catch (e) {
+      ShowDialog().errorDialog(context, "Something went wrong");
+    }
+  }
 }

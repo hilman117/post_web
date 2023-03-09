@@ -144,6 +144,8 @@ class SettingsController with ChangeNotifier {
 
 //add new title
   bool isLoadingLoadTitle = false;
+  bool succedTitleAdded = false;
+  bool succedTitleRemoved = false;
   addNewTitle(BuildContext context, String toDepartement,
       TextEditingController newTitle) async {
     var db = FirebaseTitle();
@@ -158,7 +160,15 @@ class SettingsController with ChangeNotifier {
         await db.addNewTitle(toDepartement, newTitle.text);
         newTitle.clear();
         isLoadingLoadTitle = false;
+        succedTitleAdded = true;
         notifyListeners();
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            succedTitleAdded = false;
+            notifyListeners();
+          },
+        );
       }
     } catch (e) {
       ShowDialog().errorDialog(context, "Upps, Someting wrong");
@@ -178,7 +188,15 @@ class SettingsController with ChangeNotifier {
       notifyListeners();
       await db.removeTitle(toDepartement, currentList, indexToRemove);
       loadingToRemove = false;
+      succedTitleRemoved = true;
       notifyListeners();
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          succedTitleRemoved = false;
+          notifyListeners();
+        },
+      );
     } catch (e) {
       // ignore: avoid_print
       print(e);

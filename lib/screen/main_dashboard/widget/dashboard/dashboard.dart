@@ -20,7 +20,6 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var data = Provider.of<List<Departement>>(context);
-    var task = Provider.of<List<TaskModel>>(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
     return Container(
         alignment: Alignment.topCenter,
@@ -77,7 +76,7 @@ class Dashboard extends StatelessWidget {
                                               p1: p1,
                                               index: index,
                                               color: Colors.white,
-                                              totalRequest: task.length,
+                                              totalRequest: 200,
                                               icon:
                                                   departement.departementIcon!,
                                             ),

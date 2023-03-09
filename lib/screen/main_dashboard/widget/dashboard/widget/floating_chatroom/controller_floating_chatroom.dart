@@ -87,6 +87,12 @@ class ChatroomControlller with ChangeNotifier {
             }
           });
         });
+      } else {
+        await db.sendComment(
+            context: context,
+            idTask: idTask,
+            commentBody: commentBody.text,
+            imageUrl: []);
       }
 
       // commentBody.clear();

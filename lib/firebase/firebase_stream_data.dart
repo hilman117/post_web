@@ -39,57 +39,10 @@ class FirebaseStreamData {
   }
 
   task(String dept, String status) {
-    if (dept == "" && status == "") {
-      return FirebaseFirestore.instance
-          .collection(hotelListCollection)
-          .doc(user.data.hotelid)
-          .collection(taskCollection)
-          .snapshots(includeMetadataChanges: true);
-    }
-    if (dept != "" && status == "") {
-      return FirebaseFirestore.instance
-          .collection(hotelListCollection)
-          .doc(user.data.hotelid)
-          .collection(taskCollection)
-          .where("status", isNotEqualTo: "Close")
-          .where("assigned", arrayContains: dept)
-          .snapshots(includeMetadataChanges: true);
-    }
-    if (status != "" && status != "Open" && dept == "") {
-      return FirebaseFirestore.instance
-          .collection(hotelListCollection)
-          .doc(user.data.hotelid)
-          .collection(taskCollection)
-          .where("status", isEqualTo: status)
-          .snapshots(includeMetadataChanges: true);
-    }
-    if (status == "Open" && dept == "") {
-      return FirebaseFirestore.instance
-          .collection(hotelListCollection)
-          .doc(user.data.hotelid)
-          .collection(taskCollection)
-          .where("status", isNotEqualTo: "Close")
-          .snapshots(includeMetadataChanges: true);
-    }
-    if (status != "" && dept != "") {
-      return FirebaseFirestore.instance
-          .collection(hotelListCollection)
-          .doc(user.data.hotelid)
-          .collection(taskCollection)
-          .where("status", isEqualTo: status)
-          .where("assigned", arrayContains: dept)
-          .snapshots(includeMetadataChanges: true);
-    }
-  }
-
-  Stream<List<TaskModel>> streamTask() {
-    return db
+    return FirebaseFirestore.instance
         .collection(hotelListCollection)
         .doc(user.data.hotelid)
         .collection(taskCollection)
-        .snapshots(includeMetadataChanges: true)
-        .map((snapshot) => snapshot.docs
-            .map((docs) => TaskModel.fromJson(docs.data()))
-            .toList());
+        .snapshots(includeMetadataChanges: true);
   }
 }

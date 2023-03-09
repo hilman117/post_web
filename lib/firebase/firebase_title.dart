@@ -8,15 +8,30 @@ class FirebaseTitle {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
 
-  addNewTitle(String toDepartement, String newTitle) async {
-    await db
+  Future<DocumentSnapshot<Map<String, dynamic>>> getTitle(String dept) {
+    return FirebaseFirestore.instance
         .collection(hotelListCollection)
-        .doc(user.data.hotel)
+        .doc(user.data.hotelid)
         .collection(departementDoc)
-        .doc(toDepartement)
-        .update({
-      "title": FieldValue.arrayUnion([newTitle.toTitleCase()])
-    });
+        .doc(dept)
+        .get();
+  }
+
+  addNewTitle(String toDepartement, String newTitle) async {
+    try {
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(departementDoc)
+          .doc(toDepartement)
+          .update({
+        "title": FieldValue.arrayUnion([newTitle.toTitleCase()])
+      });
+      getTitle(toDepartement);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
 
   removeTitle(
@@ -27,19 +42,23 @@ class FirebaseTitle {
     //second we delete index that we want to delete
     currentTitle.removeAt(indexToRemove);
 
-    // third, delete entire current list within firestore document
-    await db
-        .collection(hotelListCollection)
-        .doc(user.data.hotel)
-        .collection(departementDoc)
-        .doc(forDepartement)
-        .update({"title": FieldValue.arrayRemove(currentTitle)});
-    //fourth, restore new list to the same firestore document without item that we want to delele
-    await db
-        .collection(hotelListCollection)
-        .doc(user.data.hotel)
-        .collection(departementDoc)
-        .doc(forDepartement)
-        .update({"title": currentTitle});
+    try {
+      // third, delete entire current list within firestore document
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(departementDoc)
+          .doc(forDepartement)
+          .update({"title": FieldValue.arrayRemove(currentTitle)});
+      //fourth, restore new list to the same firestore document without item that we want to delele
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(departementDoc)
+          .doc(forDepartement)
+          .update({"title": currentTitle});
+      getTitle(forDepartement);
+      // ignore: empty_catches
+    } catch (e) {}
   }
 }

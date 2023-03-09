@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/models/general_data.dart';
-import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
@@ -86,13 +85,9 @@ Future<void> main() async {
           create: (BuildContext context) => db.getDepartementData(),
           initialData: const [],
         ),
-        StreamProvider<GeneralData?>(
+        StreamProvider<GeneralData>(
           create: (BuildContext context) => db.streamGeneralData(),
-          initialData: null,
-        ),
-        StreamProvider<List<TaskModel>>(
-          create: (BuildContext context) => db.streamTask(),
-          initialData: const [],
+          initialData: GeneralData(),
         ),
         StreamProvider<List<UserDetails>>(
           create: (BuildContext context) => db.streamEmployeeData(),

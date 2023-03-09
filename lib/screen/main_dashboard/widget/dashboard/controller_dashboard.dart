@@ -75,6 +75,7 @@ class DashboardController with ChangeNotifier {
   selectdepartement(String departement, int selected) {
     selecteddepartement = departement;
     selectedDepartement = selected;
+    Get.back(canPop: true);
     notifyListeners();
   }
 
