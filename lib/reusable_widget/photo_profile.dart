@@ -25,7 +25,7 @@ class PhotoProfile extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               child: LayoutBuilder(builder: (p0, p1) {
                 return Image.asset(
-                  'image/user.png',
+                  'image/profile-user.png',
                   fit: BoxFit.cover,
                   width: p1.maxWidth * 1,
                   height: p1.maxHeight * 1,
@@ -48,7 +48,7 @@ class PhotoProfile extends StatelessWidget {
                                   width: p1.maxWidth * 1,
                                   height: p1.maxHeight * 1,
                                   color: Colors.grey,
-                                  child: Image.asset("image/user.png",
+                                  child: Image.asset("image/profile-user.png",
                                       width: p1.maxWidth * 1),
                                 );
                               } else {
@@ -58,7 +58,7 @@ class PhotoProfile extends StatelessWidget {
                             errorBuilder: (context, error, stackTrace) {
                               // print("ini error nya $error");
                               return Image.asset(
-                                'image/user.png',
+                                'image/profile-user.png',
                                 fit: BoxFit.cover,
                                 // width: width * 0.2,
                               );
@@ -66,7 +66,7 @@ class PhotoProfile extends StatelessWidget {
                           ))
                   : LayoutBuilder(builder: (p0, p1) {
                       return Image.asset(
-                        'image/user.png',
+                        'image/profile-user.png',
                         fit: BoxFit.cover,
                         width: p1.maxWidth * 1,
                         height: p1.maxHeight * 1,

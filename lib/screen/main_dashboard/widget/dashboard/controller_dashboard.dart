@@ -104,11 +104,16 @@ class DashboardController with ChangeNotifier {
   }
 
   //to clear filter by departement and by status
-  clearFilter() {
+  clearDepartementFilter() {
     _selectedDepartment = -1;
+
+    _department = "";
+    notifyListeners();
+  }
+
+  clearStatusFilter() {
     _statusSelected = -1;
     _filterbyStatus = "";
-    _department = "";
     notifyListeners();
   }
 

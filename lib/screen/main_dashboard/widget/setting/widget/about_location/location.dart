@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:post_web/firebase/firebase_location.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_location/widget/add_location.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../controller/c_user.dart';
 import 'widget/location_item.dart';
 
 class AllLocation extends StatelessWidget {
@@ -18,7 +15,6 @@ class AllLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Get.put(CUser());
     return Container(
       alignment: Alignment.bottomCenter,
       width: 300.w,

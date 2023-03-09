@@ -5,7 +5,6 @@ import 'package:post_web/models/user.dart';
 import '../../models/departement.dart';
 import '../const.dart';
 import '../models/general_data.dart';
-import '../models/task.dart';
 
 class FirebaseStreamData {
   final db = FirebaseFirestore.instance;
@@ -38,7 +37,7 @@ class FirebaseStreamData {
             snapshot.docs.map((e) => UserDetails.fromJson(e.data())).toList());
   }
 
-  task(String dept, String status) {
+  task() {
     return FirebaseFirestore.instance
         .collection(hotelListCollection)
         .doc(user.data.hotelid)

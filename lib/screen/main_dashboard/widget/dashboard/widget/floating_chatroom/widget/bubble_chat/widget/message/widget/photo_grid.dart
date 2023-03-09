@@ -123,8 +123,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                 imageUrl,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
-                    return Lottie.asset("image/login-loading.json",
-                        width: 100.w);
+                    return Lottie.asset("image/load_image.png", width: 100.w);
                   } else {
                     return child;
                   }
