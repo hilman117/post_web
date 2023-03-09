@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
+import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
 import '../../models/departement.dart';
 import '../const.dart';
@@ -37,11 +38,14 @@ class FirebaseStreamData {
             snapshot.docs.map((e) => UserDetails.fromJson(e.data())).toList());
   }
 
-  task() {
-    return FirebaseFirestore.instance
+  Stream<List<TaskModel>> streaTask() {
+    return db
         .collection(hotelListCollection)
-        .doc(user.data.hotelid)
+        .doc(user.data.hotel)
         .collection(taskCollection)
-        .snapshots(includeMetadataChanges: true);
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((data) => TaskModel.fromJson(data.data()))
+            .toList());
   }
 }

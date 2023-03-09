@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/firebase/firebase_stream_data.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
 import 'widget/chip_filter.dart';
@@ -10,7 +8,7 @@ import 'widget/search_box.dart';
 import 'widget/streaming_task_widget.dart';
 import 'widget/table_title.dart';
 
-class RowTitle extends StatefulWidget {
+class RowTitle extends StatelessWidget {
   final String departement;
   final String status;
   final BoxConstraints p1;
@@ -23,23 +21,10 @@ class RowTitle extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<RowTitle> createState() => _RowTitleState();
-}
-
-class _RowTitleState extends State<RowTitle> {
-  late Stream<QuerySnapshot<Map<String, dynamic>>> streamTask;
-
-  @override
-  void initState() {
-    streamTask = FirebaseStreamData().task();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
     final valueDashboard = context.watch<DashboardController>();
-    // var tasks = Provider.of<List<TaskModel>>(context, listen: false);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -144,9 +129,7 @@ class _RowTitleState extends State<RowTitle> {
                   height: 20.h,
                 ),
                 StreamingTaskWidget(
-                    streamTask: streamTask,
-                    valueDashboard: valueDashboard,
-                    controller: controller)
+                    valueDashboard: valueDashboard, controller: controller)
               ],
             ),
           ),
