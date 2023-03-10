@@ -5,7 +5,7 @@ import 'package:post_web/screen/main_dashboard/widget/setting/controller_setting
 import 'package:post_web/models/user.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/style.dart';
-import 'package:post_web/reusable_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile_network.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../../../firebase/firebase_account.dart';
@@ -33,7 +33,7 @@ editEmployeeProfile(BuildContext context, UserDetails dataEmployee) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    PhotoProfile(
+                    PhotoProfileNetWork(
                         lebar: 50.w,
                         tinggi: 50.h,
                         radius: 50.sp,

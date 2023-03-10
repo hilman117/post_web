@@ -7,11 +7,12 @@ import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
 import 'package:post_web/reusable_widget/reopen_button.dart';
 import 'package:post_web/style.dart';
-import 'package:post_web/reusable_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile_network.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../firebase/firebase_action_task.dart';
 import '../../../controller_dashboard.dart';
 import '../../floating_chatroom/controller_floating_chatroom.dart';
+import 'assign_task/assign_task.dart';
 import 'status_widget.dart';
 import 'timer.dart';
 
@@ -71,7 +72,7 @@ class _RequestCardState extends State<RequestCard> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(right: 10.w),
-                                  child: PhotoProfile(
+                                  child: PhotoProfileNetWork(
                                       lebar: 25.w,
                                       tinggi: 25.h,
                                       radius: 25.sp,
@@ -161,9 +162,13 @@ class _RequestCardState extends State<RequestCard> {
                                             Tooltip(
                                               message: "Assign",
                                               child: ActionButton(
-                                                callback: () {
-                                                  // print("Assign");
-                                                },
+                                                callback: () =>
+                                                    assignTaskDialog(
+                                                        context,
+                                                        widget.taskModel.id!,
+                                                        widget.taskModel.title!,
+                                                        widget.taskModel
+                                                            .location!),
                                                 color: Colors.blue,
                                                 icon: Icons.assignment,
                                               ),

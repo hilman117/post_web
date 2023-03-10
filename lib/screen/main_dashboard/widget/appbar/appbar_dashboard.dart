@@ -9,7 +9,7 @@ import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/appbar/widget/logout_dialog.dart';
 
-import 'package:post_web/reusable_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile_network.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
@@ -162,7 +162,7 @@ class AppbarDashboard extends StatelessWidget {
                                 height: 0));
                       },
                       child: SizedBox(
-                        child: PhotoProfile(
+                        child: PhotoProfileNetWork(
                             lebar: p1.maxWidth * 0.015,
                             tinggi: p1.maxWidth * 0.015,
                             radius: p1.maxWidth * 0.015,

@@ -51,10 +51,11 @@ closeTaskDialog(BuildContext context, String idTask) {
                         child: YesButton(
                             width: 150.w,
                             nameButton: "Yes",
-                            callback: () {
-                              ctrl.closeTask(context, idTask, commentBody);
+                            callback: Future(() async {
+                              await ctrl.closeTask(
+                                  context, idTask, commentBody);
                               Navigator.pop(context);
-                            }),
+                            })),
                       )
                     ],
                   )

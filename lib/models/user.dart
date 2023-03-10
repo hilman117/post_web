@@ -13,6 +13,7 @@ class UserDetails {
   bool? receiveNotifWhenAccepted;
   bool? receiveNotifWhenClose;
   bool? isOnDuty;
+  bool? sendChatNotif;
   int? acceptRequest;
   int? closeRequest;
   int? createRequest;
@@ -34,6 +35,7 @@ class UserDetails {
       this.closeRequest,
       this.createRequest,
       this.isOnDuty,
+      this.sendChatNotif,
       this.accountType});
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
@@ -53,6 +55,7 @@ class UserDetails {
         closeRequest: json["closeRequest"],
         createRequest: json["createRequest"],
         isOnDuty: json["isOnDuty"],
+        sendChatNotif: json["sendChatNotif"],
         accountType: json["accountType"],
       );
 
@@ -71,6 +74,7 @@ class UserDetails {
         'acceptRequest': acceptRequest,
         'closeRequest': closeRequest,
         'createRequest': createRequest,
+        'sendChatNotif': sendChatNotif,
         'isOnDuty': isOnDuty,
         'department': department,
         'accountType': accountType,

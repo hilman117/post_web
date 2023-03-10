@@ -338,7 +338,6 @@ class Task extends StatelessWidget {
                       ),
                       YesButton(
                         icon: Icons.send_outlined,
-                        callback: () {},
                         nameButton: 'Send',
                         width: 200.w,
                       ),

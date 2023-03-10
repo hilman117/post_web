@@ -1,16 +1,18 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
-class PhotoProfile extends StatelessWidget {
-  final String urlImage;
+class PhotoProfileFile extends StatelessWidget {
+  final Uint8List? fileImage;
   final double lebar;
   final double tinggi;
   final double radius;
-  const PhotoProfile(
+  const PhotoProfileFile(
       {Key? key,
       required this.lebar,
       required this.tinggi,
       required this.radius,
-      required this.urlImage})
+      required this.fileImage})
       : super(key: key);
 
   @override
@@ -35,26 +37,13 @@ class PhotoProfile extends StatelessWidget {
             ClipRRect(
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(50),
-              child: urlImage != ''
+              child: fileImage != null
                   ? LayoutBuilder(
-                      builder: (p0, p1) => Image.network(
-                            urlImage,
+                      builder: (p0, p1) => Image.memory(
+                            fileImage!,
                             fit: BoxFit.cover,
                             width: p1.maxWidth * 1,
                             height: p1.maxHeight * 1,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress != null) {
-                                return Container(
-                                  width: p1.maxWidth * 1,
-                                  height: p1.maxHeight * 1,
-                                  color: Colors.grey,
-                                  child: Image.asset("image/profile-user.png",
-                                      width: p1.maxWidth * 1),
-                                );
-                              } else {
-                                return child;
-                              }
-                            },
                             errorBuilder: (context, error, stackTrace) {
                               // print("ini error nya $error");
                               return Image.asset(

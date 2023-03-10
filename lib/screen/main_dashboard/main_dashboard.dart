@@ -20,9 +20,14 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard>
     with TickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) {
-    // Provider.of<FirebaseGeneralData>(context, listen: false);
+  void initState() {
+    Provider.of<MainDashboardController>(context, listen: false)
+        .getProfileData();
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     //this is tabcontroller for craete task page
     TabController _tabController = TabController(length: 2, vsync: this);
     final size = MediaQuery.of(context).size;

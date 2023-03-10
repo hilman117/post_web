@@ -7,8 +7,10 @@ class NoButton extends StatelessWidget {
     required this.width,
     required this.callback,
     this.icon,
+    this.fontSize,
   }) : super(key: key);
   final double width;
+  final double? fontSize;
   final VoidCallback callback;
   final IconData? icon;
 
@@ -39,7 +41,8 @@ class NoButton extends StatelessWidget {
                   : const SizedBox(),
               Text(
                 "Cancel",
-                style: TextStyle(fontSize: 20.sp, color: Colors.black54),
+                style: TextStyle(
+                    fontSize: fontSize ?? 20.sp, color: Colors.black54),
               )
             ],
           )),

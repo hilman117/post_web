@@ -6,7 +6,7 @@ import 'package:post_web/models/user.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/style.dart';
-import 'package:post_web/reusable_widget/photo_profile.dart';
+import 'package:post_web/reusable_widget/photo_profile_network.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../firebase/firebase_account.dart';
@@ -156,7 +156,7 @@ class EmployeeTile extends StatelessWidget {
     return ListTile(
       title: Row(
         children: [
-          PhotoProfile(
+          PhotoProfileNetWork(
               lebar: 25.w,
               tinggi: 25.h,
               radius: 25.sp,

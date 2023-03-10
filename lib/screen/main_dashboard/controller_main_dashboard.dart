@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:post_web/firebase/firebase_profile.dart';
+import 'package:post_web/models/user.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/lf_report/lf_report.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/report.dart';
@@ -29,7 +34,6 @@ class MainDashboardController with ChangeNotifier {
 
   hoveringMenu(int index) {
     menuHovering = index;
-
     notifyListeners();
   }
 
@@ -44,4 +48,63 @@ class MainDashboardController with ChangeNotifier {
     _isProfileViewOpen = !_isProfileViewOpen;
     notifyListeners();
   }
+
+//CRUD  Profile data
+  UserDetails? userDetails;
+  getProfileData() {
+    var db = FirebaseProfile().getProfileData();
+    db.then((value) {
+      userDetails = UserDetails.fromJson(value.data()!);
+      notifyListeners();
+    });
+  }
+
+  String imageName = '';
+  final ImagePicker _picker = ImagePicker();
+  Uint8List? imageToUpload;
+  XFile? selectedImages;
+  String imageUrl = "";
+  Future<void> selectImage() async {
+    selectedImages =
+        await _picker.pickImage(imageQuality: 30, source: ImageSource.gallery);
+    notifyListeners();
+    if (selectedImages != null) {
+      imageToUpload = await XFile(selectedImages!.path).readAsBytes();
+      notifyListeners();
+    }
+  }
+
+  uploadImage() async {
+    if (imageToUpload != null) {
+      String imageExtension = imageName.split('.').last;
+      final ref = FirebaseStorage.instance.ref(
+          "${userDetails!.hotel}/${userDetails!.uid} + ${DateTime.now().toString()}.$imageExtension");
+      await ref.putString(imageToUpload.toString());
+      await ref.getDownloadURL().then((value) {
+        imageUrl = value;
+        //print(imageUrl);
+        notifyListeners();
+      });
+    }
+  }
+
+  updateSettingProfile({
+    bool? notifReceived,
+    bool? notifClose,
+    bool? onDuty,
+    bool? sendChatNotif,
+  }) async {
+    var db = FirebaseProfile();
+    try {
+      await db.updateSettingProfile(
+          notifReceived ?? userDetails!.receiveNotifWhenAccepted!,
+          notifClose ?? userDetails!.receiveNotifWhenClose!,
+          onDuty ?? userDetails!.isOnDuty!,
+          sendChatNotif ?? userDetails!.sendChatNotif!,
+          imageUrl == "" ? userDetails!.profileImage! : imageUrl);
+      getProfileData();
+      notifyListeners();
+    } catch (e) {}
+  }
+  //----------------------------------------------------------------
 }

@@ -92,6 +92,7 @@ class FirebaseAccount with ChangeNotifier {
           'ReceiveNotifWhenAccepted': true,
           'ReceiveNotifWhenClose': true,
           'isOnDuty': true,
+          'sendChatNotif': true,
           'token': [],
           "profileImage": "",
           "userColor": colorUser,

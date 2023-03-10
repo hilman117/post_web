@@ -53,12 +53,12 @@ logoutDialog(BuildContext context) {
                       YesButton(
                         width: 200.w,
                         nameButton: "Yes",
-                        callback: () async {
+                        callback: Future(() async {
                           Navigator.of(context).pop();
                           await auth.signOut();
                           Get.offAll(const LandingPage(),
                               transition: Transition.rightToLeft);
-                        },
+                        }),
                       )
                     ],
                   )

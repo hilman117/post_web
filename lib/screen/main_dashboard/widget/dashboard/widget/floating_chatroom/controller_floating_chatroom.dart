@@ -14,8 +14,6 @@ class ChatroomControlller with ChangeNotifier {
   //funtion pick image
   String imageName = '';
   final ImagePicker _picker = ImagePicker();
-  XFile? _fromCamera;
-  XFile? get fromCamera => _fromCamera;
   List<Uint8List> imageList = [];
   List<String> imageUrl = [];
   Future<void> selectImage() async {

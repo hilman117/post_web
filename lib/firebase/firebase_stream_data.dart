@@ -38,7 +38,7 @@ class FirebaseStreamData {
             snapshot.docs.map((e) => UserDetails.fromJson(e.data())).toList());
   }
 
-  Stream<List<TaskModel>> streaTask() {
+  Stream<List<TaskModel>> streamTask() {
     return db
         .collection(hotelListCollection)
         .doc(user.data.hotel)

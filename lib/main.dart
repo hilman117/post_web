@@ -83,7 +83,7 @@ Future<void> main() async {
           create: (context) => ChatroomControlller(),
         ),
         StreamProvider<List<TaskModel>>(
-          create: (BuildContext context) => db.streaTask(),
+          create: (BuildContext context) => db.streamTask(),
           initialData: const [],
         ),
         StreamProvider<List<Departement>>(
