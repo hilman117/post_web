@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/const.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../../reusable_widget/no_button.dart';
 import '../../../../../../../../reusable_widget/yes_button.dart';
@@ -9,6 +12,9 @@ import 'widget/team_list.dart';
 
 assignTaskDialog(BuildContext context, String idTask, String titleTask,
     String locationTask) {
+  final controller = Provider.of<ChatroomControlller>(context, listen: false);
+  TextEditingController search = TextEditingController();
+
   return showDialog(
     context: context,
     builder: (context) {
@@ -44,17 +50,29 @@ assignTaskDialog(BuildContext context, String idTask, String titleTask,
               SizedBox(
                   height: 35.h,
                   child: TextFormField(
+                    controller: search,
+                    onChanged: (value) {
+                      controller.searchingOnAssignDialog(value);
+                    },
                     textAlignVertical: TextAlignVertical.center,
                     cursorHeight: 20.h,
                     style: style20Normal,
                     decoration: InputDecoration(
-                        hintStyle: TextStyle(fontSize: 20.sp),
-                        hintText: 'Search',
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 20.sp,
-                          color: Colors.grey,
-                        )),
+                      hintStyle: TextStyle(fontSize: 20.sp),
+                      hintText: 'Search',
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 20.sp,
+                        color: Colors.grey,
+                      ),
+                      border: InputBorder.none,
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 0.5, color: mainColor2)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 0.5, color: mainColor2)),
+                    ),
                   )),
               SizedBox(
                 height: 10.h,
@@ -80,20 +98,25 @@ assignTaskDialog(BuildContext context, String idTask, String titleTask,
                       child: NoButton(
                         fontSize: 16.sp,
                         width: 150.w,
-                        callback: () => Navigator.of(context).pop(),
+                        callback: () {
+                          Navigator.of(context).pop();
+                          controller.cleaList();
+                        },
                       ),
                     ),
                     SizedBox(
                       width: 20.w,
                     ),
                     SizedBox(
-                      height: 40.h,
-                      child: YesButton(
-                        fontSize: 16.sp,
-                        nameButton: "Assign",
-                        width: 150.w,
-                      ),
-                    )
+                        height: 40.h,
+                        child: Consumer<ChatroomControlller>(
+                          builder: (context, value, child) => YesButton(
+                            callback: value.assignTo.isNotEmpty ? () {} : null,
+                            fontSize: 16.sp,
+                            nameButton: "Assign",
+                            width: 150.w,
+                          ),
+                        ))
                   ],
                 ),
               )

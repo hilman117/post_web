@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../../../../../firebase/firebase_action_task.dart';
 import '../../../controller_dashboard.dart';
 import '../../floating_chatroom/controller_floating_chatroom.dart';
-import 'assign_task/assign_task.dart';
+import '../../floating_chatroom/widget/assign_task/assign_task.dart';
 import 'status_widget.dart';
 import 'timer.dart';
 

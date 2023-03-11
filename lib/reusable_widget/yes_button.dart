@@ -13,7 +13,7 @@ class YesButton extends StatelessWidget {
   }) : super(key: key);
   final double? width;
   final String nameButton;
-  final Future? callback;
+  final VoidCallback? callback;
   final IconData? icon;
   final double? fontSize;
 
@@ -29,7 +29,7 @@ class YesButton extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               )),
-          onPressed: () => callback,
+          onPressed: callback,
           child: Row(
             mainAxisAlignment: icon != null
                 ? MainAxisAlignment.spaceEvenly

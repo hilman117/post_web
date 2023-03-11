@@ -102,4 +102,27 @@ class ChatroomControlller with ChangeNotifier {
   }
 
   closeTask() {}
+
+  //function to select person or group to assign the request
+  String search = "";
+  searchingOnAssignDialog(String searchingTex) {
+    search = searchingTex;
+    notifyListeners();
+  }
+
+  List<String> assignTo = [];
+  inputAssignTask(String selectedPersonOrDepartement) {
+    assignTo.add(selectedPersonOrDepartement);
+    notifyListeners();
+  }
+
+  removeAssignTask(String unSelectedPersonOrDepartement) {
+    assignTo.remove(unSelectedPersonOrDepartement);
+    notifyListeners();
+  }
+
+  cleaList() {
+    assignTo.clear();
+    notifyListeners();
+  }
 }
