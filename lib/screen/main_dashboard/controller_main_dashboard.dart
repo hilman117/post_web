@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:post_web/firebase/firebase_profile.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/dashboard.dart';
-import 'package:post_web/screen/main_dashboard/widget/lf_report/lf_report.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/report.dart';
 
 import 'package:post_web/screen/main_dashboard/widget/setting/setting.dart';
@@ -16,17 +15,11 @@ class MainDashboardController with ChangeNotifier {
   int get menuSelected => _menuSelected;
   int menuHovering = -1;
 
-  List<Widget> pages = [
-    const Dashboard(),
-    const Report(),
-    const LFReport(),
-    const SettingView()
-  ];
-  List<String> menuDashboard = ["Dashboard", "Report", "Lost & Found", "Admin"];
+  List<Widget> pages = [const Dashboard(), const Report(), const SettingView()];
+  List<String> menuDashboard = ["Dashboard", "Report", "Admin"];
   List<IconData> iconMenu = [
     Icons.dashboard_outlined,
     Icons.analytics_outlined,
-    Icons.fmd_good_sharp,
     Icons.admin_panel_settings_outlined
   ];
   bool _isProfileViewOpen = false;
@@ -104,7 +97,10 @@ class MainDashboardController with ChangeNotifier {
           imageUrl == "" ? userDetails!.profileImage! : imageUrl);
       getProfileData();
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
   //----------------------------------------------------------------
 

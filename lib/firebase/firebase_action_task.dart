@@ -4,32 +4,17 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
-import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class FirebaseActionTask with ChangeNotifier {
+class FirebaseActionTask {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
 
-  int? _newTotalAccepted;
-  int? get newTotalAccepted => _newTotalAccepted;
-  addNewAcceptedTotal(BuildContext context, int addOne) {
-    if (_newTotalAccepted == null) {
-      _newTotalAccepted = user.data.acceptRequest! + addOne;
-      db
-          .collection(userCollection)
-          .doc(user.data.email)
-          .update({'acceptRequest': _newTotalAccepted});
-      notifyListeners();
-    } else {
-      _newTotalAccepted = (newTotalAccepted! + addOne);
-      db
-          .collection(userCollection)
-          .doc(user.data.email)
-          .update({'acceptRequest': _newTotalAccepted});
-      notifyListeners();
-    }
+  addNewAcceptedTotal(int newTotalAccepted) {
+    db
+        .collection(userCollection)
+        .doc(user.data.email)
+        .update({'acceptRequest': newTotalAccepted});
   }
 
   acceptTask(BuildContext context, String idTask) async {
@@ -68,9 +53,6 @@ class FirebaseActionTask with ChangeNotifier {
         }
       ])
     });
-    await addNewAcceptedTotal(context, 1);
-    Provider.of<ChatroomControlller>(context, listen: false)
-        .newStatus("Accepted");
     Future.delayed(
       const Duration(seconds: 4),
       () async {
@@ -137,23 +119,11 @@ class FirebaseActionTask with ChangeNotifier {
     );
   }
 
-  int? newTotalClose;
-  addNewCLoseTotal(BuildContext context, int addOne) {
-    if (newTotalClose == null) {
-      newTotalClose = user.data.closeRequest! + addOne;
-      db
-          .collection(userCollection)
-          .doc(user.data.email)
-          .update({'closeRequest': newTotalClose});
-      notifyListeners();
-    } else {
-      newTotalClose = (newTotalAccepted! + addOne);
-      db
-          .collection(userCollection)
-          .doc(user.data.email)
-          .update({'closeRequest': newTotalClose});
-      notifyListeners();
-    }
+  addNewCLoseTotal(int newTotalClose) {
+    db
+        .collection(userCollection)
+        .doc(user.data.email)
+        .update({'closeRequest': newTotalClose});
   }
 
   closeTask(BuildContext context, String idTask,
@@ -196,10 +166,6 @@ class FirebaseActionTask with ChangeNotifier {
           }
         ])
       });
-      Provider.of<ChatroomControlller>(context, listen: false)
-          .newStatus("Close");
-      await addNewCLoseTotal(context, 1);
-      commentBody.clear();
       // Navigator.of(context).pop();
       Future.delayed(
         const Duration(seconds: 4),
@@ -213,7 +179,8 @@ class FirebaseActionTask with ChangeNotifier {
         },
       );
     } catch (e) {
-      // ShowDialog().errorDialog(context, "Something went wrong");
+      ShowDialog().errorDialog(
+          context, "Something went wrong, cannot change the status");
     }
   }
 
@@ -254,8 +221,6 @@ class FirebaseActionTask with ChangeNotifier {
           }
         ])
       });
-      Provider.of<ChatroomControlller>(context, listen: false)
-          .newStatus("Reopen");
       Future.delayed(
         const Duration(seconds: 4),
         () async {
@@ -268,7 +233,8 @@ class FirebaseActionTask with ChangeNotifier {
         },
       );
     } catch (e) {
-      ShowDialog().errorDialog(context, "Something went wrong");
+      ShowDialog().errorDialog(
+          context, "Something went wrong, cannot change the status");
     }
   }
 
@@ -309,8 +275,6 @@ class FirebaseActionTask with ChangeNotifier {
           }
         ])
       });
-      Provider.of<ChatroomControlller>(context, listen: false)
-          .newStatus("Hold");
       Future.delayed(
         const Duration(seconds: 4),
         () async {
@@ -323,7 +287,64 @@ class FirebaseActionTask with ChangeNotifier {
         },
       );
     } catch (e) {
-      ShowDialog().errorDialog(context, "Something went wrong");
+      ShowDialog().errorDialog(
+          context, "Something went wrong, cannot change the status");
+    }
+  }
+
+  assignTask(BuildContext context, String idTask,
+      List<String> listReceiverAssignment) async {
+    try {
+      await db
+          .collection(hotelListCollection)
+          .doc(user.data.hotel)
+          .collection(taskCollection)
+          .doc(idTask)
+          .update({
+        "assigned": FieldValue.arrayUnion(listReceiverAssignment),
+        "status": "Assigned",
+        'isFading': true,
+        "receiver": "${user.data.name}",
+        "emailReceiver": user.data.email,
+        "comment": FieldValue.arrayUnion([
+          {
+            "timeSent": DateTime.now(),
+            'accepted': "",
+            'colorUser': user.data.userColor,
+            'assignTask': "",
+            'assignTo': listReceiverAssignment.join(", "),
+            'commentBody': "",
+            'commentId': const Uuid().v4(),
+            'description': "",
+            'esc': '',
+            'imageComment': [],
+            'sender': user.data.name,
+            'senderemail': user.data.email,
+            'setDate': '',
+            'setTime': '',
+            'time': DateTime.now(),
+            'titleChange': "",
+            'newlocation': "",
+            'hold': "",
+            'resume': "",
+            'scheduleDelete': "",
+          }
+        ])
+      });
+      Future.delayed(
+        const Duration(seconds: 4),
+        () async {
+          FirebaseFirestore.instance
+              .collection(hotelListCollection)
+              .doc(user.data.hotel)
+              .collection(taskCollection)
+              .doc(idTask)
+              .update({'isFading': false});
+        },
+      );
+    } catch (e) {
+      ShowDialog().errorDialog(
+          context, "Something went wrong, cannot change the status");
     }
   }
 }

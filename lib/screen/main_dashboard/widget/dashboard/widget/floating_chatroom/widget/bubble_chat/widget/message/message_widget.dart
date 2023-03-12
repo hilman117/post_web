@@ -29,8 +29,7 @@ class MessageWidget extends StatelessWidget {
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       width: 350.w,
       child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: p2.maxWidth * 0.04, vertical: p2.maxHeight * 0.01),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: isMe ? Colors.blue.shade50 : Color(color).withOpacity(0.1)),

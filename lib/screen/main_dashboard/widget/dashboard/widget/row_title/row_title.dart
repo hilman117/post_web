@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/const.dart';
+import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
 import 'widget/chip_filter.dart';
@@ -111,7 +113,57 @@ class RowTitle extends StatelessWidget {
                         child: Container(
                             alignment: Alignment.centerRight,
                             height: 50.h,
-                            child: const SearchBox()),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  child: SizedBox(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Filter",
+                                          style: style18Normal,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Icon(
+                                          Icons.date_range,
+                                          color: mainColor2,
+                                          size: 25.sp,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50.w,
+                                ),
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(50),
+                                  onTap: () {},
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle),
+                                      width: 40.w,
+                                      height: 40.h,
+                                      child: Icon(
+                                        Icons.print,
+                                        size: 25.sp,
+                                        color: mainColor2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50.w,
+                                ),
+                                const SearchBox(),
+                              ],
+                            )),
                       )
                     ],
                   ),

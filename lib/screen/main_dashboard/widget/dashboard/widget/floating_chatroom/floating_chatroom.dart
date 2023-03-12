@@ -177,8 +177,10 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
 
                                           return ListView.builder(
                                               reverse: true,
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 2),
+                                              padding: EdgeInsets.only(
+                                                  right: 10.w,
+                                                  left: 10.w,
+                                                  bottom: 2.h),
                                               controller: scrollController,
                                               itemCount: chatModel.length,
                                               itemBuilder: (context, index) {

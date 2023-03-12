@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/firebase/firebase_action_task.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/reusable_widget/no_button.dart';
 import 'package:post_web/reusable_widget/texfield.dart';
 import 'package:post_web/reusable_widget/yes_button.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 closeTaskDialog(BuildContext context, String idTask) {
-  final ctrl = Provider.of<FirebaseActionTask>(context, listen: false);
+  final ctrl = Provider.of<ChatroomControlller>(context, listen: false);
   final TextEditingController commentBody = TextEditingController();
   return showDialog(
       context: context,

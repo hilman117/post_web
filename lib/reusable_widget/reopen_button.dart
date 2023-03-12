@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/firebase/firebase_action_task.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:provider/provider.dart';
 
 import '../const.dart';
@@ -16,7 +16,7 @@ class ReopenButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ctrl = Provider.of<FirebaseActionTask>(context, listen: false);
+    final ctrl = Provider.of<ChatroomControlller>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

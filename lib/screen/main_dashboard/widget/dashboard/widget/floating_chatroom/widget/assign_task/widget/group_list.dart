@@ -39,8 +39,8 @@ class GroupList extends StatelessWidget {
                               item.departement
                                   .toString()
                                   .toLowerCase()
-                                  .contains(value.search.toLowerCase()) ||
-                          value.search == "") {
+                                  .contains(value.searchText.toLowerCase()) ||
+                          value.searchText == "") {
                         return InkWell(
                           onTap: () {
                             if (value.assignTo.contains(item.departement)) {

@@ -111,7 +111,10 @@ assignTaskDialog(BuildContext context, String idTask, String titleTask,
                         height: 40.h,
                         child: Consumer<ChatroomControlller>(
                           builder: (context, value, child) => YesButton(
-                            callback: value.assignTo.isNotEmpty ? () {} : null,
+                            callback: value.assignTo.isNotEmpty
+                                ? () => controller.assignTask(
+                                    context, idTask, search)
+                                : null,
                             fontSize: 16.sp,
                             nameButton: "Assign",
                             width: 150.w,

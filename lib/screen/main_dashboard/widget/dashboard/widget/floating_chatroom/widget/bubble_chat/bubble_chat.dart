@@ -118,7 +118,7 @@ class BubbleChat extends StatelessWidget {
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage:
-                    "${chatModel.sender} has assigned this task to ${chatModel.assignTo!}",
+                    "${chatModel.sender} has assigned this task to ${chatModel.assignTo}",
                 icons: Icons.assignment,
                 iconColor: mainColor,
                 chatModel: chatModel,

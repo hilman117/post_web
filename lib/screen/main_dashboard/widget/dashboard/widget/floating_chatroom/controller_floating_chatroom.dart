@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,7 +13,14 @@ import 'package:post_web/reusable_widget/show_dialog.dart';
 class ChatroomControlller with ChangeNotifier {
   var db = FirebaseActionTask();
   final user = Get.put(CUser());
-  //funtion pick image
+
+  String currentStatus = "";
+  newStatus(String newStatus) {
+    currentStatus = newStatus;
+    notifyListeners();
+  }
+
+  //[PICK IMAGE]
   String imageName = '';
   final ImagePicker _picker = ImagePicker();
   List<Uint8List> imageList = [];
@@ -25,7 +34,7 @@ class ChatroomControlller with ChangeNotifier {
         notifyListeners();
       }
     }
-    // ignore: avoid_print
+
     print(imageList.length);
   }
 
@@ -41,6 +50,116 @@ class ChatroomControlller with ChangeNotifier {
   }
   //-----------------------------------------------------------------
 
+  //[ACCEPTTASK] function
+  //firstly, check how many total request that this user have accept
+  //So when this user click on accept button the total will increase
+  int? _newTotalAccepted;
+  int? get newTotalAccepted => _newTotalAccepted;
+  addNewAcceptedTotal(BuildContext context, int addOne) {
+    if (_newTotalAccepted == null) {
+      _newTotalAccepted = user.data.acceptRequest! + addOne;
+      db.addNewAcceptedTotal(_newTotalAccepted!);
+      notifyListeners();
+    } else {
+      _newTotalAccepted = (newTotalAccepted! + addOne);
+      db.addNewAcceptedTotal(_newTotalAccepted!);
+      notifyListeners();
+    }
+  }
+
+  bool isAcceptProgress = false;
+  accepTask(BuildContext context, String idTask) async {
+    try {
+      isAcceptProgress = true;
+      notifyListeners();
+      await db.acceptTask(context, idTask);
+      addNewAcceptedTotal(context, 1);
+      newStatus("Accepted");
+      isAcceptProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isAcceptProgress = false;
+      notifyListeners();
+      print(e);
+    }
+  }
+  //----------------------------------------------------------------
+
+  //[CLOSETASK] function
+  //firstly, check how many total request that this user have close
+  //So when this user click on close button the total will increase
+  int? newTotalClose;
+  addNewCLoseTotal(BuildContext context, int addOne) {
+    try {
+      if (newTotalClose == null) {
+        newTotalClose = user.data.closeRequest! + addOne;
+        db.addNewCLoseTotal(newTotalClose!);
+        notifyListeners();
+      } else {
+        newTotalClose = (newTotalClose! + addOne);
+        db.addNewAcceptedTotal(newTotalAccepted!);
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  bool isCloseProgress = false;
+  closeTask(BuildContext context, String idTask,
+      TextEditingController commentBody) async {
+    try {
+      isCloseProgress = true;
+      notifyListeners();
+      await db.closeTask(context, idTask, commentBody);
+      addNewCLoseTotal(context, 1);
+      newStatus("Close");
+      isCloseProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isCloseProgress = false;
+      notifyListeners();
+      print(e);
+    }
+  }
+  //----------------------------------------------------------------
+
+  //[HOLDTASK] function
+  bool isHoldProgress = false;
+  holdTask(BuildContext context, String idTask) async {
+    try {
+      isHoldProgress = true;
+      notifyListeners();
+      await db.holdTask(context, idTask);
+      newStatus("Hold");
+      isHoldProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isHoldProgress = false;
+      notifyListeners();
+      print(e);
+    }
+  }
+//--------------------------------------------------------------------
+
+//[REOPENTASK] function
+  bool isReopenProgress = false;
+  reopenTask(BuildContext context, String idTask) async {
+    try {
+      isAssignProgress = true;
+      notifyListeners();
+      await db.reopenTask(context, idTask);
+      newStatus("Hold");
+      isAssignProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isAssignProgress = false;
+      notifyListeners();
+      print(e);
+    }
+  }
+//---------------------------------------------------------------------
+
   //send comment function
   bool loadingImages = false;
   void loadimage(bool newValue) {
@@ -48,18 +167,15 @@ class ChatroomControlller with ChangeNotifier {
     notifyListeners();
   }
 
-  String currentStatus = "";
-  newStatus(String newStatus) {
-    currentStatus = newStatus;
-    notifyListeners();
-  }
-
+  bool isSendCommentProgress = false;
   sendComment(BuildContext context, ScrollController scrollController,
       String idTask, TextEditingController commentBody) async {
     imageUrl.clear();
     notifyListeners();
     try {
       if (imageList.isNotEmpty) {
+        isSendCommentProgress = true;
+        notifyListeners();
         imageList.forEach((imageToUpload) async {
           String imageExtension = imageName.split('.').last;
           loadimage(true);
@@ -69,11 +185,11 @@ class ChatroomControlller with ChangeNotifier {
           await ref.getDownloadURL().then((value) async {
             imageUrl.add(value);
             notifyListeners();
-            // ignore: avoid_print
+
             // print("ini image list sebelum di upload ${imageList.length}");
             // print(
             //     "ini image list stelah di upload di upload ${imageUrl.length}");
-            // ignore: avoid_print
+
             print("$imageUrl");
             if (imageUrl.length == imageList.length) {
               imageList.clear();
@@ -85,28 +201,34 @@ class ChatroomControlller with ChangeNotifier {
             }
           });
         });
+        isSendCommentProgress = false;
+        notifyListeners();
       } else {
+        isSendCommentProgress = true;
+        notifyListeners();
         await db.sendComment(
             context: context,
             idTask: idTask,
             commentBody: commentBody.text,
             imageUrl: []);
+        isSendCommentProgress = false;
+        notifyListeners();
       }
 
       // commentBody.clear();
     } catch (e) {
       ShowDialog().errorDialog(context, "Something went wong!");
-      // ignore: avoid_print
+      isSendCommentProgress = false;
+      notifyListeners();
       print(e);
     }
   }
-
-  closeTask() {}
+  //--------------------------------------------------------------
 
   //function to select person or group to assign the request
-  String search = "";
+  String searchText = "";
   searchingOnAssignDialog(String searchingTex) {
-    search = searchingTex;
+    searchText = searchingTex;
     notifyListeners();
   }
 
@@ -124,5 +246,26 @@ class ChatroomControlller with ChangeNotifier {
   cleaList() {
     assignTo.clear();
     notifyListeners();
+  }
+
+  bool isAssignProgress = false;
+  assignTask(
+      BuildContext context, String idTask, TextEditingController search) async {
+    try {
+      isAssignProgress = true;
+      notifyListeners();
+      await db.assignTask(context, idTask, assignTo);
+      newStatus("Assigned");
+      Navigator.pop(context);
+      cleaList();
+      search.clear();
+      searchText = "";
+      isAssignProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isAssignProgress = false;
+      notifyListeners();
+      print(e);
+    }
   }
 }

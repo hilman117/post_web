@@ -34,7 +34,7 @@ class TableTitle extends StatelessWidget {
           child: Text("Title", style: style20Normal),
         ),
         Container(
-          alignment: Alignment.center,
+          alignment: Alignment.centerLeft,
           width: 200.w,
           child: Text("Description", style: style20Normal),
         ),

@@ -32,10 +32,8 @@ class StreamingTaskWidget extends StatelessWidget {
                       .contains(taskModel.sendTo!.toLowerCase()) &&
                   valueDashboard.filterbyStatus == "") {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,
@@ -46,10 +44,8 @@ class StreamingTaskWidget extends StatelessWidget {
                       .contains(taskModel.status!.toLowerCase()) &&
                   valueDashboard.department == "") {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,
@@ -62,10 +58,8 @@ class StreamingTaskWidget extends StatelessWidget {
                       .toLowerCase()
                       .contains(taskModel.sendTo!.toLowerCase())) {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,
@@ -77,10 +71,8 @@ class StreamingTaskWidget extends StatelessWidget {
                   taskModel.status != "Close" &&
                   valueDashboard.department == "") {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,
@@ -94,10 +86,8 @@ class StreamingTaskWidget extends StatelessWidget {
                       .toLowerCase()
                       .contains(taskModel.sendTo!.toLowerCase())) {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,
@@ -106,10 +96,8 @@ class StreamingTaskWidget extends StatelessWidget {
               } else if (valueDashboard.filterbyStatus == "" &&
                   valueDashboard.department == "") {
                 return MouseRegion(
-                  onEnter: (event) =>
-                      controller.hovering(cardRequestHover: true, index: index),
-                  onExit: (event) =>
-                      controller.hovering(cardRequestHover: false),
+                  onEnter: (event) => controller.hovering(index: index),
+                  onExit: (event) => controller.hovering(index: -1),
                   child: RequestCard(
                     index: index,
                     taskModel: taskModel,

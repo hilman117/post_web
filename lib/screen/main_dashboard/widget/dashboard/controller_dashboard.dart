@@ -44,17 +44,10 @@ class DashboardController with ChangeNotifier {
   bool get isChatroomOpen => _isChatroomOpen;
 
 //hoveirng function
-  bool _cardHovering = false;
-  bool get cardHovering => _cardHovering;
   int indexHovering = -1;
   bool departementBoxHovering = false;
   int departementHoveringIndex = -1;
-  hovering(
-      {bool? cardRequestHover,
-      int? index,
-      bool? isDeptementInHover,
-      int? departementIndex}) {
-    _cardHovering = cardRequestHover ?? false;
+  hovering({int? index, bool? isDeptementInHover, int? departementIndex}) {
     indexHovering = index ?? -1;
     departementBoxHovering = isDeptementInHover ?? false;
     departementHoveringIndex = departementIndex ?? -1;

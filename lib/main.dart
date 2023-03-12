@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
 import 'firebase/firebase_account.dart';
 import 'firebase/firebase_stream_data.dart';
-import 'firebase/firebase_action_task.dart';
+
 
 Box? box;
 final db = FirebaseStreamData();
@@ -75,9 +75,6 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => FirebaseAccount(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => FirebaseActionTask(),
         ),
         ChangeNotifierProvider(
           create: (context) => ChatroomControlller(),
