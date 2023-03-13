@@ -45,17 +45,17 @@ class DashboardController with ChangeNotifier {
 
 //hoveirng function
   int indexHovering = -1;
-  bool departementBoxHovering = false;
+
   int departementHoveringIndex = -1;
-  hovering({int? index, bool? isDeptementInHover, int? departementIndex}) {
+  hovering({int? index, int? departementIndex}) {
     indexHovering = index ?? -1;
-    departementBoxHovering = isDeptementInHover ?? false;
+
     departementHoveringIndex = departementIndex ?? -1;
     notifyListeners();
   }
 
 //funtion for selecting index in a list
-  int hoveringIndex = 0;
+  int hoveringIndex = -1;
   int selectedDepartement = -1;
   selectIndex({int? newIndex, int? hoverIndex}) {
     selectedDepartement = newIndex ?? -1;

@@ -178,12 +178,12 @@ class AppbarDashboard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
-                          Icons.logout_outlined,
-                          color: mainColor,
+                          Icons.exit_to_app_outlined,
+                          color: mainColor2,
                         ),
                         Text(
                           "logout",
-                          style: TextStyle(fontSize: p1.maxWidth * 0.005),
+                          style: style15Normal,
                         )
                       ],
                     ),

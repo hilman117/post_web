@@ -28,8 +28,7 @@ class ItemList extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.all(8.sp),
         decoration: BoxDecoration(
-            color: (valueController.isHover == true &&
-                    valueController.hoveringIndex == index)
+            color: (valueController.hoveringIndex == index)
                 ? Colors.blue
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(6)),

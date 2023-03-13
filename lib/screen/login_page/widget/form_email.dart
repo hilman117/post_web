@@ -27,7 +27,7 @@ class FormEmail extends StatelessWidget {
         width: 570.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: mainColor.withOpacity(0.2)),
+            color: mainColor2.withOpacity(0.2)),
         child: TextFormField(
           keyboardType: TextInputType.emailAddress,
           autofillHints: const [AutofillHints.email],

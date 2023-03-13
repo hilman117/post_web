@@ -33,7 +33,7 @@ class _RequestCardState extends State<RequestCard> {
   Widget build(BuildContext context) {
     final functionChatCtrl =
         Provider.of<ChatroomControlller>(context, listen: false);
-    final chatCtrl = context.watch<ChatroomControlller>();
+
     final dashboardCtrl = context.watch<DashboardController>();
     // final local = AppLocalizations.of(context)!;
 
@@ -58,7 +58,6 @@ class _RequestCardState extends State<RequestCard> {
           padding: const EdgeInsets.symmetric(vertical: 0),
           child: Column(
             children: [
-              // index == 1 ? const Divider() : const SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,17 +144,10 @@ class _RequestCardState extends State<RequestCard> {
                                     callback: () => functionChatCtrl.accepTask(
                                         context, widget.taskModel.id!),
                                     color: Colors.green,
-                                    widget: chatCtrl.isAcceptProgress
-                                        ? Transform.scale(
-                                            scale: 0.5,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            ))
-                                        : Icon(
-                                            Icons.check,
-                                            size: 20.sp,
-                                          ),
+                                    widget: Icon(
+                                      Icons.check,
+                                      size: 20.sp,
+                                    ),
                                   ),
                                 ),
                                 Tooltip(
@@ -170,17 +162,10 @@ class _RequestCardState extends State<RequestCard> {
                                           widget.taskModel.location!);
                                     },
                                     color: Colors.blue,
-                                    widget: chatCtrl.isAssignProgress
-                                        ? Transform.scale(
-                                            scale: 0.5,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            ))
-                                        : Icon(
-                                            Icons.assignment,
-                                            size: 20.sp,
-                                          ),
+                                    widget: Icon(
+                                      Icons.assignment,
+                                      size: 20.sp,
+                                    ),
                                   ),
                                 ),
                                 Tooltip(
@@ -189,17 +174,10 @@ class _RequestCardState extends State<RequestCard> {
                                     callback: () => closeTaskDialog(
                                         context, widget.taskModel.id!),
                                     color: Colors.grey,
-                                    widget: chatCtrl.isCloseProgress
-                                        ? Transform.scale(
-                                            scale: 0.5,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            ))
-                                        : Icon(
-                                            Icons.close,
-                                            size: 20.sp,
-                                          ),
+                                    widget: Icon(
+                                      Icons.close,
+                                      size: 20.sp,
+                                    ),
                                   ),
                                 ),
                               ],

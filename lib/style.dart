@@ -64,4 +64,4 @@ TextStyle style24SemiBold = TextStyle(
     fontSize: 40.sp, fontWeight: FontWeight.bold, color: Colors.black87);
 
 TextStyle style24Normal = TextStyle(
-    fontSize: 24.sp, fontWeight: FontWeight.normal, color: Colors.black87);
+    fontSize: 40.sp, fontWeight: FontWeight.normal, color: Colors.black87);

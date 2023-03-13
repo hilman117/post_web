@@ -8,9 +8,12 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.3),
-      body: const Center(
-        child: CircularProgressIndicator.adaptive(
-          backgroundColor: mainColor,
+      body: Center(
+        child: Transform.scale(
+          scale: 2.0,
+          child: const CircularProgressIndicator.adaptive(
+            backgroundColor: mainColor,
+          ),
         ),
       ),
     );

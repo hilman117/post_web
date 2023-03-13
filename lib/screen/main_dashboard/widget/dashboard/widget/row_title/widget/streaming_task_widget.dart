@@ -22,89 +22,92 @@ class StreamingTaskWidget extends StatelessWidget {
     return SizedBox(
         width: double.infinity,
         height: 600.h,
-        child: ListView.builder(
-            itemCount: requestData.length,
-            itemBuilder: (BuildContext context, int index) {
-              requestData.sort((a, b) => b.time!.compareTo(a.time!));
-              TaskModel taskModel = requestData[index];
-              if (valueDashboard.department
-                      .toLowerCase()
-                      .contains(taskModel.sendTo!.toLowerCase()) &&
-                  valueDashboard.filterbyStatus == "") {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              } else if (valueDashboard.filterbyStatus
-                      .toLowerCase()
-                      .contains(taskModel.status!.toLowerCase()) &&
-                  valueDashboard.department == "") {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              } else if (valueDashboard.filterbyStatus
-                      .toLowerCase()
-                      .contains(taskModel.status!.toLowerCase()) &&
-                  valueDashboard.department
-                      .toLowerCase()
-                      .contains(taskModel.sendTo!.toLowerCase())) {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              } else if (valueDashboard.filterbyStatus
-                      .toLowerCase()
-                      .contains("open") &&
-                  taskModel.status != "Close" &&
-                  valueDashboard.department == "") {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              } else if (valueDashboard.filterbyStatus
-                      .toLowerCase()
-                      .contains("open") &&
-                  taskModel.status != "Close" &&
-                  valueDashboard.department
-                      .toLowerCase()
-                      .contains(taskModel.sendTo!.toLowerCase())) {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              } else if (valueDashboard.filterbyStatus == "" &&
-                  valueDashboard.department == "") {
-                return MouseRegion(
-                  onEnter: (event) => controller.hovering(index: index),
-                  onExit: (event) => controller.hovering(index: -1),
-                  child: RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  ),
-                );
-              }
-              return const SizedBox();
-            }));
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: true),
+          child: ListView.builder(
+              itemCount: requestData.length,
+              itemBuilder: (BuildContext context, int index) {
+                requestData.sort((a, b) => b.time!.compareTo(a.time!));
+                TaskModel taskModel = requestData[index];
+                if (valueDashboard.department
+                        .toLowerCase()
+                        .contains(taskModel.sendTo!.toLowerCase()) &&
+                    valueDashboard.filterbyStatus == "") {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                } else if (valueDashboard.filterbyStatus
+                        .toLowerCase()
+                        .contains(taskModel.status!.toLowerCase()) &&
+                    valueDashboard.department == "") {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                } else if (valueDashboard.filterbyStatus
+                        .toLowerCase()
+                        .contains(taskModel.status!.toLowerCase()) &&
+                    valueDashboard.department
+                        .toLowerCase()
+                        .contains(taskModel.sendTo!.toLowerCase())) {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                } else if (valueDashboard.filterbyStatus
+                        .toLowerCase()
+                        .contains("open") &&
+                    taskModel.status != "Close" &&
+                    valueDashboard.department == "") {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                } else if (valueDashboard.filterbyStatus
+                        .toLowerCase()
+                        .contains("open") &&
+                    taskModel.status != "Close" &&
+                    valueDashboard.department
+                        .toLowerCase()
+                        .contains(taskModel.sendTo!.toLowerCase())) {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                } else if (valueDashboard.filterbyStatus == "" &&
+                    valueDashboard.department == "") {
+                  return MouseRegion(
+                    onEnter: (event) => controller.hovering(index: index),
+                    onExit: (event) => controller.hovering(index: -1),
+                    child: RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    ),
+                  );
+                }
+                return const SizedBox();
+              }),
+        ));
   }
 }

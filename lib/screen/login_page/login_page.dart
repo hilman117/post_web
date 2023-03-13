@@ -28,20 +28,41 @@ class LoginPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          "image/logo.png",
-                          width: 200.sp,
-                          // height: p1.maxHeight * 0.,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "image/logo-white-bg.png",
+                              width: 200.w,
+                              // height: p1.maxHeight * 0.,
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            SizedBox(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "POST",
+                                    style: TextStyle(
+                                        fontSize: 140.sp,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "Hotel Operational Messaging System",
+                                    style: TextStyle(
+                                        fontSize: 20.sp, letterSpacing: 1.5),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          "Hotel Internal Messaging System",
-                          style: style20Normal,
-                        ),
-                        SizedBox(
-                          height: 30.h,
+                          height: 40.h,
                         ),
                         Container(
                           width: 570.w,
@@ -112,7 +133,7 @@ class LoginPage extends StatelessWidget {
                             width: 570.w,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: mainColor),
+                                color: mainColor2),
                             child: Text(
                               "Login",
                               style: TextStyle(
