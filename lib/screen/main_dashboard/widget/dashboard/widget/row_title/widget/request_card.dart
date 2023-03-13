@@ -29,6 +29,7 @@ class RequestCard extends StatefulWidget {
 }
 
 class _RequestCardState extends State<RequestCard> {
+  bool isHover = false;
   @override
   Widget build(BuildContext context) {
     final functionChatCtrl =
@@ -39,182 +40,197 @@ class _RequestCardState extends State<RequestCard> {
 
     final controller = Provider.of<DashboardController>(context, listen: false);
     Locale countryCode = Localizations.localeOf(context);
-    return Container(
-      color: (dashboardCtrl.selectedCardRequest == widget.index)
-          ? mainColor2.withOpacity(0.2)
-          : (dashboardCtrl.indexHovering == widget.index)
-              ? Colors.grey.shade200
-              : Colors.white,
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h),
-        onTap: () {
-          functionChatCtrl.newStatus(widget.taskModel.status!);
-          controller.selectingCardRequest(widget.index);
-          // controller.overlayChatroom(context, true,
-          //     FloatingChatroom(taskModel: widget.taskModel));
-          controller.openChatRoom(true, widget.taskModel);
-        },
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 280.w,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: PhotoProfileNetWork(
-                              lebar: 25.w,
-                              tinggi: 25.h,
-                              radius: 25.sp,
-                              urlImage: widget.taskModel.profileImageSender!),
-                        ),
-                        Flexible(
-                          child: Text(widget.taskModel.sender!,
-                              style: style18Normal),
-                        ),
-                      ],
+    return MouseRegion(
+      onEnter: (event) {
+        setState(() {
+          isHover = true;
+        });
+      },
+      onExit: (event) {
+        setState(() {
+          isHover = false;
+        });
+      },
+      child: Container(
+        color: (dashboardCtrl.selectedCardRequest == widget.index)
+            ? mainColor2.withOpacity(0.2)
+            : (isHover)
+                ? Colors.grey.shade200
+                : Colors.white,
+        child: ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h),
+          onTap: () {
+            functionChatCtrl.newStatus(widget.taskModel.status!);
+            controller.selectingCardRequest(widget.index);
+            // controller.overlayChatroom(context, true,
+            //     FloatingChatroom(taskModel: widget.taskModel));
+            controller.openChatRoom(true, widget.taskModel);
+          },
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: 280.w,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: PhotoProfileNetWork(
+                                lebar: 25.w,
+                                tinggi: 25.h,
+                                radius: 25.sp,
+                                urlImage: widget.taskModel.profileImageSender!),
+                          ),
+                          Flexible(
+                            child: Text(widget.taskModel.sender!,
+                                style: style18Normal),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 70.w,
-                    child: Image.asset(
-                      "image/${widget.taskModel.sendTo}.png",
-                      width: 35.w,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 70.w,
+                      child: Image.asset(
+                        "image/${widget.taskModel.sendTo}.png",
+                        width: 35.w,
+                      ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200.w,
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: Text(
-                      widget.taskModel.location!,
-                      style: style18Bold,
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200.w,
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: Text(widget.taskModel.title!, style: style18Normal),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200.w,
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: Text(
-                        widget.taskModel.description == ''
-                            ? "-"
-                            : widget.taskModel.description!,
-                        style: style18Normal),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 200.w,
-                    child: StatusWidget(status: widget.taskModel.status!),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 230.w,
-                    padding: EdgeInsets.only(right: 3.w),
-                    child: Text(
-                        widget.taskModel.receiver != ""
-                            ? widget.taskModel.receiver!
-                            : "-",
-                        style: style18Normal),
-                  ),
-                  Container(
+                    Container(
                       alignment: Alignment.centerLeft,
                       width: 200.w,
-                      child: widget.taskModel.status == "Close"
-                          ? ReopenButton(idTask: widget.taskModel.id!)
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Tooltip(
-                                  message: 'Accept',
-                                  child: ActionButton(
-                                    callback: () => functionChatCtrl.accepTask(
-                                        context, widget.taskModel.id!),
-                                    color: Colors.green,
-                                    widget: Icon(
-                                      Icons.check,
-                                      size: 20.sp,
-                                    ),
-                                  ),
-                                ),
-                                Tooltip(
-                                  message: "Assign",
-                                  child: ActionButton(
-                                    callback: () async {
-                                      await functionChatCtrl.cleaList();
-                                      assignTaskDialog(
-                                          context,
-                                          widget.taskModel.id!,
-                                          widget.taskModel.title!,
-                                          widget.taskModel.location!);
-                                    },
-                                    color: Colors.blue,
-                                    widget: Icon(
-                                      Icons.assignment,
-                                      size: 20.sp,
-                                    ),
-                                  ),
-                                ),
-                                Tooltip(
-                                  message: "Close",
-                                  child: ActionButton(
-                                    callback: () => closeTaskDialog(
-                                        context, widget.taskModel.id!),
-                                    color: Colors.grey,
-                                    widget: Icon(
-                                      Icons.close,
-                                      size: 20.sp,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 200.w,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          countryCode == const Locale("en")
-                              ? DateFormat("dd-MM-yy, hh:mm a")
-                                  .format(widget.taskModel.time!.toLocal())
-                              : DateFormat("dd-MM-yy, HH:mm")
-                                  .format(widget.taskModel.time!.toLocal()),
-                          style: GoogleFonts.sarabun(
-                              fontSize: 15.w,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.blue),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          remainingDateTime(context, widget.taskModel.time!),
-                          style: GoogleFonts.sarabun(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: Text(
+                        widget.taskModel.location!,
+                        style: style18Bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: 200.w,
+                      padding: EdgeInsets.only(right: 10.w),
+                      child:
+                          Text(widget.taskModel.title!, style: style18Normal),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: 200.w,
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: Text(
+                          widget.taskModel.description == ''
+                              ? "-"
+                              : widget.taskModel.description!,
+                          style: style18Normal),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 200.w,
+                      child: StatusWidget(status: widget.taskModel.status!),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 230.w,
+                      padding: EdgeInsets.only(right: 3.w),
+                      child: Text(
+                          widget.taskModel.receiver != ""
+                              ? widget.taskModel.receiver!
+                              : "-",
+                          style: style18Normal),
+                    ),
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        width: 200.w,
+                        child: widget.taskModel.status == "Close"
+                            ? ReopenButton(idTask: widget.taskModel.id!)
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Tooltip(
+                                    message: 'Accept',
+                                    child: ActionButton(
+                                      callback: () =>
+                                          functionChatCtrl.accepTask(
+                                              context, widget.taskModel.id!),
+                                      color: Colors.green,
+                                      widget: Icon(
+                                        Icons.check,
+                                        size: 20.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  Tooltip(
+                                    message: "Assign",
+                                    child: ActionButton(
+                                      callback: () async {
+                                        await functionChatCtrl.cleaList();
+                                        assignTaskDialog(
+                                            context,
+                                            widget.taskModel.id!,
+                                            widget.taskModel.title!,
+                                            widget.taskModel.location!);
+                                      },
+                                      color: Colors.blue,
+                                      widget: Icon(
+                                        Icons.assignment,
+                                        size: 20.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  Tooltip(
+                                    message: "Close",
+                                    child: ActionButton(
+                                      callback: () => closeTaskDialog(
+                                          context, widget.taskModel.id!),
+                                      color: Colors.grey,
+                                      widget: Icon(
+                                        Icons.close,
+                                        size: 20.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 200.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            countryCode == const Locale("en")
+                                ? DateFormat("dd-MM-yy, hh:mm a")
+                                    .format(widget.taskModel.time!.toLocal())
+                                : DateFormat("dd-MM-yy, HH:mm")
+                                    .format(widget.taskModel.time!.toLocal()),
+                            style: GoogleFonts.sarabun(
+                                fontSize: 15.w,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.blue),
+                            textAlign: TextAlign.left,
+                          ),
+                          Text(
+                            remainingDateTime(context, widget.taskModel.time!),
+                            style: GoogleFonts.sarabun(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

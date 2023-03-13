@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/create_task_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -13,14 +13,16 @@ class FABWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final funtionDashboard =
-        Provider.of<DashboardController>(context, listen: false);
+    final mainCrtl = context.watch<CreateController>();
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       backgroundColor: mainColor2,
       children: [
         SpeedDialChild(
             onTap: () {
+              if (mainCrtl.isPopUpTitle) {
+                mainCrtl.hideePopUp();
+              }
               createTaskDialog(context);
             },
             label: "Request",

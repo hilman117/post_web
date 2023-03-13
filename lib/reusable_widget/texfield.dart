@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../style.dart';
-
 class TexfieldWidget extends StatelessWidget {
   const TexfieldWidget({
     Key? key,
@@ -12,6 +10,7 @@ class TexfieldWidget extends StatelessWidget {
     this.width,
     this.height,
     this.hintText,
+    this.fontHeight,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -19,6 +18,7 @@ class TexfieldWidget extends StatelessWidget {
   final Color? bgCOlor;
   final double? width;
   final double? height;
+  final double? fontHeight;
   final String? hintText;
 
   @override
@@ -39,25 +39,18 @@ class TexfieldWidget extends StatelessWidget {
             onChanged: searchFunction,
             controller: controller,
             textAlignVertical: TextAlignVertical.center,
-            style: style15Normal,
-            cursorHeight: 11.sp,
+            style:
+                TextStyle(fontSize: fontHeight ?? 15.sp, color: Colors.black87),
+            cursorHeight: fontHeight ?? 11.sp,
             cursorWidth: 1,
             maxLines: 1,
             minLines: 1,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left: 9),
               filled: true,
-              // alignLabelWithHint: true,
               hintText: hintText ?? "Search...",
-              hintStyle: style15Normal,
-              // prefixIcon: const Icon(
-              //   Icons.search,
-              //   color: Colors.grey,
-              //   size: 11,
-              // ),
-              // prefixIconConstraints:
-              //     const BoxConstraints(
-              //         maxWidth: 40, minWidth: 11),
+              hintStyle: TextStyle(
+                  fontSize: fontHeight ?? 15.sp, color: Colors.black87),
               enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide(color: Colors.transparent, width: 1.0),

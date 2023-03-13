@@ -11,15 +11,11 @@ import 'widget/streaming_task_widget.dart';
 import 'widget/table_title.dart';
 
 class RowTitle extends StatelessWidget {
-  final String departement;
-  final String status;
   final BoxConstraints p1;
 
   const RowTitle({
     Key? key,
     required this.p1,
-    required this.departement,
-    required this.status,
   }) : super(key: key);
 
   @override
@@ -180,8 +176,7 @@ class RowTitle extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                StreamingTaskWidget(
-                    valueDashboard: valueDashboard, controller: controller)
+                StreamingTaskWidget(controller: controller)
               ],
             ),
           ),

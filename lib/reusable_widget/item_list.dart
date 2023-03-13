@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ItemList extends StatelessWidget {
+class ItemList extends StatefulWidget {
   const ItemList({
     Key? key,
     required this.valueController,
@@ -20,21 +20,33 @@ class ItemList extends StatelessWidget {
   final String items;
 
   @override
+  State<ItemList> createState() => _ItemListState();
+}
+
+class _ItemListState extends State<ItemList> {
+  bool isHover = false;
+  @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: onEnterHover,
-      onExit: (event) => onExitHover,
+      onExit: (event) {
+        setState(() {
+          isHover = false;
+        });
+      },
+      onEnter: (event) {
+        setState(() {
+          isHover = true;
+        });
+      },
       child: Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.all(8.sp),
         decoration: BoxDecoration(
-            color: (valueController.hoveringIndex == index)
-                ? Colors.blue
-                : Colors.transparent,
+            color: isHover ? Colors.blue : Colors.transparent,
             borderRadius: BorderRadius.circular(6)),
         child: Row(
           children: [
-            selectedIndex == index
+            widget.selectedIndex == widget.index
                 ? Padding(
                     padding: EdgeInsets.only(right: 5.w),
                     child: Icon(
@@ -47,7 +59,7 @@ class ItemList extends StatelessWidget {
                     width: 30.w,
                   ),
             Text(
-              items,
+              widget.items,
               style: TextStyle(
                   color: Colors.white,
                   // fontWeight: FontWeight.w500,

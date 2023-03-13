@@ -26,196 +26,173 @@ class Dashboard extends StatelessWidget {
         width: size.width,
         color: const Color(0xffF8F8FA),
         child: LayoutBuilder(
-            builder: (p0, p1) => Consumer<DashboardController>(
-                  builder: (context, value, child) => Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: SingleChildScrollView(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50.h,
+          builder: (p0, p1) => Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: SingleChildScrollView(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Dashboard",
+                        style: style24SemiBold,
+                      ),
+                      SizedBox(
+                        width: p1.maxWidth * 0.020,
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                            height: 70.h,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  Departement departement = data[index];
+
+                                  //filtering only departement with isactive == true that will display
+                                  if (departement.isActive == true) {
+                                    return Department(
+                                      buttonName: departement.departement!,
+                                      callback: () =>
+                                          controller.selectDepartment(
+                                              index, departement.departement!),
+                                      p1: p1,
+                                      index: index,
+                                      color: Colors.white,
+                                      totalRequest: 200,
+                                      icon: departement.departementIcon!,
+                                    );
+                                  }
+                                  return const SizedBox();
+                                })),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: p1.maxHeight * 0.03,
+                  ),
+                  RowTitle(
+                    p1: p1,
+                  ),
+                  SizedBox(
+                    height: 100.h,
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Item perpage",
+                            style:
+                                TextStyle(fontSize: 20.sp, color: mainColor2)),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Container(
+                            padding: EdgeInsets.all(2.sp),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: mainColor2),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "100",
+                                  style: TextStyle(
+                                      fontSize: 20.sp, color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                const Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5.sp),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.grey),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                            size: 20.sp,
                           ),
-                          Row(
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5.sp),
+                          width: 200.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: mainColor2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                "Dashboard",
-                                style: style24SemiBold,
+                                "1",
+                                style: TextStyle(
+                                    fontSize: 20.sp, color: Colors.white),
                               ),
-                              SizedBox(
-                                width: p1.maxWidth * 0.020,
+                              Text(
+                                "2",
+                                style: TextStyle(
+                                    fontSize: 20.sp, color: Colors.grey),
                               ),
-                              Expanded(
-                                child: SizedBox(
-                                    height: 70.h,
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: data.length,
-                                        itemBuilder: (context, index) {
-                                          Departement departement = data[index];
-
-                                          //filtering only departement with isactive == true that will display
-                                          if (departement.isActive == true) {
-                                            return MouseRegion(
-                                              onEnter: (event) =>
-                                                  controller.hovering(
-                                                      departementIndex: index),
-                                              onExit: (event) =>
-                                                  controller.hovering(),
-                                              child: Department(
-                                                buttonName:
-                                                    departement.departement!,
-                                                callback: () =>
-                                                    controller.selectDepartment(
-                                                        index,
-                                                        departement
-                                                            .departement!),
-                                                p1: p1,
-                                                index: index,
-                                                color: Colors.white,
-                                                totalRequest: 200,
-                                                icon: departement
-                                                    .departementIcon!,
-                                              ),
-                                            );
-                                          }
-                                          return const SizedBox();
-                                        })),
-                              )
+                              Text(
+                                "3",
+                                style: TextStyle(
+                                    fontSize: 20.sp, color: Colors.grey),
+                              ),
+                              Text(
+                                "4. . .50",
+                                style: TextStyle(
+                                    fontSize: 20.sp, color: Colors.grey),
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: p1.maxHeight * 0.03,
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5.sp),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: mainColor2),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 20.sp,
                           ),
-                          Consumer<DashboardController>(
-                              builder: (context, value, child) => RowTitle(
-                                    p1: p1,
-                                    departement: value.department,
-                                    status: value.filterbyStatus,
-                                  )),
-                          SizedBox(
-                            height: 100.h,
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Item perpage",
-                                    style: TextStyle(
-                                        fontSize: 20.sp, color: mainColor2)),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                    padding: EdgeInsets.all(2.sp),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        color: mainColor2),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "100",
-                                          style: TextStyle(
-                                              fontSize: 20.sp,
-                                              color: Colors.white),
-                                        ),
-                                        SizedBox(
-                                          width: 2.w,
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_drop_down_rounded,
-                                          color: Colors.white,
-                                        )
-                                      ],
-                                    )),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(5.sp),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: Colors.grey),
-                                  child: Icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.white,
-                                    size: 20.sp,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(5.sp),
-                                  width: 200.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: mainColor2),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        "1",
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.white),
-                                      ),
-                                      Text(
-                                        "2",
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "3",
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "4. . .50",
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(5.sp),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: mainColor2),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.white,
-                                    size: 20.sp,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Text(
-                                  "1 of 50 pages",
-                                  style: TextStyle(
-                                      fontSize: 20.sp, color: mainColor2),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          "1 of 50 pages",
+                          style: TextStyle(fontSize: 20.sp, color: mainColor2),
+                        ),
+                      ],
                     ),
-                  ),
-                )));
+                  )
+                ],
+              )),
+            ),
+          ),
+        ));
   }
 }

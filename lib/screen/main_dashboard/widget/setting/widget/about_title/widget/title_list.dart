@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/firebase/firebase_title.dart';
+import 'package:post_web/models/departement.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:provider/provider.dart';
@@ -64,36 +65,36 @@ class TitleList extends StatelessWidget {
                                   child: Text("No data found"),
                                 );
                               }
-                              var list = (snapshot.data!.data()
-                                  as Map<String, dynamic>)['title'] as List;
-                              if (list.isEmpty) {
-                                return const Center(
-                                  child: Text("No data found"),
-                                );
-                              }
-                              list.sort(
+
+                              Departement data =
+                                  Departement.fromJson(snapshot.data!.data()!);
+                              data.title!.sort(
                                 (a, b) {
                                   return a.compareTo(b);
                                 },
                               );
+                              if (data.title!.isEmpty) {
+                                return const Center(
+                                  child: Text("No data found"),
+                                );
+                              }
                               return ListView.builder(
-                                  itemCount: list.length,
+                                  itemCount: data.title!.length,
                                   itemBuilder: (context, index) {
+                                    var title = data.title![index];
                                     if (ctrlSetting.searchTitle == "") {
                                       return ItemTitle(
-                                        title: list[index],
-                                        currentList: list,
+                                        title: title,
+                                        currentList: data.title!,
                                         index: index,
                                       );
                                     }
-                                    if (list[index]
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(ctrlSetting.searchTitle
+                                    if (title.toString().toLowerCase().contains(
+                                        ctrlSetting.searchTitle
                                             .toLowerCase())) {
                                       return ItemTitle(
-                                        title: list[index],
-                                        currentList: list,
+                                        title: title,
+                                        currentList: data.title!,
                                         index: index,
                                       );
                                     }

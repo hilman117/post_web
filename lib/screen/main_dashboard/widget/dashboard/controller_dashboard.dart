@@ -110,7 +110,7 @@ class DashboardController with ChangeNotifier {
     notifyListeners();
   }
 
-  //function to show floating chatroom
+  //function to show floating chatroom, value bool if true the floating chat room will display, stack on other widget
   openChatRoom(bool value, TaskModel data) {
     _isChatroomOpen = value;
     _taskModel = data;
