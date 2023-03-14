@@ -11,14 +11,14 @@ class GeneralData {
   String? hotelid;
   String? domain;
   List<dynamic>? admin;
-  List<dynamic>? location;
+  List<String>? location;
 
   factory GeneralData.fromJson(Map<String, dynamic> json) => GeneralData(
         hotelName: json["hotelName"],
         hotelid: json["hotelid"],
         domain: json["domain"],
         admin: List<dynamic>.from(json["admin"].map((x) => x)),
-        location: List<dynamic>.from(json["location"].map((x) => x)),
+        location: List<String>.from(json["location"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {

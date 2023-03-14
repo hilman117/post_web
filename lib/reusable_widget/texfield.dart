@@ -11,6 +11,7 @@ class TexfieldWidget extends StatelessWidget {
     this.height,
     this.hintText,
     this.fontHeight,
+    this.focusNode,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -20,6 +21,7 @@ class TexfieldWidget extends StatelessWidget {
   final double? height;
   final double? fontHeight;
   final String? hintText;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class TexfieldWidget extends StatelessWidget {
               color: bgCOlor ?? Colors.grey.shade200),
           // padding: const EdgeInsets.only(left: 3),
           child: TextFormField(
+            focusNode: focusNode,
             onChanged: searchFunction,
             controller: controller,
             textAlignVertical: TextAlignVertical.center,

@@ -24,6 +24,7 @@ class _MainDashboardState extends State<MainDashboard>
   void initState() {
     Provider.of<MainDashboardController>(context, listen: false)
         .getProfileData();
+    Provider.of<MainDashboardController>(context, listen: false).generalData();
     super.initState();
   }
 

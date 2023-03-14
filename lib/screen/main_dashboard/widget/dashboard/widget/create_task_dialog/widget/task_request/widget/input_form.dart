@@ -10,11 +10,15 @@ class InputForm extends StatelessWidget {
     required this.label,
     required this.callback,
     required this.icon,
+    this.isEmpty = false,
+    this.funtion,
   }) : super(key: key);
 
   final String label;
   final VoidCallback callback;
+  final VoidCallback? funtion;
   final IconData icon;
+  final bool? isEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +47,20 @@ class InputForm extends StatelessWidget {
                 label,
                 style: style18Normal,
               ),
-              Icon(
-                icon,
-                color: mainColor2,
-                size: 25.sp,
-              )
+              isEmpty! == false
+                  ? InkWell(
+                      onTap: funtion ?? () {},
+                      child: Icon(
+                        Icons.cancel,
+                        color: mainColor2,
+                        size: 25.sp,
+                      ),
+                    )
+                  : Icon(
+                      icon,
+                      color: mainColor2,
+                      size: 25.sp,
+                    )
             ],
           ),
         ),

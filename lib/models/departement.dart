@@ -5,13 +5,13 @@ class Departement {
   bool? isActive;
   String? departement;
   String? departementIcon;
-  List<dynamic>? title;
+  List<String>? title;
 
   factory Departement.fromJson(Map<String, dynamic> json) => Departement(
         departement: json["departement"],
         isActive: json["isActive"],
         departementIcon: json["departementIcon"],
-        title: List<dynamic>.from(json["title"].map((x) => x)),
+        title: List<String>.from(json["title"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {

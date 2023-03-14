@@ -3,12 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/reusable_widget/item_list.dart';
 import 'package:post_web/reusable_widget/pop_up_mac.dart';
 import 'package:post_web/models/departement.dart';
+import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:provider/provider.dart';
 
 showDepartementOption(BuildContext context) {
   var data = Provider.of<List<Departement>>(context, listen: false);
   final controller = Provider.of<DashboardController>(context, listen: false);
+  final mainDashboard =
+      Provider.of<MainDashboardController>(context, listen: false);
   return showDialog(
     barrierColor: Colors.transparent,
     context: context,
@@ -22,8 +25,14 @@ showDepartementOption(BuildContext context) {
               Departement departement = data[index];
               if (departement.isActive == true) {
                 return InkWell(
-                  onTap: () => controller.selectdepartement(
-                      departement.departement!, index),
+                  onTap: () {
+                    controller.selectdepartement(
+                        departement.departement!, index);
+                    if (value.selecteddepartement != "") {
+                      mainDashboard
+                          .getDepartementDetail(departement.departement!);
+                    }
+                  },
                   child: ItemList(
                       selectedIndex: value.selectedDepartement,
                       onEnterHover: (event) {

@@ -64,11 +64,15 @@ class DashboardController with ChangeNotifier {
   }
 
   String selecteddepartement = "";
-
   selectdepartement(String departement, int selected) {
     selecteddepartement = departement;
     selectedDepartement = selected;
     Get.back(canPop: true);
+    notifyListeners();
+  }
+
+  void clearSelectedDept() {
+    selecteddepartement = "";
     notifyListeners();
   }
 
@@ -99,7 +103,6 @@ class DashboardController with ChangeNotifier {
   //to clear filter by departement and by status
   clearDepartementFilter() {
     _selectedDepartment = -1;
-
     _department = "";
     notifyListeners();
   }

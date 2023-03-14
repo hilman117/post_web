@@ -8,7 +8,7 @@ class FirebaseLocation {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
 
-  getLocation() {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getLocation() {
     return FirebaseFirestore.instance
         .collection(hotelListCollection)
         .doc(user.data.hotelid)

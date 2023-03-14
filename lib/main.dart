@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:post_web/models/departement.dart';
-import 'package:post_web/models/general_data.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/routes.dart';
@@ -26,7 +25,6 @@ import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
 import 'firebase/firebase_account.dart';
 import 'firebase/firebase_stream_data.dart';
-
 
 Box? box;
 final db = FirebaseStreamData();
@@ -87,10 +85,10 @@ Future<void> main() async {
           create: (BuildContext context) => db.getDepartementData(),
           initialData: const [],
         ),
-        StreamProvider<GeneralData>(
-          create: (BuildContext context) => db.streamGeneralData(),
-          initialData: GeneralData(),
-        ),
+        // StreamProvider<GeneralData>(
+        //   create: (BuildContext context) => db.streamGeneralData(),
+        //   initialData: GeneralData(),
+        // ),
         StreamProvider<List<UserDetails>>(
           create: (BuildContext context) => db.streamEmployeeData(),
           initialData: const [],

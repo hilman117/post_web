@@ -1,14 +1,18 @@
 import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:post_web/firebase/firebase_location.dart';
 import 'package:post_web/firebase/firebase_profile.dart';
+import 'package:post_web/firebase/firebase_title.dart';
+import 'package:post_web/models/general_data.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/report.dart';
 
 import 'package:post_web/screen/main_dashboard/widget/setting/setting.dart';
+
+import '../../models/departement.dart';
 
 class MainDashboardController with ChangeNotifier {
   int _menuSelected = 0;
@@ -48,6 +52,24 @@ class MainDashboardController with ChangeNotifier {
     var db = FirebaseProfile().getProfileData();
     db.then((value) {
       userDetails = UserDetails.fromJson(value.data()!);
+      notifyListeners();
+    });
+  }
+
+  GeneralData? data;
+  generalData() {
+    var db = FirebaseLocation().getLocation();
+    db.then((value) {
+      data = GeneralData.fromJson(value.data()!);
+      notifyListeners();
+    });
+  }
+
+  Departement? deptDetail;
+  getDepartementDetail(String dept) {
+    var db = FirebaseTitle().getTitle(dept);
+    db.then((value) {
+      deptDetail = Departement.fromJson(value.data()!);
       notifyListeners();
     });
   }
