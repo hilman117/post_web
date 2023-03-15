@@ -85,7 +85,13 @@ class BubbleChat extends StatelessWidget {
                     chatModel.scheduleDelete == "" &&
                     chatModel.setDate == "" &&
                     chatModel.titleChange == "")
-            ? MessageWidget(isMe: isMe, p2: p2, chatModel: chatModel)
+            ? MessageWidget(
+                isMe: isMe,
+                p2: p2,
+                chatModel: chatModel,
+                listMessage: listMessage,
+                index: index,
+              )
             : const SizedBox(),
         (chatModel.commentBody == "" &&
                 chatModel.description == "" &&

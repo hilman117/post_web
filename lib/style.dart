@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 List<String> userColor = [
-  "0xffEF5350",
-  "0xffAD1457",
-  "0xff6A1B9A",
-  "0xff4527A0",
+  "0xFFB71C1C",
+  "0xFF0D47A1",
+  "0xFF1B5E20",
+  "0xFF212121",
   "0xff283593",
   "0xff1565C0",
   "0xff00838F",

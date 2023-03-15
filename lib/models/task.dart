@@ -13,6 +13,7 @@ class TaskModel {
       this.time,
       this.status,
       this.sendTo,
+      this.isFading,
       this.emailSender,
       this.profileImageSender,
       this.positionSender,
@@ -33,7 +34,7 @@ class TaskModel {
   String? id;
   DateTime? time;
   String? status;
-
+  bool? isFading;
   String? sendTo;
   String? from;
 
@@ -54,6 +55,7 @@ class TaskModel {
       time: DateTime.parse(json["time"]),
       status: json["status"],
       sendTo: json["sendTo"],
+      isFading: json["isFading"],
       from: json["from"]);
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +78,7 @@ class TaskModel {
         "id": id,
         "time": time!.toIso8601String(),
         "status": status,
+        "isFading": isFading,
         "sendTo": sendTo,
       };
 }

@@ -44,6 +44,7 @@ class InputTitle extends StatelessWidget {
       },
       onSelected: (String selection) {
         createCtrl.selectingLocationAndTitle(title: selection);
+        // print(selection);
       },
     );
   }

@@ -44,6 +44,7 @@ class InputLocation extends StatelessWidget {
       },
       onSelected: (String selection) {
         createCtrl.selectingLocationAndTitle(location: selection);
+        // print(selection);
       },
     );
   }

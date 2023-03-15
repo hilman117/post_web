@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/reusable_widget/no_button.dart';
 import 'package:post_web/reusable_widget/yes_button.dart';
+import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/widget/task_request/widget/input_title.dart';
@@ -21,7 +22,8 @@ class Task extends StatelessWidget {
   Widget build(BuildContext context) {
     final dashboardCtrl = context.watch<DashboardController>();
     final createCtrl = context.watch<CreateController>();
-
+    final mainCtrl = context.watch<MainDashboardController>();
+    final description = TextEditingController();
     final createFunction =
         Provider.of<CreateController>(context, listen: false);
     return GestureDetector(
@@ -108,7 +110,9 @@ class Task extends StatelessWidget {
                 ),
               ],
             ),
-            const InputDescriptionWidget(),
+            InputDescriptionWidget(
+              controller: description,
+            ),
             InkWell(
                 onTap: () => createFunction.selectImage(),
                 child: const UploadImageBox()),
@@ -124,7 +128,17 @@ class Task extends StatelessWidget {
                   callback: () => Navigator.of(context).pop(),
                 ),
                 YesButton(
-                  callback: () {},
+                  callback: () => createCtrl.createTask(
+                      context: context,
+                      departementSendTo: dashboardCtrl.selecteddepartement,
+                      hotelName: mainCtrl.userDetails!.hotel!,
+                      description: description,
+                      emailSender: mainCtrl.userDetails!.email!,
+                      deptSender: mainCtrl.userDetails!.department!,
+                      positionSender: mainCtrl.userDetails!.position!,
+                      imageProfileSender: mainCtrl.userDetails!.profileImage!,
+                      senderName: mainCtrl.userDetails!.name!,
+                      colorUser: mainCtrl.userDetails!.userColor!),
                   icon: Icons.send_outlined,
                   nameButton: 'Send',
                   width: 200.w,

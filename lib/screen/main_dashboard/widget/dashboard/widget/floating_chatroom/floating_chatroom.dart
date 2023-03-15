@@ -6,6 +6,7 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/chat_model.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/const.dart';
+import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,7 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
     final chatCtrl = Provider.of<ChatroomControlller>(context, listen: false);
+    final mainCtrl = context.watch<MainDashboardController>();
     return Positioned(
       right: 20.w,
       bottom: 30.h,
@@ -190,7 +192,8 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                                 return BubbleChat(
                                                   p2: p2,
                                                   isMe: comments.senderemail ==
-                                                          user.data.email!
+                                                          mainCtrl.userDetails!
+                                                              .email
                                                       ? true
                                                       : false,
                                                   chatModel: comments,

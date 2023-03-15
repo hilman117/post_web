@@ -1,8 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:post_web/firebase/firebase_create_task.dart';
+import 'package:post_web/reusable_widget/show_dialog.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateController with ChangeNotifier {
   //function for searching title and location on [CREATETASKDIALOG]
@@ -150,5 +154,58 @@ class CreateController with ChangeNotifier {
     _setDate = null;
     _newDate = '';
     notifyListeners();
+  }
+
+  bool isLoding = false;
+  var db = FirebaseCreateTask();
+  final uid = const Uuid().v1();
+  Future<void> createTask(
+      {required BuildContext context,
+      required String departementSendTo,
+      required String hotelName,
+      required TextEditingController description,
+      required String emailSender,
+      required String colorUser,
+      required String deptSender,
+      required String positionSender,
+      required String imageProfileSender,
+      required String senderName}) async {
+    if (definedTitle == "") {
+      ShowDialog().errorDialog(context, "Title is empty");
+    } else if (definedLocation == "") {
+      ShowDialog().errorDialog(context, "Location is empty");
+    } else if (departementSendTo == "") {
+      ShowDialog().errorDialog(context, "Location is empty");
+    } else {
+      isLoding = true;
+      notifyListeners();
+      try {
+        await db.createTask(
+            context: context,
+            hotelName: hotelName,
+            assigned: departementSendTo,
+            image: imageUrl,
+            description: description.text,
+            emailReceiver: "",
+            emailSender: emailSender,
+            from: deptSender,
+            id: uid,
+            location: definedLocation,
+            positionSender: positionSender,
+            profileImageSender: imageProfileSender,
+            receiver: "",
+            sendTo: departementSendTo,
+            sender: senderName,
+            setDate: _newDate,
+            setTime: selectedTime,
+            time: DateTime.now().toString(),
+            title: definedTitle,
+            colorUser: colorUser);
+        Navigator.of(context).pop();
+        isLoding = false;
+      } on FirebaseException catch (e) {
+        print(e.toString());
+      }
+    }
   }
 }

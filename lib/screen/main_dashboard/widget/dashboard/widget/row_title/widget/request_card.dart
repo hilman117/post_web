@@ -18,10 +18,12 @@ import 'timer.dart';
 class RequestCard extends StatefulWidget {
   final int index;
   final TaskModel taskModel;
+  final Color? animatedBgColor;
   const RequestCard({
     Key? key,
     required this.index,
     required this.taskModel,
+    this.animatedBgColor,
   }) : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class _RequestCardState extends State<RequestCard> {
             ? mainColor2.withOpacity(0.2)
             : (isHover)
                 ? Colors.grey.shade200
-                : Colors.white,
+                : widget.animatedBgColor,
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 5.h),
           onTap: () {

@@ -21,8 +21,8 @@ class LoginController with ChangeNotifier {
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  final bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  bool isLoading = false;
+
   UserDetails? userDetails;
   GeneralData? generalData;
   bool _isSave = box!.get('isSave') ?? false;
@@ -48,7 +48,11 @@ class LoginController with ChangeNotifier {
       return ShowDialog().alerDialog(context, "Password is empty");
     } else {
       try {
-        ShowDialog().loadingDialog(context);
+        isLoading = true;
+        notifyListeners();
+        if (isLoading) {
+          ShowDialog().loadingDialog(context);
+        }
         notifyListeners();
         if (_isSave) {
           await box!.putAll({'email': email});
@@ -99,17 +103,19 @@ class LoginController with ChangeNotifier {
           //     .getTotalCreate();
           // Provider.of<ChatRoomController>(context, listen: false)
           //     .getTotalAcceptedAndClose();
-          Navigator.of(context).pop();
+          isLoading = false;
+          notifyListeners();
           Navigator.pushReplacementNamed(context, Routes.mainDashBoard);
         }
       } on FirebaseAuthException catch (e) {
         // print(e);
         if (e.code == 'user-not-found') {
           ShowDialog().alerDialog(context, "No user found for");
-          Navigator.of(context).pop();
+          isLoading = false;
+          notifyListeners();
         } else if (e.code == 'wrong-password') {
           ShowDialog().alerDialog(context, "Please provide valid password");
-          Navigator.of(context).pop();
+          isLoading = false;
           notifyListeners();
         }
       }

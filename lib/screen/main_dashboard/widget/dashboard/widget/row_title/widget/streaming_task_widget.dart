@@ -6,13 +6,54 @@ import '../../../../../../../models/task.dart';
 import '../../../controller_dashboard.dart';
 import 'request_card.dart';
 
-class StreamingTaskWidget extends StatelessWidget {
+class StreamingTaskWidget extends StatefulWidget {
   const StreamingTaskWidget({
     Key? key,
     required this.controller,
   }) : super(key: key);
 
   final DashboardController controller;
+
+  @override
+  State<StreamingTaskWidget> createState() => _StreamingTaskWidgetState();
+}
+
+class _StreamingTaskWidgetState extends State<StreamingTaskWidget>
+    with SingleTickerProviderStateMixin {
+  Animatable<Color?> bgColor = TweenSequence<Color?>([
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
+        weight: 1.0),
+  ]);
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+        duration: const Duration(seconds: 2),
+        vsync: this,
+        reverseDuration: const Duration(seconds: 2))
+      ..repeat(reverse: true);
+    _controller
+        .animateTo(1.0)
+        .then<TickerFuture>((value) => _controller.animateBack(0.0));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +73,16 @@ class StreamingTaskWidget extends StatelessWidget {
                         .toLowerCase()
                         .contains(taskModel.sendTo!.toLowerCase()) &&
                     dashboardCtrl.filterbyStatus == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) => RequestCard(
+                            animatedBgColor: taskModel.isFading == true
+                                ? bgColor.evaluate(
+                                    AlwaysStoppedAnimation(_controller.value))
+                                : Colors.white,
+                            index: index,
+                            taskModel: taskModel,
+                          ));
                 } else if (dashboardCtrl.filterbyStatus
                         .toLowerCase()
                         .contains(taskModel.status!.toLowerCase()) &&
@@ -50,19 +97,31 @@ class StreamingTaskWidget extends StatelessWidget {
                     dashboardCtrl.department
                         .toLowerCase()
                         .contains(taskModel.sendTo!.toLowerCase())) {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) => RequestCard(
+                            animatedBgColor: taskModel.isFading == true
+                                ? bgColor.evaluate(
+                                    AlwaysStoppedAnimation(_controller.value))
+                                : Colors.white,
+                            index: index,
+                            taskModel: taskModel,
+                          ));
                 } else if (dashboardCtrl.filterbyStatus
                         .toLowerCase()
                         .contains("open") &&
                     taskModel.status != "Close" &&
                     dashboardCtrl.department == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) => RequestCard(
+                            animatedBgColor: taskModel.isFading == true
+                                ? bgColor.evaluate(
+                                    AlwaysStoppedAnimation(_controller.value))
+                                : Colors.white,
+                            index: index,
+                            taskModel: taskModel,
+                          ));
                 } else if (dashboardCtrl.filterbyStatus
                         .toLowerCase()
                         .contains("open") &&
@@ -70,16 +129,28 @@ class StreamingTaskWidget extends StatelessWidget {
                     dashboardCtrl.department
                         .toLowerCase()
                         .contains(taskModel.sendTo!.toLowerCase())) {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) => RequestCard(
+                            animatedBgColor: taskModel.isFading == true
+                                ? bgColor.evaluate(
+                                    AlwaysStoppedAnimation(_controller.value))
+                                : Colors.white,
+                            index: index,
+                            taskModel: taskModel,
+                          ));
                 } else if (dashboardCtrl.filterbyStatus == "" &&
                     dashboardCtrl.department == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) => RequestCard(
+                            animatedBgColor: taskModel.isFading == true
+                                ? bgColor.evaluate(
+                                    AlwaysStoppedAnimation(_controller.value))
+                                : Colors.white,
+                            index: index,
+                            taskModel: taskModel,
+                          ));
                 }
                 return const SizedBox();
               }),

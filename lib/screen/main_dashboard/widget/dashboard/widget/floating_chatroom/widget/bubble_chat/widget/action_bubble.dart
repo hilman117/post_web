@@ -60,7 +60,7 @@ class ActionBubble extends StatelessWidget {
                 padding: EdgeInsets.only(
                     right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
-                  width: 330.w,
+                  width: 300.w,
                   child: Text(
                     actionMessage,
                     style: style15Normal,

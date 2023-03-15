@@ -6,7 +6,10 @@ import '../../../../../../../../../const.dart';
 class InputDescriptionWidget extends StatelessWidget {
   const InputDescriptionWidget({
     Key? key,
+    required this.controller,
   }) : super(key: key);
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class InputDescriptionWidget extends StatelessWidget {
               ],
             ),
             child: TextFormField(
+              controller: controller,
               minLines: 1,
               maxLines: null,
               textInputAction: TextInputAction.newline,

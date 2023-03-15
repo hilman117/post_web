@@ -12,18 +12,33 @@ class MessageWidget extends StatelessWidget {
     required this.isMe,
     required this.p2,
     required this.chatModel,
+    required this.listMessage,
+    required this.index,
   }) : super(key: key);
 
   final bool isMe;
+  final int index;
   final BoxConstraints p2;
   final ChatModel chatModel;
+  final List<ChatModel> listMessage;
 
   @override
   Widget build(BuildContext context) {
     DateTime convertedTimeStampToDatetime = chatModel.time!.toDate();
     var color = int.parse(chatModel.colorUser!);
-    // String time =
-    //     DateFormat.Hm().parse(convertedTimeStampToDatetime).toString();
+
+    bool isVisible = false;
+    // var previousChat = listMessage[index - 1];
+    // var currentChat = listMessage[index];
+    if (listMessage.length - 1 == index) {
+      isVisible = false;
+    } else {
+      var previousChat = listMessage[index + 1];
+      var currentChat = listMessage[index];
+      if (previousChat.sender == currentChat.sender) {
+        isVisible = true;
+      }
+    }
 
     Widget bubble = Container(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -36,14 +51,16 @@ class MessageWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              chatModel.sender!,
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  color: isMe ? Colors.black87 : Color(color),
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.fade,
-            ),
+            !isVisible
+                ? Text(
+                    chatModel.sender!,
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        color: isMe ? Colors.black87 : Color(color),
+                        fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.fade,
+                  )
+                : const SizedBox(),
             chatModel.description != ""
                 ? Text(
                     chatModel.description!,

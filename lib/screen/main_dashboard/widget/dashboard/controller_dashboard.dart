@@ -132,4 +132,20 @@ class DashboardController with ChangeNotifier {
     _filterbyStatus = value < 0 ? "" : getStatus;
     notifyListeners();
   }
+
+  // play fade animation when every single task have any update
+  Animatable<Color?> bgColor = TweenSequence<Color?>([
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
+        weight: 1.0),
+    TweenSequenceItem(
+        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
+        weight: 1.0),
+  ]);
 }

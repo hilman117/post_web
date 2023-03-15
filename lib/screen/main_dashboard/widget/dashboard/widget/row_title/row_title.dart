@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
@@ -10,13 +12,28 @@ import 'widget/search_box.dart';
 import 'widget/streaming_task_widget.dart';
 import 'widget/table_title.dart';
 
-class RowTitle extends StatelessWidget {
+class RowTitle extends StatefulWidget {
   final BoxConstraints p1;
 
   const RowTitle({
     Key? key,
     required this.p1,
   }) : super(key: key);
+
+  @override
+  State<RowTitle> createState() => _RowTitleState();
+}
+
+class _RowTitleState extends State<RowTitle> {
+  @override
+  void initState() {
+    Timer.periodic(const Duration(minutes: 1), (timer) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

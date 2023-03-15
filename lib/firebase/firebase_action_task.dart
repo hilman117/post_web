@@ -77,14 +77,11 @@ class FirebaseActionTask {
         .collection(taskCollection)
         .doc(idTask)
         .update({
-      "status": "Accepted",
       'isFading': true,
-      "receiver": "${user.data.name}",
-      "emailReceiver": user.data.email,
       "comment": FieldValue.arrayUnion([
         {
           "timeSent": DateTime.now(),
-          'accepted': user.data.name,
+          'accepted': "",
           'colorUser': user.data.userColor,
           'assignTask': "",
           'assignTo': "",
