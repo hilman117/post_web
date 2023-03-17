@@ -7,7 +7,7 @@ import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/departement.dart';
-import 'widget/department.dart';
+import '../../../../reusable_widget/department.dart';
 
 import 'widget/row_title/row_title.dart';
 
@@ -64,11 +64,11 @@ class Dashboard extends StatelessWidget {
                                       callback: () =>
                                           controller.selectDepartment(
                                               index, departement.departement!),
-                                      p1: p1,
                                       index: index,
                                       color: Colors.white,
                                       totalRequest: 200,
                                       icon: departement.departementIcon!,
+                                      departements: data,
                                     );
                                   }
                                   return const SizedBox();

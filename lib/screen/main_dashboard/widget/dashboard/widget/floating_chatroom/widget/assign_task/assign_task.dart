@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../../../../reusable_widget/no_button.dart';
 import '../../../../../../../../reusable_widget/yes_button.dart';
 import '../../../../../../../../style.dart';
@@ -14,7 +13,6 @@ assignTaskDialog(BuildContext context, String idTask, String titleTask,
     String locationTask) {
   final controller = Provider.of<ChatroomControlller>(context, listen: false);
   TextEditingController search = TextEditingController();
-
   return showDialog(
     context: context,
     builder: (context) {

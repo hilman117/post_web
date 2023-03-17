@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/models/departement.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 
 import 'package:provider/provider.dart';
@@ -9,18 +10,18 @@ class Department extends StatefulWidget {
     Key? key,
     required this.buttonName,
     required this.callback,
-    required this.p1,
     required this.index,
     required this.color,
     required this.totalRequest,
     required this.icon,
+    required this.departements,
   }) : super(key: key);
 
   final String buttonName;
   final String icon;
   final int index;
   final VoidCallback callback;
-  final BoxConstraints p1;
+  final Iterable<Departement> departements;
   final int totalRequest;
   final Color color;
 
@@ -56,7 +57,7 @@ class _DepartmentState extends State<Department> {
                     left: widget.index == 0
                         ? BorderSide.none
                         : BorderSide(color: Colors.black87, width: 0.5.w),
-                    right: widget.index == value.departments.length - 1
+                    right: widget.index != widget.departements.length
                         ? BorderSide.none
                         : BorderSide(color: Colors.black87, width: 0.5.w)),
 

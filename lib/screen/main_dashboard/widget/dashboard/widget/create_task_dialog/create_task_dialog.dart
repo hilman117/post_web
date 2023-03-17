@@ -40,10 +40,13 @@ createTaskDialog(BuildContext context) {
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
-                        Icon(
-                          Icons.close_rounded,
-                          size: 20.sp,
-                          color: Colors.grey,
+                        InkWell(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Icon(
+                            Icons.close_rounded,
+                            size: 20.sp,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),

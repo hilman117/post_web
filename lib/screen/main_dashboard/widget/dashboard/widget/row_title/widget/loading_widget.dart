@@ -12,7 +12,7 @@ class LoadingWidget extends StatelessWidget {
         child: Transform.scale(
           scale: 2.0,
           child: const CircularProgressIndicator.adaptive(
-            backgroundColor: mainColor,
+            backgroundColor: mainColor2,
           ),
         ),
       ),
