@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,15 +9,6 @@ class DashboardController with ChangeNotifier {
   static String departementList = "departement list";
   final cUser = Get.put(CUser());
   final db = FirebaseFirestore.instance;
-  List<Color> colorDepartment = [
-    Colors.green,
-    Colors.red,
-    Colors.blue,
-    Colors.orange,
-    Colors.yellow,
-    Colors.lime,
-    Colors.amber
-  ];
 
   int _selectedcardRequest = -1;
   int get selectedCardRequest => _selectedcardRequest;
@@ -148,4 +140,26 @@ class DashboardController with ChangeNotifier {
         tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
         weight: 1.0),
   ]);
+
+  //method for selecting date range on filter
+  DateTimeRange dateTimeRange =
+      DateTimeRange(start: DateTime(2021), end: DateTime.now());
+
+  DateTimeRange? pickedDateForFiltering;
+
+  Future pickRangeDateFilter(BuildContext context) async {
+    var results = await showCalendarDatePicker2Dialog(
+      barrierColor: Colors.transparent,
+      context: context,
+      config: CalendarDatePicker2WithActionButtonsConfig(
+          calendarType: CalendarDatePicker2Type.range),
+      dialogSize: const Size(325, 400),
+      initialValue: [dateTimeRange.start],
+      borderRadius: BorderRadius.circular(15),
+    );
+
+    if (results == null) return;
+    pickedDateForFiltering = dateTimeRange;
+    notifyListeners();
+  }
 }

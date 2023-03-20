@@ -84,7 +84,8 @@ class BubbleChat extends StatelessWidget {
                     chatModel.newlocation == "" &&
                     chatModel.scheduleDelete == "" &&
                     chatModel.setDate == "" &&
-                    chatModel.titleChange == "")
+                    chatModel.titleChange == "" &&
+                    chatModel.resume == "")
             ? MessageWidget(
                 isMe: isMe,
                 p2: p2,
@@ -102,7 +103,8 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: "${chatModel.accepted!} has accept this request",
@@ -120,13 +122,14 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage:
                     "${chatModel.sender} has assigned this task to ${chatModel.assignTo}",
                 icons: Icons.assignment,
-                iconColor: mainColor,
+                iconColor: mainColor2,
                 chatModel: chatModel,
               )
             : const SizedBox(),
@@ -139,7 +142,8 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: chatModel.hold!,
@@ -157,7 +161,8 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation != "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: chatModel.newlocation!,
@@ -175,7 +180,8 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete != "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: chatModel.scheduleDelete!,
@@ -193,7 +199,8 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate != "" &&
-                chatModel.titleChange == "")
+                chatModel.titleChange == "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: chatModel.setDate!,
@@ -211,12 +218,32 @@ class BubbleChat extends StatelessWidget {
                 chatModel.newlocation == "" &&
                 chatModel.scheduleDelete == "" &&
                 chatModel.setDate == "" &&
-                chatModel.titleChange != "")
+                chatModel.titleChange != "" &&
+                chatModel.resume == "")
             ? ActionBubble(
                 time: convertedTimeStampToDatetime.toString(),
                 actionMessage: chatModel.titleChange!,
                 icons: Icons.edit,
                 iconColor: Colors.grey,
+                chatModel: chatModel,
+              )
+            : const SizedBox(),
+        (chatModel.commentBody == "" &&
+                chatModel.description == "" &&
+                chatModel.imageComment!.isEmpty &&
+                chatModel.accepted == "" &&
+                chatModel.assignTask == "" &&
+                chatModel.hold == "" &&
+                chatModel.newlocation == "" &&
+                chatModel.scheduleDelete == "" &&
+                chatModel.setDate == "" &&
+                chatModel.titleChange == "" &&
+                chatModel.resume != "")
+            ? ActionBubble(
+                time: convertedTimeStampToDatetime.toString(),
+                actionMessage: chatModel.resume!,
+                icons: Icons.play_arrow_rounded,
+                iconColor: mainColor2,
                 chatModel: chatModel,
               )
             : const SizedBox(),

@@ -53,9 +53,12 @@ class _MainDashboardState extends State<MainDashboard>
                   const Expanded(child: SizedBox()),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      SelectedImage(),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 50.w),
+                        child: const SelectedImage(),
+                      ),
                     ],
                   ),
                   SizedBox(

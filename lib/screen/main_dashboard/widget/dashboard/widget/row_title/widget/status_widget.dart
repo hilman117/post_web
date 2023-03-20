@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:post_web/const.dart';
 
 class StatusWidget extends StatelessWidget {
   const StatusWidget({
@@ -33,7 +34,7 @@ class StatusWidget extends StatelessWidget {
             : (status == 'Accepted')
                 ? Colors.green.shade50
                 : (status == 'Resume')
-                    ? Colors.green.shade50
+                    ? mainColor2.withOpacity(0.2)
                     : (status == 'ESC')
                         ? Colors.orange.shade100
                         : (status == 'Close')
@@ -54,7 +55,7 @@ class StatusWidget extends StatelessWidget {
               : (status == 'Accepted')
                   ? Colors.green.shade600
                   : (status == 'Resume')
-                      ? Colors.green.shade600
+                      ? mainColor2
                       : (status == 'ESC')
                           ? Colors.orange.shade900
                           : (status == 'Close' || status == 'Claimed')

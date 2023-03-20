@@ -15,7 +15,7 @@ import 'package:post_web/screen/main_dashboard/widget/setting/setting.dart';
 import '../../models/departement.dart';
 
 class MainDashboardController with ChangeNotifier {
-  int _menuSelected = 1;
+  int _menuSelected = 0;
   int get menuSelected => _menuSelected;
   int menuHovering = -1;
 

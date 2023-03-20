@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'dart:typed_data';
 
@@ -142,6 +142,24 @@ class ChatroomControlller with ChangeNotifier {
   }
 //--------------------------------------------------------------------
 
+  //[RESUMETASK] function
+  bool isResumeProgress = false;
+  resumeTask(BuildContext context, String idTask) async {
+    try {
+      isHoldProgress = true;
+      notifyListeners();
+      await db.resumeTask(context, idTask);
+      newStatus("Resume");
+      isResumeProgress = false;
+      notifyListeners();
+    } catch (e) {
+      isResumeProgress = false;
+      notifyListeners();
+      print(e);
+    }
+  }
+//--------------------------------------------------------------------
+
 //[REOPENTASK] function
   bool isReopenProgress = false;
   reopenTask(BuildContext context, String idTask) async {
@@ -167,9 +185,16 @@ class ChatroomControlller with ChangeNotifier {
     notifyListeners();
   }
 
+  //check if user start typing or not
+  String textToSend = "";
+  typingTextToSend(String newText) {
+    textToSend = newText;
+    notifyListeners();
+  }
+
   bool isSendCommentProgress = false;
-  sendComment(BuildContext context, ScrollController scrollController,
-      String idTask, TextEditingController commentBody) async {
+  sendComment(BuildContext context, String idTask,
+      TextEditingController commentBody) async {
     imageUrl.clear();
     notifyListeners();
     try {
@@ -215,7 +240,9 @@ class ChatroomControlller with ChangeNotifier {
         notifyListeners();
       }
 
-      // commentBody.clear();
+      commentBody.clear();
+      textToSend = "";
+      notifyListeners();
     } catch (e) {
       ShowDialog().errorDialog(context, "Something went wong!");
       isSendCommentProgress = false;

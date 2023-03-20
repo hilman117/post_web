@@ -130,7 +130,8 @@ class _RowTitleState extends State<RowTitle> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () =>
+                                      controller.pickRangeDateFilter(context),
                                   child: SizedBox(
                                     child: Row(
                                       children: [

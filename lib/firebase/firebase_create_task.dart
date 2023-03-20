@@ -103,6 +103,7 @@ class FirebaseCreateTask {
       );
     } on FirebaseException catch (e) {
       ShowDialog().errorDialog(context, "Something wrong");
+      // ignore: avoid_print
       print(e.toString());
     }
   }

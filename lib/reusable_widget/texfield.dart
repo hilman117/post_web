@@ -12,6 +12,7 @@ class TexfieldWidget extends StatelessWidget {
     this.hintText,
     this.fontHeight,
     this.focusNode,
+    this.maxLines,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -22,6 +23,7 @@ class TexfieldWidget extends StatelessWidget {
   final double? fontHeight;
   final String? hintText;
   final FocusNode? focusNode;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class TexfieldWidget extends StatelessWidget {
                 TextStyle(fontSize: fontHeight ?? 15.sp, color: Colors.black87),
             cursorHeight: fontHeight ?? 11.sp,
             cursorWidth: 1,
-            maxLines: 1,
+            maxLines: maxLines ?? 1,
             minLines: 1,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left: 9),

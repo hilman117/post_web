@@ -50,18 +50,17 @@ class _DepartmentState extends State<Department> {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 30.w),
               width: 250.w,
-              // margin: EdgeInsets.symmetric(horizontal: p1.maxWidth * 0.015),
               decoration: BoxDecoration(
                 color: isHover ? Colors.grey.shade200 : Colors.transparent,
                 border: Border(
                     left: widget.index == 0
                         ? BorderSide.none
                         : BorderSide(color: Colors.black87, width: 0.5.w),
-                    right: widget.index != widget.departements.length
-                        ? BorderSide.none
-                        : BorderSide(color: Colors.black87, width: 0.5.w)),
-
-                // borderRadius: BorderRadius.circular(10),
+                    right: BorderSide(
+                        color: widget.index == widget.departements.length
+                            ? Colors.transparent
+                            : Colors.black87,
+                        width: 0.25.w)),
               ),
               child: SizedBox(
                 child: Column(

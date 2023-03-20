@@ -42,7 +42,7 @@ class MessageWidget extends StatelessWidget {
 
     Widget bubble = Container(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      width: 350.w,
+      width: 450.w,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class MessageWidget extends StatelessWidget {
                 ? Text(
                     chatModel.sender!,
                     style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 18.sp,
                         color: isMe ? Colors.black87 : Color(color),
                         fontWeight: FontWeight.bold),
                     overflow: TextOverflow.fade,
@@ -64,14 +64,14 @@ class MessageWidget extends StatelessWidget {
             chatModel.description != ""
                 ? Text(
                     chatModel.description!,
-                    style: style15Normal,
+                    style: style18Normal,
                     overflow: TextOverflow.clip,
                   )
                 : const SizedBox(),
             chatModel.commentBody != ""
                 ? Text(
                     chatModel.commentBody!,
-                    style: style15Normal,
+                    style: style18Normal,
                     overflow: TextOverflow.clip,
                   )
                 : const SizedBox(),

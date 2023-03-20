@@ -204,6 +204,7 @@ class CreateController with ChangeNotifier {
         Navigator.of(context).pop();
         isLoding = false;
       } on FirebaseException catch (e) {
+        // ignore: avoid_print
         print(e.toString());
       }
     }

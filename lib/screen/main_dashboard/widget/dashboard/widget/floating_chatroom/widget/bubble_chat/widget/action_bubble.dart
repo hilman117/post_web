@@ -33,10 +33,10 @@ class ActionBubble extends StatelessWidget {
                 padding: EdgeInsets.only(
                     right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
-                  width: 300.w,
+                  width: 450.w,
                   child: Text(
                     actionMessage,
-                    style: style15Normal,
+                    style: style18Normal,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.end,
                   ),
@@ -44,7 +44,7 @@ class ActionBubble extends StatelessWidget {
               )
             : Icon(
                 icons,
-                size: 25.sp,
+                size: 30.sp,
                 color: iconColor,
               ),
         SizedBox(
@@ -53,17 +53,17 @@ class ActionBubble extends StatelessWidget {
         isMe
             ? Icon(
                 icons,
-                size: 25.sp,
+                size: 30.sp,
                 color: iconColor,
               )
             : Padding(
                 padding: EdgeInsets.only(
                     right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
-                  width: 300.w,
+                  width: 450.w,
                   child: Text(
                     actionMessage,
-                    style: style15Normal,
+                    style: style18Normal,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.start,
                   ),

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
 import '../row_title/widget/status_widget.dart';
 import 'widget/bubble_chat/bubble_chat.dart';
-import 'widget/keyboard/keyboard.dart';
+import 'widget/keyboard/keyboard_widget.dart';
 import '../../../../../../reusable_widget/reopen_button.dart';
 
 class FloatingChatroom extends StatefulWidget {
@@ -64,168 +64,163 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                     offset: const Offset(01, 01))
               ]),
           height: 900.h,
-          width: 450.w,
-          child: LayoutBuilder(
-            builder: (p0, p1) => Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.topCenter,
-                            height: 50.h,
+          width: 600.w,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.topCenter,
+                          height: 50.h,
+                          width: 30.w,
+                          child: Image.asset(
+                            "image/${widget.taskModel.sendTo}.png",
                             width: 30.w,
-                            child: Image.asset(
-                              "image/${widget.taskModel.sendTo}.png",
-                              width: 30.w,
-                              height: 30.h,
+                            height: 30.h,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.taskModel.location!,
+                              style: style18Bold,
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.taskModel.location!,
-                                style: style18Bold,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Text(
-                                widget.taskModel.title!,
-                                style: style15Normal,
-                              ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              widget.taskModel.title!,
+                              style: style15Normal,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            controller.clearCardRequest();
+                            controller.hideChatroom();
+                            chatCtrl.clearImage();
+                          },
+                          child: Icon(
+                            Icons.close_rounded,
+                            color: Colors.grey,
+                            size: 30.sp,
+                            shadows: const [
+                              Shadow(
+                                  offset: Offset(0.1, 0.1),
+                                  color: Colors.grey,
+                                  blurRadius: 2)
                             ],
-                          )
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              controller.clearCardRequest();
-                              controller.hideChatroom();
-                              chatCtrl.clearImage();
-                            },
-                            child: Icon(
-                              Icons.close_rounded,
-                              color: Colors.grey,
-                              size: p1.maxWidth * 0.07,
-                              shadows: const [
-                                Shadow(
-                                    offset: Offset(0.1, 0.1),
-                                    color: Colors.grey,
-                                    blurRadius: 2)
-                              ],
-                            ),
                           ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          StatusWidget(
-                              width: 75.w,
-                              fontSize: 13.sp,
-                              verticalPadding: 1.h,
-                              horizontalPadding: 2.w,
-                              status: context
-                                  .watch<ChatroomControlller>()
-                                  .currentStatus)
-                        ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        StatusWidget(
+                            width: 75.w,
+                            fontSize: 13.sp,
+                            verticalPadding: 1.h,
+                            horizontalPadding: 2.w,
+                            status: context
+                                .watch<ChatroomControlller>()
+                                .currentStatus)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                            // alignment: Alignment.center,
+                            width: double.infinity,
+                            child: StreamBuilder<DocumentSnapshot>(
+                                stream: streamChat,
+                                builder: (context, snapshot) =>
+                                    LayoutBuilder(builder: (p0, p2) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.active) {
+                                        var commentList = (snapshot.data!.data()
+                                                as Map<String, dynamic>)[
+                                            'comment'] as List;
+
+                                        commentList.sort((a, b) =>
+                                            b['time'].compareTo(a['time']));
+                                        List<ChatModel> chatModel = commentList
+                                            .map((e) => ChatModel.fromJson(e))
+                                            .toList();
+
+                                        return ListView.builder(
+                                            reverse: true,
+                                            padding: EdgeInsets.only(
+                                                right: 10.w,
+                                                left: 10.w,
+                                                bottom: 2.h),
+                                            controller: scrollController,
+                                            itemCount: chatModel.length,
+                                            itemBuilder: (context, index) {
+                                              ChatModel comments =
+                                                  chatModel[index];
+
+                                              return BubbleChat(
+                                                p2: p2,
+                                                isMe: comments.senderemail ==
+                                                        mainCtrl
+                                                            .userDetails!.email
+                                                    ? true
+                                                    : false,
+                                                chatModel: comments,
+                                                listMessage: chatModel,
+                                                index: index,
+                                              );
+                                            });
+                                      }
+
+                                      return const SizedBox();
+                                    }))),
                       ),
+                      Consumer<ChatroomControlller>(
+                          builder: (context, value, child) =>
+                              value.currentStatus == "Close"
+                                  ? Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w, vertical: 20.h),
+                                      child: ReopenButton(
+                                          idTask: widget.taskModel.id!),
+                                    )
+                                  : KeyboardWidget(
+                                      idTask: widget.taskModel.id!,
+                                      titleTask: widget.taskModel.title!,
+                                      locationTask: widget.taskModel.location!,
+                                      status: widget.taskModel.status!,
+                                    ))
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                              // alignment: Alignment.center,
-                              width: p1.maxWidth,
-                              child: StreamBuilder<DocumentSnapshot>(
-                                  stream: streamChat,
-                                  builder: (context, snapshot) =>
-                                      LayoutBuilder(builder: (p0, p2) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.active) {
-                                          var commentList =
-                                              (snapshot.data!.data() as Map<
-                                                  String,
-                                                  dynamic>)['comment'] as List;
-
-                                          commentList.sort((a, b) =>
-                                              b['time'].compareTo(a['time']));
-                                          List<ChatModel> chatModel =
-                                              commentList
-                                                  .map((e) =>
-                                                      ChatModel.fromJson(e))
-                                                  .toList();
-
-                                          return ListView.builder(
-                                              reverse: true,
-                                              padding: EdgeInsets.only(
-                                                  right: 10.w,
-                                                  left: 10.w,
-                                                  bottom: 2.h),
-                                              controller: scrollController,
-                                              itemCount: chatModel.length,
-                                              itemBuilder: (context, index) {
-                                                ChatModel comments =
-                                                    chatModel[index];
-
-                                                return BubbleChat(
-                                                  p2: p2,
-                                                  isMe: comments.senderemail ==
-                                                          mainCtrl.userDetails!
-                                                              .email
-                                                      ? true
-                                                      : false,
-                                                  chatModel: comments,
-                                                  listMessage: chatModel,
-                                                  index: index,
-                                                );
-                                              });
-                                        }
-
-                                        return const SizedBox();
-                                      }))),
-                        ),
-                        Consumer<ChatroomControlller>(
-                            builder: (context, value, child) =>
-                                value.currentStatus == "Close"
-                                    ? Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10.w, vertical: 20.h),
-                                        child: ReopenButton(
-                                            idTask: widget.taskModel.id!),
-                                      )
-                                    : keyboardChat(
-                                        context: context,
-                                        p1: p1,
-                                        idTask: widget.taskModel.id!,
-                                        scrollController: scrollController))
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
