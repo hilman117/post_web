@@ -57,6 +57,7 @@ class ReportController with ChangeNotifier {
     if (_isOverlayShow) {
       _isOverlayShow = false;
       entry!.remove();
+      entry = null;
       notifyListeners();
     }
   }

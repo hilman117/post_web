@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
+import 'package:post_web/models/task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 
 import 'package:post_web/style.dart';
@@ -20,6 +21,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var data = Provider.of<List<Departement>>(context);
+    var tasks = Provider.of<List<TaskModel>>(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
     return Container(
         alignment: Alignment.topCenter,
@@ -56,17 +58,26 @@ class Dashboard extends StatelessWidget {
                                 itemCount: data.length,
                                 itemBuilder: (context, index) {
                                   Departement departement = data[index];
-
+                                  //below code to show total how many request that still open for every departement
+                                  var task = tasks.where((element) =>
+                                      element.sendTo ==
+                                          departement.departement &&
+                                      element.status != "Close");
+                                  var newStatus = tasks.where((element) =>
+                                      element.sendTo ==
+                                          departement.departement &&
+                                      element.status == "New");
                                   //filtering only departement with isactive == true that will display
                                   if (departement.isActive == true) {
                                     return Department(
+                                      newStatus: newStatus.length,
                                       buttonName: departement.departement!,
                                       callback: () =>
                                           controller.selectDepartment(
                                               index, departement.departement!),
                                       index: index,
                                       color: Colors.white,
-                                      totalRequest: 200,
+                                      totalRequest: task.length,
                                       icon: departement.departementIcon!,
                                       departements: data,
                                     );

@@ -200,7 +200,8 @@ class CreateController with ChangeNotifier {
             setTime: selectedTime,
             time: DateTime.now().toString(),
             title: definedTitle,
-            colorUser: colorUser);
+            colorUser: colorUser,
+            status: selectedTime != "" || _newDate != "" ? "To Do" : "New");
         Navigator.of(context).pop();
         isLoding = false;
       } on FirebaseException catch (e) {

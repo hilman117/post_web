@@ -12,6 +12,7 @@ const String lfCollection = "Lost And Found";
 const String administrator = "Administrator";
 const String deptAdmin = "Dept. Admin";
 const String noAdmin = "Non-admin";
+const String bucketStorage = "gs://post-212c8.appspot.com";
 const String forAllDepartment =
     "Every department on one system to improve productivity and efficiency through the automation of all requests such as Maintenance, Housekeeping, Room service, Concierge, IT… and much more.";
 const String easyToUse =

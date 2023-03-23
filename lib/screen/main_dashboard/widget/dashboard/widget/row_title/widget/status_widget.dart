@@ -29,43 +29,47 @@ class StatusWidget extends StatelessWidget {
           vertical: verticalPadding ?? 3.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: (status == 'New')
+        color: (status == 'To Do')
             ? Colors.red.shade50
-            : (status == 'Accepted')
-                ? Colors.green.shade50
-                : (status == 'Resume')
-                    ? mainColor2.withOpacity(0.2)
-                    : (status == 'ESC')
-                        ? Colors.orange.shade100
-                        : (status == 'Close')
-                            ? Colors.grey.shade300
-                            : (status == 'Hold')
-                                ? Colors.grey.shade50
-                                : (status == 'Assigned')
-                                    ? Colors.blue.shade50
-                                    : Colors.blue.shade50,
+            : (status == 'New')
+                ? Colors.red.shade50
+                : (status == 'Accepted')
+                    ? Colors.green.shade50
+                    : (status == 'Resume')
+                        ? mainColor2.withOpacity(0.2)
+                        : (status == 'ESC')
+                            ? Colors.orange.shade100
+                            : (status == 'Close')
+                                ? Colors.grey.shade300
+                                : (status == 'Hold')
+                                    ? Colors.grey.shade200
+                                    : (status == 'Assigned')
+                                        ? Colors.blue.shade50
+                                        : Colors.blue.shade50,
       ),
       child: Text(
         status,
         style: GoogleFonts.sarabun(
           fontSize: fontSize ?? 18.sp,
           fontWeight: FontWeight.w600,
-          color: (status == 'New')
+          color: (status == 'To Do')
               ? Colors.red.shade600
-              : (status == 'Accepted')
-                  ? Colors.green.shade600
-                  : (status == 'Resume')
-                      ? mainColor2
-                      : (status == 'ESC')
-                          ? Colors.orange.shade900
-                          : (status == 'Close' || status == 'Claimed')
-                              ? Colors.grey.shade500
-                              : (status == 'Hold')
-                                  ? Colors.grey
-                                  : (status == 'Assigned' ||
-                                          status == 'Released')
-                                      ? Colors.blue.shade900
-                                      : Colors.blue.shade600,
+              : (status == 'New')
+                  ? Colors.red.shade600
+                  : (status == 'Accepted')
+                      ? Colors.green.shade600
+                      : (status == 'Resume')
+                          ? mainColor2
+                          : (status == 'ESC')
+                              ? Colors.orange.shade900
+                              : (status == 'Close' || status == 'Claimed')
+                                  ? Colors.grey.shade500
+                                  : (status == 'Hold')
+                                      ? Colors.grey
+                                      : (status == 'Assigned' ||
+                                              status == 'Released')
+                                          ? Colors.blue.shade900
+                                          : Colors.blue.shade600,
         ),
       ),
     );

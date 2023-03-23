@@ -139,13 +139,13 @@ class AppbarDashboard extends StatelessWidget {
                           createRectTween: (begin, end) {
                             return CustomRectTween(begin: begin!, end: end!);
                           },
-                          tag: "profileView",
+                          tag: "profileView1",
                           child: Center(child: ProfileView(p1: p1)),
                         ),
                       ));
                     },
                     child: Hero(
-                      tag: "profileView",
+                      tag: "profileView1",
                       createRectTween: (begin, end) {
                         Future.delayed(
                           const Duration(milliseconds: 300),

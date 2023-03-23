@@ -1,9 +1,12 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/task.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/row_title/widget/pop_up_profile_sender.dart';
 
 class DashboardController with ChangeNotifier {
   static String departementList = "departement list";
@@ -68,6 +71,12 @@ class DashboardController with ChangeNotifier {
     notifyListeners();
   }
 
+  bool isSchedule = false;
+  filterWithSchedule(bool newBool) {
+    isSchedule = newBool;
+    notifyListeners();
+  }
+
   bool isHover = false;
   hoveringList(bool newBool) {
     isHover = newBool;
@@ -125,22 +134,6 @@ class DashboardController with ChangeNotifier {
     notifyListeners();
   }
 
-  // play fade animation when every single task have any update
-  Animatable<Color?> bgColor = TweenSequence<Color?>([
-    TweenSequenceItem(
-        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
-        weight: 1.0),
-    TweenSequenceItem(
-        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
-        weight: 1.0),
-    TweenSequenceItem(
-        tween: ColorTween(begin: Colors.white, end: Colors.blue.shade100),
-        weight: 1.0),
-    TweenSequenceItem(
-        tween: ColorTween(begin: Colors.blue.shade100, end: Colors.white),
-        weight: 1.0),
-  ]);
-
   //method for selecting date range on filter
   DateTimeRange dateTimeRange =
       DateTimeRange(start: DateTime(2021), end: DateTime.now());
@@ -161,5 +154,52 @@ class DashboardController with ChangeNotifier {
     if (results == null) return;
     pickedDateForFiltering = dateTimeRange;
     notifyListeners();
+  }
+
+  //[Pop up profile sender]
+  //scaletransitioin animation
+  //this method is called in pop up profile sender profile
+
+  //to get to know position where the user click, the  value will be used for the positioin where the animation come
+  double dx = 0;
+  double dy = 0;
+  getOnClickPosition(PointerHoverEvent event) {
+    dx = event.position.dx;
+    dy = event.position.dy;
+    notifyListeners();
+  }
+
+  OverlayState? overlay;
+  OverlayEntry? entry;
+  showProfileSender({required BuildContext context, TaskModel? taskModel}) {
+    if (entry == null) {
+      overlay = Overlay.of(context);
+      entry = OverlayEntry(
+        builder: (context) => Positioned(
+            top: 300.h,
+            left: 400.w,
+            child: PopUpProfileSender(
+              taskModel: taskModel!,
+            )),
+      );
+      overlay?.insert(entry!);
+      notifyListeners();
+    }
+  }
+
+//to hide overlay of profile sender
+// called in profile sender pop up at [X] button
+  hideProfileSender() {
+    if (entry != null) {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          entry!.remove();
+          entry = null;
+          // isProfileShow = false;
+          notifyListeners();
+        },
+      );
+    }
   }
 }

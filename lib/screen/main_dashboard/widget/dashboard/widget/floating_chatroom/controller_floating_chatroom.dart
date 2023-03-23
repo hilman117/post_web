@@ -1,11 +1,12 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'dart:typed_data';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:post_web/const.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/firebase/firebase_action_task.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
@@ -35,7 +36,7 @@ class ChatroomControlller with ChangeNotifier {
       }
     }
 
-    print(imageList.length);
+    print(selectedImages.first);
   }
 
   void removeSingleImage(int index) {
@@ -204,9 +205,15 @@ class ChatroomControlller with ChangeNotifier {
         imageList.forEach((imageToUpload) async {
           String imageExtension = imageName.split('.').last;
           loadimage(true);
-          final ref = FirebaseStorage.instance.ref(
-              "${user.data.hotelid}/${user.data.uid} + ${DateTime.now().toString()}.$imageExtension");
-          await ref.putString(imageToUpload.toString());
+
+          firebase_storage.Reference ref =
+              FirebaseStorage.instanceFor(bucket: bucketStorage).ref(
+                  "${user.data.hotelid}/${user.data.uid} + ${DateTime.now().toString()}.$imageExtension");
+          final metadata =
+              firebase_storage.SettableMetadata(contentType: "image/jpeg");
+          firebase_storage.UploadTask uploadImages =
+              ref.putData(imageToUpload, metadata);
+          await uploadImages.whenComplete(() => null);
           await ref.getDownloadURL().then((value) async {
             imageUrl.add(value);
             notifyListeners();

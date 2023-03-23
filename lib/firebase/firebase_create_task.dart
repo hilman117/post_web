@@ -28,6 +28,7 @@ class FirebaseCreateTask {
     required String time,
     required String colorUser,
     required String title,
+    required String status,
   }) async {
     try {
       await db
@@ -52,7 +53,7 @@ class FirebaseCreateTask {
         "sender": sender,
         "setDate": setDate,
         "setTime": setTime,
-        "status": "New",
+        "status": status,
         "title": title,
         "isFading": true,
         "time": time

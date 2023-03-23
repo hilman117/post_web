@@ -129,26 +129,19 @@ class _RowTitleState extends State<RowTitle> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                InkWell(
-                                  onTap: () =>
-                                      controller.pickRangeDateFilter(context),
-                                  child: SizedBox(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Filter",
-                                          style: style18Normal,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Icon(
-                                          Icons.date_range,
-                                          color: mainColor2,
-                                          size: 25.sp,
-                                        ),
-                                      ],
-                                    ),
+                                Text(
+                                  "Scheduled",
+                                  style: style15Normal,
+                                ),
+                                SizedBox(
+                                  width: 1.w,
+                                ),
+                                Transform.scale(
+                                  scale: 0.5,
+                                  child: Switch.adaptive(
+                                    value: valueDashboard.isSchedule,
+                                    onChanged: (value) =>
+                                        controller.filterWithSchedule(value),
                                   ),
                                 ),
                                 SizedBox(

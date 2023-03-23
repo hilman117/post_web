@@ -23,8 +23,6 @@ class MultiplePhoto extends StatelessWidget {
         onExpandClicked: () => print('Expand Image was clicked'),
         maxImages: 4,
         key: null,
-        moreThan4: moreThan4,
-        isEqualorLessThan1: isEqualorLessThan1,
       ),
     );
   }

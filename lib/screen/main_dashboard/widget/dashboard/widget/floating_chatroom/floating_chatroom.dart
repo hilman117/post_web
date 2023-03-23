@@ -109,23 +109,50 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            controller.clearCardRequest();
-                            controller.hideChatroom();
-                            chatCtrl.clearImage();
-                          },
-                          child: Icon(
-                            Icons.close_rounded,
-                            color: Colors.grey,
-                            size: 30.sp,
-                            shadows: const [
-                              Shadow(
-                                  offset: Offset(0.1, 0.1),
-                                  color: Colors.grey,
-                                  blurRadius: 2)
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            if (widget.taskModel.setDate != "" ||
+                                widget.taskModel.setTime != "")
+                              Icon(
+                                Icons.schedule_rounded,
+                                color: Colors.red,
+                                size: 25.sp,
+                              ),
+                            Text(
+                              widget.taskModel.setDate!,
+                              style:
+                                  TextStyle(fontSize: 15.sp, color: Colors.red),
+                            ),
+                            SizedBox(
+                              width: 3.w,
+                            ),
+                            Text(
+                              widget.taskModel.setTime!,
+                              style:
+                                  TextStyle(fontSize: 15.sp, color: Colors.red),
+                            ),
+                            SizedBox(
+                              width: 3.w,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                controller.clearCardRequest();
+                                controller.hideChatroom();
+                                chatCtrl.clearImage();
+                              },
+                              child: Icon(
+                                Icons.close_rounded,
+                                color: Colors.grey,
+                                size: 30.sp,
+                                shadows: const [
+                                  Shadow(
+                                      offset: Offset(0.1, 0.1),
+                                      color: Colors.grey,
+                                      blurRadius: 2)
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 5.h,

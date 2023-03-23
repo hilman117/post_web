@@ -44,7 +44,7 @@ class SendAndMoreButton extends StatelessWidget {
                     size: 30.sp,
                   )),
             ),
-            if (value.textToSend != "")
+            if (value.textToSend != "" || value.imageList.isNotEmpty)
               InkWell(
                 onTap: () => event.sendComment(context, idTask, commentText),
                 child: Container(

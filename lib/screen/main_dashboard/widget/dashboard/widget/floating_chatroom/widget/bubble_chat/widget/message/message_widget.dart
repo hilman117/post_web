@@ -78,16 +78,12 @@ class MessageWidget extends StatelessWidget {
             chatModel.imageComment!.isEmpty
                 ? const SizedBox()
                 : SizedBox(
-                    height: (chatModel.imageComment!.length == 2)
-                        ? 300.h
-                        : (chatModel.imageComment!.length == 1)
-                            ? 200.h
-                            : 30.h,
+                    height: 300.h,
                     width: 300.w,
                     child: MultiplePhoto(
                         images: chatModel.imageComment!,
                         moreThan4: 100.w,
-                        isEqualorLessThan1: 100.w))
+                        isEqualorLessThan1: 300.w))
           ],
         ),
       ),

@@ -15,6 +15,7 @@ class Department extends StatefulWidget {
     required this.totalRequest,
     required this.icon,
     required this.departements,
+    this.newStatus,
   }) : super(key: key);
 
   final String buttonName;
@@ -23,6 +24,7 @@ class Department extends StatefulWidget {
   final VoidCallback callback;
   final Iterable<Departement> departements;
   final int totalRequest;
+  final int? newStatus;
   final Color color;
 
   @override
@@ -31,9 +33,11 @@ class Department extends StatefulWidget {
 
 class _DepartmentState extends State<Department> {
   bool isHover = false;
+
   @override
-  Widget build(BuildContext context) => Consumer<DashboardController>(
-        builder: (context, value, child) => InkWell(
+  Widget build(BuildContext context) =>
+      Consumer<DashboardController>(builder: (context, value, child) {
+        return InkWell(
           onTap: widget.callback,
           child: MouseRegion(
             onEnter: (event) {
@@ -62,50 +66,71 @@ class _DepartmentState extends State<Department> {
                             : Colors.black87,
                         width: 0.25.w)),
               ),
-              child: SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
+              child: Stack(
+                children: [
+                  SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          widget.icon,
-                          width: 25.w,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              widget.icon,
+                              width: 25.w,
+                            ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SizedBox(
+                              width: 150.w,
+                              child: Text(
+                                widget.buttonName,
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  color:
+                                      value.selectedDepartment == widget.index
+                                          ? Colors.green
+                                          : Colors.black54,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SizedBox(
-                          width: 150.w,
-                          child: Text(
-                            widget.buttonName,
-                            style: TextStyle(
-                              fontSize: 20.sp,
+                        Text(
+                          widget.totalRequest.toString(),
+                          style: TextStyle(
+                              fontSize: 30.sp,
                               color: value.selectedDepartment == widget.index
                                   ? Colors.green
                                   : Colors.black54,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    Text(
-                      widget.totalRequest.toString(),
-                      style: TextStyle(
-                          fontSize: 30.sp,
-                          color: value.selectedDepartment == widget.index
-                              ? Colors.green
-                              : Colors.black54,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
+                  ),
+                  widget.newStatus != 0 && widget.newStatus != null
+                      ? Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Transform.scale(
+                            scale: 0.5,
+                            child: Chip(
+                                backgroundColor: Colors.red,
+                                label: Text(
+                                  "New  ${widget.newStatus.toString()}",
+                                  style: const TextStyle(
+                                      fontSize: 13, color: Colors.white),
+                                )),
+                          ),
+                        )
+                      : const SizedBox()
+                ],
               ),
             ),
           ),
-        ),
-      );
+        );
+      });
 }

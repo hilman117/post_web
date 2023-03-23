@@ -67,6 +67,7 @@ class _RequestCardState extends State<RequestCard>
     var dataGroup = Provider.of<List<Departement>>(context, listen: false);
     var dataTeam = Provider.of<List<UserDetails>>(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
+
     Locale countryCode = Localizations.localeOf(context);
     return MouseRegion(
       onEnter: (event) {
@@ -112,7 +113,9 @@ class _RequestCardState extends State<RequestCard>
                             Padding(
                               padding: EdgeInsets.only(right: 10.w),
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () => controller.showProfileSender(
+                                    context: context,
+                                    taskModel: widget.taskModel),
                                 child: PhotoProfileNetWork(
                                     lebar: 25.w,
                                     tinggi: 25.h,
@@ -240,31 +243,60 @@ class _RequestCardState extends State<RequestCard>
                       Container(
                         alignment: Alignment.center,
                         width: 200.w,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              countryCode == const Locale("en")
-                                  ? DateFormat("dd-MM-yy, hh:mm a")
-                                      .format(widget.taskModel.time!.toLocal())
-                                  : DateFormat("dd-MM-yy, HH:mm")
-                                      .format(widget.taskModel.time!.toLocal()),
-                              style: GoogleFonts.sarabun(
-                                  fontSize: 15.w,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.blue),
-                              textAlign: TextAlign.left,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (widget.taskModel.setTime != "" ||
+                                        widget.taskModel.setDate != "")
+                                    ? Text(
+                                        widget.taskModel.setDate != ""
+                                            ? "${widget.taskModel.setDate!} \n${widget.taskModel.setTime!}"
+                                            : widget.taskModel.setTime!,
+                                        style: GoogleFonts.sarabun(
+                                            fontSize: 15.w,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.red),
+                                        overflow: TextOverflow.fade,
+                                        textAlign: TextAlign.left,
+                                      )
+                                    : Text(
+                                        countryCode == const Locale("en")
+                                            ? DateFormat("dd-MM-yy, hh:mm a")
+                                                .format(widget.taskModel.time!
+                                                    .toLocal())
+                                            : DateFormat("dd-MM-yy, HH:mm")
+                                                .format(widget.taskModel.time!
+                                                    .toLocal()),
+                                        style: GoogleFonts.sarabun(
+                                            fontSize: 15.w,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                Text(
+                                  remainingDateTime(
+                                      context, widget.taskModel.time!),
+                                  style: GoogleFonts.sarabun(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.grey),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
                             ),
-                            Text(
-                              remainingDateTime(
-                                  context, widget.taskModel.time!),
-                              style: GoogleFonts.sarabun(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.grey),
-                              textAlign: TextAlign.left,
-                            ),
+                            widget.taskModel.setTime != "" ||
+                                    widget.taskModel.setDate != ""
+                                ? Icon(
+                                    Icons.schedule,
+                                    size: 30.sp,
+                                    color: Colors.red,
+                                  )
+                                : const SizedBox()
                           ],
                         ),
                       ),

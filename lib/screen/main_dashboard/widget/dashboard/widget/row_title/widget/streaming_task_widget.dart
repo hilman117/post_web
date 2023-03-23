@@ -23,71 +23,105 @@ class _StreamingTaskWidgetState extends State<StreamingTaskWidget> {
   Widget build(BuildContext context) {
     var requestData = Provider.of<List<TaskModel>>(context);
     final dashboardCtrl = context.watch<DashboardController>();
+    var taskWithSchedule = requestData
+        .where((element) =>
+            element.setTime!.isNotEmpty || element.setDate!.isNotEmpty)
+        .toList();
     return SizedBox(
         width: double.infinity,
         height: 600.h,
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: true),
-          child: ListView.builder(
-              itemCount: requestData.length,
-              itemBuilder: (BuildContext context, int index) {
-                requestData.sort((a, b) => b.time!.compareTo(a.time!));
-                TaskModel taskModel = requestData[index];
-                if (dashboardCtrl.department
-                        .toLowerCase()
-                        .contains(taskModel.sendTo!.toLowerCase()) &&
-                    dashboardCtrl.filterbyStatus == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                } else if (dashboardCtrl.filterbyStatus
-                        .toLowerCase()
-                        .contains(taskModel.status!.toLowerCase()) &&
-                    dashboardCtrl.department == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                } else if (dashboardCtrl.filterbyStatus
-                        .toLowerCase()
-                        .contains(taskModel.status!.toLowerCase()) &&
-                    dashboardCtrl.department
-                        .toLowerCase()
-                        .contains(taskModel.sendTo!.toLowerCase())) {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                } else if (dashboardCtrl.filterbyStatus
-                        .toLowerCase()
-                        .contains("open") &&
-                    taskModel.status != "Close" &&
-                    dashboardCtrl.department == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                } else if (dashboardCtrl.filterbyStatus
-                        .toLowerCase()
-                        .contains("open") &&
-                    taskModel.status != "Close" &&
-                    dashboardCtrl.department
-                        .toLowerCase()
-                        .contains(taskModel.sendTo!.toLowerCase())) {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                } else if (dashboardCtrl.filterbyStatus == "" &&
-                    dashboardCtrl.department == "") {
-                  return RequestCard(
-                    index: index,
-                    taskModel: taskModel,
-                  );
-                }
-                return const SizedBox();
-              }),
+          child: dashboardCtrl.isSchedule == false
+              //if [ISSCHEDULE==FALSE] task list without schedule will display
+              ? GeneralTaskList(
+                  requestData: requestData, dashboardCtrl: dashboardCtrl)
+              //below task list with schedule
+              : ListView.builder(
+                  itemCount: taskWithSchedule.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    requestData.sort((a, b) => b.time!.compareTo(a.time!));
+                    TaskModel taskModel = taskWithSchedule[index];
+                    return RequestCard(
+                      index: index,
+                      taskModel: taskModel,
+                    );
+                  }),
         ));
+  }
+}
+
+class GeneralTaskList extends StatelessWidget {
+  const GeneralTaskList({
+    Key? key,
+    required this.requestData,
+    required this.dashboardCtrl,
+  }) : super(key: key);
+
+  final List<TaskModel> requestData;
+  final DashboardController dashboardCtrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: requestData.length,
+        itemBuilder: (BuildContext context, int index) {
+          requestData.sort((a, b) => b.time!.compareTo(a.time!));
+          TaskModel taskModel = requestData[index];
+          if (dashboardCtrl.department
+                  .toLowerCase()
+                  .contains(taskModel.sendTo!.toLowerCase()) &&
+              dashboardCtrl.filterbyStatus == "") {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          } else if (dashboardCtrl.filterbyStatus
+                  .toLowerCase()
+                  .contains(taskModel.status!.toLowerCase()) &&
+              dashboardCtrl.department == "") {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          } else if (dashboardCtrl.filterbyStatus
+                  .toLowerCase()
+                  .contains(taskModel.status!.toLowerCase()) &&
+              dashboardCtrl.department
+                  .toLowerCase()
+                  .contains(taskModel.sendTo!.toLowerCase())) {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          } else if (dashboardCtrl.filterbyStatus
+                  .toLowerCase()
+                  .contains("open") &&
+              taskModel.status != "Close" &&
+              dashboardCtrl.department == "") {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          } else if (dashboardCtrl.filterbyStatus
+                  .toLowerCase()
+                  .contains("open") &&
+              taskModel.status != "Close" &&
+              dashboardCtrl.department
+                  .toLowerCase()
+                  .contains(taskModel.sendTo!.toLowerCase())) {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          } else if (dashboardCtrl.filterbyStatus == "" &&
+              dashboardCtrl.department == "") {
+            return RequestCard(
+              index: index,
+              taskModel: taskModel,
+            );
+          }
+          return const SizedBox();
+        });
   }
 }

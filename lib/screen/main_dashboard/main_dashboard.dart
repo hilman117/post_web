@@ -37,13 +37,16 @@ class _MainDashboardState extends State<MainDashboard>
     var chatCtrl = context.watch<ChatroomControlller>();
     return Stack(
       children: [
-        Scaffold(
-            backgroundColor: Colors.white,
-            floatingActionButton: const FABWidget(),
-            appBar: PreferredSize(
-                preferredSize: Size.fromHeight(size.height * 0.09),
-                child: const AppbarDashboard()),
-            body: mainCtrl.pages[mainCtrl.menuSelected]),
+        GestureDetector(
+          onTap: () => dashboarCtrl.hideChatroom(),
+          child: Scaffold(
+              backgroundColor: Colors.white,
+              floatingActionButton: const FABWidget(),
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(size.height * 0.09),
+                  child: const AppbarDashboard()),
+              body: mainCtrl.pages[mainCtrl.menuSelected]),
+        ),
         dashboarCtrl.isChatroomOpen == true && dashboarCtrl.taskModel != null
             ? FloatingChatroom(taskModel: dashboarCtrl.taskModel!)
             : const SizedBox(),

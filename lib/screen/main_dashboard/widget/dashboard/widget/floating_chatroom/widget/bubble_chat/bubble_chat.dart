@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/models/chat_model.dart';
 import 'package:post_web/const.dart';
+
 import 'package:post_web/style.dart';
 
 import 'widget/action_bubble.dart';
@@ -21,6 +22,7 @@ class BubbleChat extends StatelessWidget {
   final BoxConstraints p2;
   // ignore: prefer_typing_uninitialized_variables
   final ChatModel chatModel;
+
   final List<ChatModel> listMessage;
   final int index;
 
