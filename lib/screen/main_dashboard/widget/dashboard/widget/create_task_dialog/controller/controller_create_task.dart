@@ -1,14 +1,19 @@
 import 'dart:typed_data';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/firebase/firebase_create_task.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../../../../const.dart';
+import '../../../../../../../controller/c_user.dart';
+
 class CreateController with ChangeNotifier {
+  final user = Get.put(CUser());
   //function for searching title and location on [CREATETASKDIALOG]
   String searchingTitle = "";
   String searchingLocation = "";
@@ -180,11 +185,63 @@ class CreateController with ChangeNotifier {
       isLoding = true;
       notifyListeners();
       try {
+        if (imageList.isNotEmpty) {
+          isLoding = true;
+          notifyListeners();
+          imageList.forEach((imageToUpload) async {
+            String imageExtension = imageName.split('.').last;
+
+            firebase_storage.Reference ref =
+                FirebaseStorage.instanceFor(bucket: bucketStorage).ref(
+                    "${user.data.hotelid}/${user.data.uid} + ${DateTime.now().toString()}.$imageExtension");
+            final metadata =
+                firebase_storage.SettableMetadata(contentType: "image/jpeg");
+            firebase_storage.UploadTask uploadImages =
+                ref.putData(imageToUpload, metadata);
+            await uploadImages.whenComplete(() => null);
+            await ref.getDownloadURL().then((value) async {
+              imageUrl.add(value);
+              notifyListeners();
+
+              // print("ini image list sebelum di upload ${imageList.length}");
+              // print(
+              //     "ini image list stelah di upload di upload ${imageUrl.length}");
+
+              // print("$imageUrl");
+              if (imageUrl.length == imageList.length) {
+                imageList.clear();
+                await db.createTask(
+                    context: context,
+                    hotelName: hotelName,
+                    assigned: departementSendTo,
+                    image: imageUrl,
+                    description: description.text,
+                    emailReceiver: "",
+                    emailSender: emailSender,
+                    from: deptSender,
+                    id: uid,
+                    location: definedLocation,
+                    positionSender: positionSender,
+                    profileImageSender: imageProfileSender,
+                    receiver: "",
+                    sendTo: departementSendTo,
+                    sender: senderName,
+                    setDate: _newDate,
+                    setTime: selectedTime,
+                    time: DateTime.now().toString(),
+                    title: definedTitle,
+                    colorUser: colorUser,
+                    status:
+                        selectedTime != "" || _newDate != "" ? "To Do" : "New");
+              }
+            });
+          });
+        }
         await db.createTask(
             context: context,
             hotelName: hotelName,
             assigned: departementSendTo,
-            image: imageUrl,
+            image: [],
             description: description.text,
             emailReceiver: "",
             emailSender: emailSender,

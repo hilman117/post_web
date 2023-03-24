@@ -34,10 +34,10 @@ class ActionBubble extends StatelessWidget {
                     right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
                   width: 450.w,
-                  child: Text(
+                  child: SelectableText(
                     actionMessage,
                     style: style18Normal,
-                    overflow: TextOverflow.clip,
+                    // overflow: TextOverflow.clip,
                     textAlign: TextAlign.end,
                   ),
                 ),
@@ -61,10 +61,10 @@ class ActionBubble extends StatelessWidget {
                     right: !isMe ? 20.w : 5.w, left: isMe ? 20.w : 5.w),
                 child: SizedBox(
                   width: 450.w,
-                  child: Text(
+                  child: SelectableText(
                     actionMessage,
                     style: style18Normal,
-                    overflow: TextOverflow.clip,
+                    // overflow: TextOverflow.clip,
                     textAlign: TextAlign.start,
                   ),
                 ),

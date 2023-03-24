@@ -8,6 +8,7 @@ class TaskModel {
       this.sender,
       this.comment,
       this.assigned,
+      this.image,
       this.location,
       this.id,
       this.time,
@@ -30,6 +31,7 @@ class TaskModel {
   String? positionSender;
   List<dynamic>? comment;
   List<String>? assigned;
+  List<String>? image;
   String? location;
   String? id;
   DateTime? time;
@@ -50,6 +52,7 @@ class TaskModel {
       sender: json["sender"],
       comment: List<dynamic>.from(json["comment"].map((x) => x)),
       assigned: List<String>.from(json["assigned"].map((x) => x)),
+      image: List<String>.from(json["image"].map((x) => x)),
       location: json["location"],
       id: json["id"],
       time: DateTime.parse(json["time"]),
@@ -74,6 +77,8 @@ class TaskModel {
         "assigned": assigned == null
             ? null
             : List<dynamic>.from(assigned!.map((x) => x)),
+        "image":
+            image == null ? null : List<dynamic>.from(image!.map((x) => x)),
         "location": location,
         "id": id,
         "time": time!.toIso8601String(),

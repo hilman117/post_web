@@ -75,7 +75,10 @@ class _PhotoGridState extends State<PhotoGrid> {
                   barrierColor: Colors.black.withOpacity(0.5),
                   opaque: false, // set to false
                   pageBuilder: (_, __, ___) => ImagePreviewPage(
-                      imageUrl: imageUrl, listImageUrl: widget.imageUrls),
+                    imageUrl: imageUrl,
+                    listImageUrl: widget.imageUrls,
+                    index: index,
+                  ),
                 ),
               );
             },
@@ -100,7 +103,10 @@ class _PhotoGridState extends State<PhotoGrid> {
                   barrierColor: Colors.black.withOpacity(0.5),
                   opaque: false, // set to false
                   pageBuilder: (_, __, ___) => ImagePreviewPage(
-                      imageUrl: imageUrl, listImageUrl: widget.imageUrls),
+                    imageUrl: imageUrl,
+                    listImageUrl: widget.imageUrls,
+                    index: index,
+                  ),
                 ),
               );
             },
@@ -141,7 +147,10 @@ class _PhotoGridState extends State<PhotoGrid> {
                 barrierColor: Colors.black.withOpacity(0.5),
                 opaque: false, // set to false
                 pageBuilder: (_, __, ___) => ImagePreviewPage(
-                    imageUrl: imageUrl, listImageUrl: widget.imageUrls),
+                  imageUrl: imageUrl,
+                  listImageUrl: widget.imageUrls,
+                  index: index,
+                ),
               ),
             );
           },

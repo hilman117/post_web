@@ -198,7 +198,6 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                         List<ChatModel> chatModel = commentList
                                             .map((e) => ChatModel.fromJson(e))
                                             .toList();
-
                                         return ListView.builder(
                                             reverse: true,
                                             padding: EdgeInsets.only(
