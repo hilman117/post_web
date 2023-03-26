@@ -10,7 +10,6 @@ import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/appbar/widget/logout_dialog.dart';
 
 import 'package:post_web/reusable_widget/photo_profile_network.dart';
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 import '../profile_view/profile_view.dart';
@@ -24,11 +23,17 @@ class AppbarDashboard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final mainDashboardController =
         Provider.of<MainDashboardController>(context, listen: false);
+    final theme = Theme.of(context);
     return Consumer<MainDashboardController>(
       builder: (context, value, child) => Container(
-          decoration: const BoxDecoration(color: Color(0xffECECF1), boxShadow: [
-            BoxShadow(blurRadius: 0.5, offset: Offset(1.0, 0.1))
-          ]),
+          decoration: BoxDecoration(
+              color: theme.appBarTheme.backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                    color: theme.canvasColor,
+                    blurRadius: 0.5,
+                    offset: const Offset(1.0, 0.1))
+              ]),
           alignment: Alignment.center,
           height: size.height * 0.09,
           width: double.infinity,
@@ -42,7 +47,10 @@ class AppbarDashboard extends StatelessWidget {
                   ),
                   Text(
                     user.data.hotel!,
-                    style: style20Bold,
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                        color: theme.canvasColor),
                   ),
                   SizedBox(
                     width: 50.w,
@@ -82,7 +90,7 @@ class AppbarDashboard extends StatelessWidget {
                                           color: (value.menuHovering == index ||
                                                   value.menuSelected == index)
                                               ? mainColor2
-                                              : Colors.black87,
+                                              : theme.canvasColor,
                                           size: 25.sp,
                                         ),
                                         SizedBox(
@@ -97,7 +105,7 @@ class AppbarDashboard extends StatelessWidget {
                                                       value.menuSelected ==
                                                           index)
                                                   ? mainColor2
-                                                  : Colors.black87,
+                                                  : theme.canvasColor,
                                               fontWeight:
                                                   value.menuSelected == index
                                                       ? FontWeight.bold
@@ -118,12 +126,14 @@ class AppbarDashboard extends StatelessWidget {
                       Text(
                         user.data.name!,
                         style: TextStyle(
-                            fontSize: p1.maxWidth * 0.009,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                            color: theme.canvasColor),
                       ),
                       Text(
                         user.data.position!,
-                        style: TextStyle(fontSize: p1.maxWidth * 0.009),
+                        style: TextStyle(
+                            fontSize: 18.sp, color: theme.canvasColor),
                       )
                     ],
                   ),
@@ -172,18 +182,32 @@ class AppbarDashboard extends StatelessWidget {
                   ),
                   SizedBox(width: p1.maxWidth * 0.01),
                   InkWell(
+                    onTap: () => mainDashboardController.changeThemeMode(),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 1000),
+                      child: value.isDarkMode
+                          ? const Icon(Icons.light_mode)
+                          : Icon(Icons.dark_mode_outlined,
+                              color: theme.iconTheme.color),
+                    ),
+                  ),
+                  SizedBox(width: p1.maxWidth * 0.01),
+                  InkWell(
                     borderRadius: BorderRadius.circular(50),
                     onTap: () => logoutDialog(context),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.exit_to_app_outlined,
-                          color: mainColor2,
+                        Icon(
+                          Icons.logout_rounded,
+                          color: theme.iconTheme.color,
                         ),
                         Text(
                           "logout",
-                          style: style15Normal,
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              color: theme.iconTheme.color,
+                              fontWeight: FontWeight.normal),
                         )
                       ],
                     ),

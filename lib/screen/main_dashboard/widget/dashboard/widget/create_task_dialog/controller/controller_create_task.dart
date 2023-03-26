@@ -188,6 +188,7 @@ class CreateController with ChangeNotifier {
         if (imageList.isNotEmpty) {
           isLoding = true;
           notifyListeners();
+          // ignore: avoid_function_literals_in_foreach_calls
           imageList.forEach((imageToUpload) async {
             String imageExtension = imageName.split('.').last;
 

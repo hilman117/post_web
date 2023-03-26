@@ -35,102 +35,102 @@ class _DepartmentState extends State<Department> {
   bool isHover = false;
 
   @override
-  Widget build(BuildContext context) =>
-      Consumer<DashboardController>(builder: (context, value, child) {
-        return InkWell(
-          onTap: widget.callback,
-          child: MouseRegion(
-            onEnter: (event) {
-              setState(() {
-                isHover = true;
-              });
-            },
-            onExit: (event) {
-              setState(() {
-                isHover = false;
-              });
-            },
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 30.w),
-              width: 250.w,
-              decoration: BoxDecoration(
-                color: isHover ? Colors.grey.shade200 : Colors.transparent,
-                border: Border(
-                    left: widget.index == 0
-                        ? BorderSide.none
-                        : BorderSide(color: Colors.black87, width: 0.5.w),
-                    right: BorderSide(
-                        color: widget.index == widget.departements.length
-                            ? Colors.transparent
-                            : Colors.black87,
-                        width: 0.25.w)),
-              ),
-              child: Stack(
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Consumer<DashboardController>(builder: (context, value, child) {
+      return InkWell(
+        onTap: widget.callback,
+        child: MouseRegion(
+          onEnter: (event) {
+            setState(() {
+              isHover = true;
+            });
+          },
+          onExit: (event) {
+            setState(() {
+              isHover = false;
+            });
+          },
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            width: 250.w,
+            decoration: BoxDecoration(
+              color: isHover ? theme.hoverColor : Colors.transparent,
+              border: Border(
+                  left: widget.index == 0
+                      ? BorderSide.none
+                      : BorderSide(color: theme.canvasColor, width: 0.5.w),
+                  right: BorderSide(
+                      color: widget.index == widget.departements.length
+                          ? Colors.transparent
+                          : theme.canvasColor,
+                      width: 0.25.w)),
+            ),
+            child: SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              widget.icon,
-                              width: 25.w,
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            SizedBox(
-                              width: 150.w,
-                              child: Text(
-                                widget.buttonName,
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color:
-                                      value.selectedDepartment == widget.index
-                                          ? Colors.green
-                                          : Colors.black54,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          widget.totalRequest.toString(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        widget.icon,
+                        width: 25.w,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      SizedBox(
+                        width: 150.w,
+                        child: Text(
+                          widget.buttonName,
                           style: TextStyle(
-                              fontSize: 30.sp,
-                              color: value.selectedDepartment == widget.index
-                                  ? Colors.green
-                                  : Colors.black54,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  widget.newStatus != 0 && widget.newStatus != null
-                      ? Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Transform.scale(
-                            scale: 0.5,
-                            child: Chip(
-                                backgroundColor: Colors.red,
-                                label: Text(
-                                  "New  ${widget.newStatus.toString()}",
-                                  style: const TextStyle(
-                                      fontSize: 13, color: Colors.white),
-                                )),
+                            fontSize: 20.sp,
+                            color: value.selectedDepartment == widget.index
+                                ? Colors.green
+                                : theme.canvasColor,
                           ),
-                        )
-                      : const SizedBox()
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.totalRequest.toString(),
+                        style: TextStyle(
+                            fontSize: 30.sp,
+                            color: value.selectedDepartment == widget.index
+                                ? Colors.green
+                                : theme.canvasColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 10.sp,
+                      ),
+                      if (widget.newStatus != 0)
+                        Transform.scale(
+                          scale: 0.5,
+                          child: Chip(
+                              backgroundColor: Colors.red,
+                              label: Text(
+                                "New  ${widget.newStatus.toString()}",
+                                style: const TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              )),
+                        ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
-        );
-      });
+        ),
+      );
+    });
+  }
 }

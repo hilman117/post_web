@@ -26,10 +26,8 @@ class MessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime convertedTimeStampToDatetime = chatModel.time!.toDate();
     var color = int.parse(chatModel.colorUser!);
-
+    final theme = Theme.of(context);
     bool isVisible = false;
-    // var previousChat = listMessage[index - 1];
-    // var currentChat = listMessage[index];
     if (listMessage.length - 1 == index) {
       isVisible = false;
     } else {
@@ -56,7 +54,7 @@ class MessageWidget extends StatelessWidget {
                     chatModel.sender!,
                     style: TextStyle(
                         fontSize: 18.sp,
-                        color: isMe ? Colors.black87 : Color(color),
+                        color: isMe ? theme.canvasColor : Color(color),
                         fontWeight: FontWeight.bold),
                     overflow: TextOverflow.fade,
                   )
@@ -64,14 +62,14 @@ class MessageWidget extends StatelessWidget {
             chatModel.description != ""
                 ? Text(
                     chatModel.description!,
-                    style: style18Normal,
+                    style: theme.textTheme.bodySmall,
                     overflow: TextOverflow.clip,
                   )
                 : const SizedBox(),
             chatModel.commentBody != ""
                 ? Text(
                     chatModel.commentBody!,
-                    style: style18Normal,
+                    style: theme.textTheme.bodySmall,
                     overflow: TextOverflow.clip,
                   )
                 : const SizedBox(),

@@ -4,7 +4,6 @@ import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_
 import 'package:provider/provider.dart';
 
 import '../const.dart';
-import '../style.dart';
 
 class ReopenButton extends StatelessWidget {
   const ReopenButton({
@@ -17,12 +16,13 @@ class ReopenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ctrl = Provider.of<ChatroomControlller>(context, listen: false);
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
           child: Container(
-            height: 30.h,
+            height: 40.h,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
@@ -32,7 +32,7 @@ class ReopenButton extends StatelessWidget {
                 onPressed: () => ctrl.reopenTask(context, idTask),
                 child: Text(
                   "Reopen",
-                  style: style15Normal,
+                  style: TextStyle(fontSize: 18.sp, color: theme.canvasColor),
                 )),
           ),
         ),

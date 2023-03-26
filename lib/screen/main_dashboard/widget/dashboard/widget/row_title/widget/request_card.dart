@@ -7,7 +7,6 @@ import 'package:post_web/const.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
 import 'package:post_web/reusable_widget/reopen_button.dart';
-import 'package:post_web/style.dart';
 import 'package:post_web/reusable_widget/photo_profile_network.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../models/departement.dart';
@@ -67,7 +66,7 @@ class _RequestCardState extends State<RequestCard>
     var dataGroup = Provider.of<List<Departement>>(context, listen: false);
     var dataTeam = Provider.of<List<UserDetails>>(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
-
+    final theme = Theme.of(context);
     Locale countryCode = Localizations.localeOf(context);
     return MouseRegion(
       onEnter: (event) {
@@ -84,8 +83,8 @@ class _RequestCardState extends State<RequestCard>
         color: (dashboardCtrl.selectedCardRequest == widget.index)
             ? mainColor2.withOpacity(0.2)
             : (isHover)
-                ? Colors.grey.shade200
-                : Colors.white,
+                ? theme.hoverColor
+                : theme.cardColor,
         child: FadeTransition(
           opacity: widget.taskModel.isFading == true ? _animation : notTrue,
           child: ListTile(
@@ -126,7 +125,7 @@ class _RequestCardState extends State<RequestCard>
                             ),
                             Flexible(
                               child: Text(widget.taskModel.sender!,
-                                  style: style18Normal),
+                                  style: theme.textTheme.bodySmall),
                             ),
                           ],
                         ),
@@ -145,15 +144,15 @@ class _RequestCardState extends State<RequestCard>
                         padding: EdgeInsets.only(right: 10.w),
                         child: Text(
                           widget.taskModel.location!,
-                          style: style18Bold,
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
                         width: 200.w,
                         padding: EdgeInsets.only(right: 10.w),
-                        child:
-                            Text(widget.taskModel.title!, style: style18Normal),
+                        child: Text(widget.taskModel.title!,
+                            style: theme.textTheme.bodySmall),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -167,7 +166,7 @@ class _RequestCardState extends State<RequestCard>
                                 widget.taskModel.description == ''
                                     ? "-"
                                     : widget.taskModel.description!,
-                                style: style18Normal),
+                                style: theme.textTheme.bodySmall),
                             widget.taskModel.image!.isNotEmpty
                                 ? Icon(
                                     Icons.image,
@@ -191,7 +190,7 @@ class _RequestCardState extends State<RequestCard>
                             widget.taskModel.receiver != ""
                                 ? widget.taskModel.receiver!
                                 : "-",
-                            style: style18Normal),
+                            style: theme.textTheme.bodySmall),
                       ),
                       Container(
                           alignment: Alignment.centerLeft,

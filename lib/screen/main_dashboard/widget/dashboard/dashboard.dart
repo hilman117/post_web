@@ -4,7 +4,6 @@ import 'package:post_web/const.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/departement.dart';
@@ -22,11 +21,12 @@ class Dashboard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     var data = Provider.of<List<Departement>>(context);
     var tasks = Provider.of<List<TaskModel>>(context);
+    final theme = Theme.of(context);
     final controller = Provider.of<DashboardController>(context, listen: false);
     return Container(
         alignment: Alignment.topCenter,
         width: size.width,
-        color: const Color(0xffF8F8FA),
+        color: theme.primaryColor,
         child: LayoutBuilder(
           builder: (p0, p1) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -45,7 +45,10 @@ class Dashboard extends StatelessWidget {
                     children: [
                       Text(
                         "Dashboard",
-                        style: style24SemiBold,
+                        style: TextStyle(
+                            fontSize: 40.sp,
+                            fontWeight: FontWeight.bold,
+                            color: theme.canvasColor),
                       ),
                       SizedBox(
                         width: p1.maxWidth * 0.020,

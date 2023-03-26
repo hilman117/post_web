@@ -17,6 +17,7 @@ class FilterByStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Consumer<DashboardController>(
       builder: (context, value, child) => Container(
         alignment: Alignment.center,
@@ -26,15 +27,16 @@ class FilterByStatus extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
             color: value.statusSelected == index
-                ? mainColor.withOpacity(0.5)
-                : Colors.white),
+                ? mainColor2.withOpacity(0.5)
+                : theme.primaryColor),
         child: Text(
           status,
           style: TextStyle(
+              fontWeight: FontWeight.normal,
               fontSize: 15.sp,
               color: value.statusSelected == index
                   ? Colors.white
-                  : Colors.black54),
+                  : theme.canvasColor),
         ),
       ),
     );

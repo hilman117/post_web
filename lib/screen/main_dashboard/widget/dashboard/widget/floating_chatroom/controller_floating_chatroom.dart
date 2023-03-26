@@ -1,11 +1,16 @@
 // ignore_for_file: avoid_print, avoid_function_literals_in_foreach_calls
 
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:http/http.dart' as http;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/firebase/firebase_action_task.dart';
@@ -168,7 +173,7 @@ class ChatroomControlller with ChangeNotifier {
       isAssignProgress = true;
       notifyListeners();
       await db.reopenTask(context, idTask);
-      newStatus("Hold");
+      newStatus("Reopen");
       isAssignProgress = false;
       notifyListeners();
     } catch (e) {
@@ -302,4 +307,65 @@ class ChatroomControlller with ChangeNotifier {
       print(e);
     }
   }
+
+//method that user for display status of download
+  bool isDownloading = false;
+  OverlayState? overlay;
+  OverlayEntry? entry;
+  showDownLoadResult({required BuildContext context, String? resultText}) {
+    if (entry == null) {
+      overlay = Overlay.of(context);
+      entry = OverlayEntry(
+          builder: (context) => AnimatedOpacity(
+                duration: const Duration(seconds: 2),
+                opacity: isDownloading ? 1.0 : 0.0,
+                child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.black54),
+                  child: Text(
+                    resultText!,
+                    style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                  ),
+                ),
+              ));
+      overlay?.insert(entry!);
+      notifyListeners();
+    }
+  }
+
+  //[download image function, called in image preview page]
+  void saveNetworkImage(BuildContext context) async {
+    isDownloading = true;
+    notifyListeners();
+    print("----------------------");
+    print("save network image");
+    final temDir = await getTemporaryDirectory();
+    final path = '${temDir.path}/myfile.jpg';
+    // await Dio().download(url, path);
+    final respon = await http.get(Uri.parse(currentImage));
+    final bytes = respon.bodyBytes;
+    File(path).writeAsBytesSync(bytes);
+    var result = await GallerySaver.saveImage(path, albumName: "POST");
+    isDownloading = false;
+    notifyListeners();
+    print("Hasil: $result");
+    if (result == true) {
+      showDownLoadResult(context: context, resultText: "Image saved success!");
+    }
+  }
+
+  String currentImage = "";
+  getCurrentImageUrl(String image) {
+    currentImage = image;
+    print(currentImage);
+    // notifyListeners();
+  }
+
+  // Future<void> downloadImage() async {
+  //   if (currentImage != "") {
+  //     await WebImageDownloader.downloadImageFromWeb();
+  //   }
+  // }
 }

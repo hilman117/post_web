@@ -21,6 +21,7 @@ import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_
 import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 import 'package:post_web/shared_prefferences/session_user.dart';
+import 'package:post_web/theme.dart';
 import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
 import 'firebase/firebase_account.dart';
@@ -114,7 +115,11 @@ Future<void> main() async {
             },
             // localizationsDelegates: AppLocalizations.localizationsDelegates,
             // supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeData(fontFamily: 'SF Pro Display'),
+            theme: CustomTheme.lightTheme,
+            darkTheme: CustomTheme.darkTheme,
+            themeMode: context.watch<MainDashboardController>().isDarkMode
+                ? ThemeMode.dark
+                : ThemeMode.light,
             debugShowCheckedModeBanner: false,
             home: const MyApp()),
       )));

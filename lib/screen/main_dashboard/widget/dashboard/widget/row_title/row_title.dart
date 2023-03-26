@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/const.dart';
-import 'package:post_web/style.dart';
+import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:provider/provider.dart';
 import '../../controller_dashboard.dart';
 import 'widget/chip_filter.dart';
@@ -39,7 +38,8 @@ class _RowTitleState extends State<RowTitle> {
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
     final valueDashboard = context.watch<DashboardController>();
-
+    final valueMain = context.watch<MainDashboardController>();
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -47,7 +47,7 @@ class _RowTitleState extends State<RowTitle> {
           width: 1850.w,
           // height: 900.h,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              color: theme.cardColor, borderRadius: BorderRadius.circular(10)),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -99,12 +99,14 @@ class _RowTitleState extends State<RowTitle> {
                           horizontal: 2.5,
                         ),
                         decoration: BoxDecoration(
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                                color: Colors.grey,
+                                color: valueMain.isDarkMode
+                                    ? Colors.transparent
+                                    : Colors.grey,
                                 blurRadius: 0.5,
                                 spreadRadius: 0.5,
-                                offset: Offset(0.5, 0.5))
+                                offset: const Offset(0.5, 0.5))
                           ],
                           borderRadius: BorderRadius.circular(3),
                           color: Colors.grey.shade200,
@@ -131,7 +133,10 @@ class _RowTitleState extends State<RowTitle> {
                               children: [
                                 Text(
                                   "Scheduled",
-                                  style: style15Normal,
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      color: theme.canvasColor,
+                                      fontWeight: FontWeight.normal),
                                 ),
                                 SizedBox(
                                   width: 1.w,
@@ -139,6 +144,12 @@ class _RowTitleState extends State<RowTitle> {
                                 Transform.scale(
                                   scale: 0.5,
                                   child: Switch.adaptive(
+                                    trackColor: Theme.of(context)
+                                        .switchTheme
+                                        .trackColor,
+                                    thumbColor: Theme.of(context)
+                                        .switchTheme
+                                        .thumbColor,
                                     value: valueDashboard.isSchedule,
                                     onChanged: (value) =>
                                         controller.filterWithSchedule(value),
@@ -153,14 +164,15 @@ class _RowTitleState extends State<RowTitle> {
                                   child: Material(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Container(
-                                      decoration: const BoxDecoration(
+                                      decoration: BoxDecoration(
+                                          color: theme.primaryColor,
                                           shape: BoxShape.circle),
                                       width: 40.w,
                                       height: 40.h,
                                       child: Icon(
                                         Icons.print,
                                         size: 25.sp,
-                                        color: mainColor2,
+                                        color: theme.iconTheme.color,
                                       ),
                                     ),
                                   ),

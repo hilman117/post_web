@@ -27,7 +27,8 @@ class _StreamingTaskWidgetState extends State<StreamingTaskWidget> {
         .where((element) =>
             element.setTime!.isNotEmpty || element.setDate!.isNotEmpty)
         .toList();
-    return SizedBox(
+    return Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         width: double.infinity,
         height: 600.h,
         child: ScrollConfiguration(

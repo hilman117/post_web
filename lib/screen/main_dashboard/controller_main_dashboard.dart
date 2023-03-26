@@ -46,6 +46,13 @@ class MainDashboardController with ChangeNotifier {
     notifyListeners();
   }
 
+  //change theme mode
+  bool isDarkMode = false;
+  changeThemeMode() {
+    isDarkMode = !isDarkMode;
+    notifyListeners();
+  }
+
 //CRUD  Profile data
   UserDetails? userDetails;
   getProfileData() {

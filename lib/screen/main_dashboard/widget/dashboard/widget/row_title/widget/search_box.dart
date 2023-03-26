@@ -10,13 +10,14 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.only(left: 5.w),
       height: 35.h,
       width: 200.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: mainColor.withOpacity(0.05)),
+          color: theme.iconTheme.color!.withOpacity(0.05)),
       child: TextFormField(
         style: style20Normal,
         cursorHeight: 20.h,
@@ -28,7 +29,7 @@ class SearchBox extends StatelessWidget {
             border: InputBorder.none,
             prefixIcon: Icon(
               Icons.search_outlined,
-              color: Colors.black54,
+              color: theme.iconTheme.color,
               size: 20.sp,
             ),
             prefixIconConstraints: BoxConstraints(maxWidth: 20.w)),

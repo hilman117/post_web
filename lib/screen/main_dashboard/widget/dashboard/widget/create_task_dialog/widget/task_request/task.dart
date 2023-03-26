@@ -31,43 +31,37 @@ class Task extends StatelessWidget {
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
         margin: EdgeInsets.only(top: 5.h),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                InputForm(
-                  callback: () {
-                    showDepartementOption(context);
-                  },
-                  icon: Icons.assignment,
-                  label: dashboardCtrl.selecteddepartement != ""
-                      ? dashboardCtrl.selecteddepartement
-                      : "Choose departement",
-                  isEmpty:
-                      dashboardCtrl.selecteddepartement != "" ? false : true,
-                  funtion: () => dashboardCtrl.clearSelectedDept(),
-                ),
-                Expanded(
-                  child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      margin: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 10.h),
-                      height: 40.h,
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 0.5, color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.shade100,
-                              blurRadius: 0.5,
-                              spreadRadius: 0.5,
-                              offset: const Offset(0.5, 0.5))
-                        ],
-                      ),
-                      child: const InputTitle()),
-                )
-              ],
+            InputForm(
+              callback: () {
+                showDepartementOption(context);
+              },
+              icon: Icons.assignment,
+              label: dashboardCtrl.selecteddepartement != ""
+                  ? dashboardCtrl.selecteddepartement
+                  : "Choose departement",
+              isEmpty: dashboardCtrl.selecteddepartement != "" ? false : true,
+              funtion: () => dashboardCtrl.clearSelectedDept(),
             ),
+            Expanded(
+                child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              height: 40.h,
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.5, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.shade100,
+                      blurRadius: 0.5,
+                      spreadRadius: 0.5,
+                      offset: const Offset(0.5, 0.5))
+                ],
+              ),
+              child: const InputTitle(),
+            )),
             Row(
               children: [
                 Expanded(
@@ -128,17 +122,20 @@ class Task extends StatelessWidget {
                   callback: () => Navigator.of(context).pop(),
                 ),
                 YesButton(
-                  callback: () => createCtrl.createTask(
-                      context: context,
-                      departementSendTo: dashboardCtrl.selecteddepartement,
-                      hotelName: mainCtrl.userDetails!.hotel!,
-                      description: description,
-                      emailSender: mainCtrl.userDetails!.email!,
-                      deptSender: mainCtrl.userDetails!.department!,
-                      positionSender: mainCtrl.userDetails!.position!,
-                      imageProfileSender: mainCtrl.userDetails!.profileImage!,
-                      senderName: mainCtrl.userDetails!.name!,
-                      colorUser: mainCtrl.userDetails!.userColor!),
+                  callback: () async {
+                    await createCtrl.createTask(
+                        context: context,
+                        departementSendTo: dashboardCtrl.selecteddepartement,
+                        hotelName: mainCtrl.userDetails!.hotel!,
+                        description: description,
+                        emailSender: mainCtrl.userDetails!.email!,
+                        deptSender: mainCtrl.userDetails!.department!,
+                        positionSender: mainCtrl.userDetails!.position!,
+                        imageProfileSender: mainCtrl.userDetails!.profileImage!,
+                        senderName: mainCtrl.userDetails!.name!,
+                        colorUser: mainCtrl.userDetails!.userColor!);
+                    dashboardCtrl.clearSelectedDept();
+                  },
                   icon: Icons.send_outlined,
                   nameButton: 'Send',
                   width: 200.w,

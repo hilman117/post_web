@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../../const.dart';
 
@@ -27,6 +29,7 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
   final CarouselController controller = CarouselController();
   @override
   Widget build(BuildContext context) {
+    final event = Provider.of<ChatroomControlller>(context, listen: false);
     return GestureDetector(
       onTap: () => Get.back(),
       child: Container(
@@ -60,17 +63,18 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Material(
+                  borderRadius: BorderRadius.circular(50),
                   color: Colors.transparent,
                   child: Container(
                     alignment: Alignment.centerRight,
-                    width: 1000,
+                    width: 1000.w,
                     child: IconButton(
-                        splashRadius: 20.sp,
-                        onPressed: () {},
+                        splashRadius: 25.sp,
+                        onPressed: () => event.saveNetworkImage(context),
                         icon: Icon(
                           Icons.download,
                           color: Colors.white,
-                          size: 30.sp,
+                          size: 40.sp,
                         )),
                   ),
                 ),
@@ -85,16 +89,22 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
                       items: List.generate(widget.listImageUrl.length, (index) {
                         return GestureDetector(
                           onTap: () => Navigator.pop(context),
-                          child: Image.network(
-                            widget.listImageUrl[index],
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress != null) {
-                                return Image.asset("image/load_image.png");
-                              } else {
-                                return child;
-                              }
-                            },
-                            fit: BoxFit.contain,
+                          child: Hero(
+                            tag: widget.imageUrl,
+                            child: Image.network(
+                              widget.listImageUrl[index],
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                event.getCurrentImageUrl(
+                                    widget.listImageUrl[index]);
+                                if (loadingProgress != null) {
+                                  return Image.asset("image/load_image.png");
+                                } else {
+                                  return child;
+                                }
+                              },
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         );
                       }),
