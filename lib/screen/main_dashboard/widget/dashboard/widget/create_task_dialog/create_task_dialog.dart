@@ -8,28 +8,25 @@ import 'package:provider/provider.dart';
 import 'controller/controller_create_task.dart';
 
 createTaskDialog(BuildContext context) {
-  return showAnimatedDialog(
+  return showDialog(
     barrierColor: Colors.transparent,
     context: context,
-    barrierDismissible: true,
-    animationType: DialogTransitionType.slideFromBottom,
-    curve: Curves.fastOutSlowIn,
-    duration: const Duration(milliseconds: 500),
     builder: (BuildContext context) {
       return CustomDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
           child: Consumer<CreateController>(
             builder: (context, value, child) => Container(
               // alignment: Alignment.bottomCenter,
               height: 700.h,
               width: 700.w,
               decoration: BoxDecoration(
-                  color: mainColor2, borderRadius: BorderRadius.circular(6)),
+                  color: mainColor2, borderRadius: BorderRadius.circular(6.r)),
               child: Column(
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.sp, vertical: 10.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

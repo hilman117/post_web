@@ -45,18 +45,19 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
     final controller = Provider.of<DashboardController>(context, listen: false);
     final chatCtrl = Provider.of<ChatroomControlller>(context, listen: false);
     final mainCtrl = context.watch<MainDashboardController>();
+    final theme = Theme.of(context);
     return Positioned(
       right: 20.w,
       bottom: 30.h,
       child: Material(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         child: Container(
           // alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
               color: mainColor.withOpacity(0.2),
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.sp),
-                  topRight: Radius.circular(10.sp)),
+                  topLeft: Radius.circular(10.r),
+                  topRight: Radius.circular(10.r)),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.shade300,
@@ -68,7 +69,8 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,7 +159,8 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                         SizedBox(
                           height: 5.h,
                         ),
-                        StatusWidget(
+                        statusWidget(
+                            context: context,
                             width: 75.w,
                             fontSize: 13.sp,
                             verticalPadding: 1.h,
@@ -172,8 +175,8 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
               ),
               Expanded(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: theme.cardColor,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -210,7 +213,8 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                               ChatModel comments =
                                                   chatModel[index];
 
-                                              return BubbleChat(
+                                              return bubbleChat(
+                                                context: context,
                                                 p2: p2,
                                                 isMe: comments.senderemail ==
                                                         mainCtrl

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/firebase/firebase_create_task.dart';
+import 'package:post_web/notif.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:uuid/uuid.dart';
 
@@ -161,11 +163,49 @@ class CreateController with ChangeNotifier {
     notifyListeners();
   }
 
+  //method that use for get admin token of departement that we want to send notification request
+  List<dynamic> admin = [];
+
+  //list admin email to get into profile of each admin to get their token
+  List<dynamic> listAdminTokens = [];
+  getListOfAdminToken(BuildContext context, List<dynamic> listAdminEmail,
+      String dept, String description, String imageUrl) async {
+    admin = listAdminEmail;
+    if (admin.isNotEmpty) {
+      for (var userAdmin in admin) {
+        if (userAdmin[dept] != null) {
+          listAdminEmail = userAdmin[dept];
+        }
+      }
+      if (listAdminEmail.isNotEmpty) {
+        for (var adminEmail in listAdminEmail) {
+          var adminData = await FirebaseFirestore.instance
+              .collection(userCollection)
+              .doc(adminEmail)
+              .get();
+          List adminToken = adminData.data()!["token"];
+          if (adminToken.isNotEmpty) {
+            for (var token in adminToken) {
+              listAdminTokens.add(token);
+              notifyListeners();
+            }
+            for (var adminToken in listAdminTokens) {
+              Notif().sendNotifToToken(
+                  adminToken, definedTitle, description, imageUrl);
+            }
+          }
+        }
+      }
+    }
+    notifyListeners();
+  }
+
   bool isLoding = false;
   var db = FirebaseCreateTask();
   final uid = const Uuid().v1();
   Future<void> createTask(
       {required BuildContext context,
+      required List<dynamic> listAdminEmail,
       required String departementSendTo,
       required String hotelName,
       required TextEditingController description,
@@ -203,12 +243,6 @@ class CreateController with ChangeNotifier {
             await ref.getDownloadURL().then((value) async {
               imageUrl.add(value);
               notifyListeners();
-
-              // print("ini image list sebelum di upload ${imageList.length}");
-              // print(
-              //     "ini image list stelah di upload di upload ${imageUrl.length}");
-
-              // print("$imageUrl");
               if (imageUrl.length == imageList.length) {
                 imageList.clear();
                 await db.createTask(
@@ -234,34 +268,51 @@ class CreateController with ChangeNotifier {
                     colorUser: colorUser,
                     status:
                         selectedTime != "" || _newDate != "" ? "To Do" : "New");
+                Notif().sendNotifToTopic(departementSendTo.removeAllWhitespace,
+                    definedTitle, description.text);
+                await getListOfAdminToken(context, listAdminEmail,
+                    departementSendTo, description.text, "");
+                description.clear();
+                Navigator.of(context).pop();
+                isLoding = false;
               }
             });
           });
+        } else {
+          await db.createTask(
+              context: context,
+              hotelName: hotelName,
+              assigned: departementSendTo,
+              image: [],
+              description: description.text,
+              emailReceiver: "",
+              emailSender: emailSender,
+              from: deptSender,
+              id: uid,
+              location: definedLocation,
+              positionSender: positionSender,
+              profileImageSender: imageProfileSender,
+              receiver: "",
+              sendTo: departementSendTo,
+              sender: senderName,
+              setDate: _newDate,
+              setTime: selectedTime,
+              time: DateTime.now().toString(),
+              title: definedTitle,
+              colorUser: colorUser,
+              status: selectedTime != "" || _newDate != "" ? "To Do" : "New");
+
+          Notif().sendNotifToTopic(
+              departementSendTo.toLowerCase().removeAllWhitespace,
+              definedTitle,
+              description.text);
+          await getListOfAdminToken(
+              context, listAdminEmail, departementSendTo, description.text, "");
+
+          description.clear();
+          Navigator.of(context).pop();
+          isLoding = false;
         }
-        await db.createTask(
-            context: context,
-            hotelName: hotelName,
-            assigned: departementSendTo,
-            image: [],
-            description: description.text,
-            emailReceiver: "",
-            emailSender: emailSender,
-            from: deptSender,
-            id: uid,
-            location: definedLocation,
-            positionSender: positionSender,
-            profileImageSender: imageProfileSender,
-            receiver: "",
-            sendTo: departementSendTo,
-            sender: senderName,
-            setDate: _newDate,
-            setTime: selectedTime,
-            time: DateTime.now().toString(),
-            title: definedTitle,
-            colorUser: colorUser,
-            status: selectedTime != "" || _newDate != "" ? "To Do" : "New");
-        Navigator.of(context).pop();
-        isLoding = false;
       } on FirebaseException catch (e) {
         // ignore: avoid_print
         print(e.toString());

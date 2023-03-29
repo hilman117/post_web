@@ -180,7 +180,8 @@ class _RequestCardState extends State<RequestCard>
                       Container(
                         alignment: Alignment.center,
                         width: 200.w,
-                        child: StatusWidget(status: widget.taskModel.status!),
+                        child: statusWidget(
+                            context: context, status: widget.taskModel.status!),
                       ),
                       Container(
                         alignment: Alignment.center,

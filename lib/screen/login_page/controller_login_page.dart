@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/main.dart';
 import 'package:post_web/models/general_data.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/routes.dart';
-import 'package:post_web/shared_prefferences/save_general_data.dart';
+import '../../notif.dart';
 import '../../shared_prefferences/session_user.dart';
 import '../../reusable_widget/show_dialog.dart';
 
@@ -73,36 +71,15 @@ class LoginController with ChangeNotifier {
           userDetails =
               UserDetails.fromJson(userDoc.data() as Map<String, dynamic>);
           SessionsUser.saveUser(userDetails!);
-          // String token = await Notif().getToken();
-          // box!.put('token', token);
+          String token = await Notif().getToken();
           listToken.clear();
-          // listToken.add(token);
-          // Notif().saveTopic(userDetails!.department!.removeAllWhitespace);
+          listToken.add(token);
           await FirebaseFirestore.instance
               .collection("users")
               .doc(auth.currentUser!.email)
-              .update({"token": listToken});
-          Fluttertoast.showToast(
-            webPosition: "center",
-            timeInSecForIosWeb: 2,
-            webBgColor: "linear-gradient(to right, #ffffff, #ffffff)",
-            toastLength: Toast.LENGTH_LONG,
-            msg: "You are sign in as ${userDetails!.name}",
-            textColor: Colors.black,
-          );
+              .update({"token": FieldValue.arrayUnion(listToken)});
           //funtion to get general setting administrator
-          final user = Get.put(CUser());
-          DocumentSnapshot getGeneralData = await FirebaseFirestore.instance
-              .collection("Hotel List")
-              .doc(user.data.hotel)
-              .get();
-          generalData = GeneralData.fromJson(
-              getGeneralData.data() as Map<String, dynamic>);
-          SaveGeneralData.saveGeneralData(context, generalData!);
-          // Provider.of<CreateRequestController>(context, listen: false)
-          //     .getTotalCreate();
-          // Provider.of<ChatRoomController>(context, listen: false)
-          //     .getTotalAcceptedAndClose();
+
           isLoading = false;
           notifyListeners();
           Navigator.pushReplacementNamed(context, Routes.mainDashBoard);

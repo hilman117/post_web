@@ -12,6 +12,7 @@ class CustomTheme {
       primaryColor: Colors.grey.shade50,
       canvasColor: Colors.black87,
       hoverColor: Colors.grey.shade200,
+      scaffoldBackgroundColor: Colors.blue.shade50,
       textTheme: TextTheme(
           displayLarge: style24SemiBold,
           displaySmall: style20Bold,
@@ -29,6 +30,7 @@ class CustomTheme {
     hoverColor: const Color(0xff192127),
     cardColor: const Color(0xff0F1519),
     primaryColor: const Color(0xff192127),
+    scaffoldBackgroundColor: const Color(0xff192127),
     textTheme: TextTheme(
         displayLarge: TextStyle(
             fontSize: 40.sp, fontWeight: FontWeight.bold, color: Colors.white),

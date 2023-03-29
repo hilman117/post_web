@@ -34,7 +34,7 @@ class AllLocation extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                    future: FirebaseLocation().getLocation(),
+                    future: FirebaseLocation().getHotelData(),
                     builder: (context, snapshot) {
                       if (value.isLoadingLoadLocation) {
                         return const Center(

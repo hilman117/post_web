@@ -147,7 +147,7 @@ class DashboardController with ChangeNotifier {
       config: CalendarDatePicker2WithActionButtonsConfig(
           calendarType: CalendarDatePicker2Type.range),
       dialogSize: const Size(325, 400),
-      initialValue: [dateTimeRange.start],
+      // initialValue: [dateTimeRange.start],
       borderRadius: BorderRadius.circular(15),
     );
 

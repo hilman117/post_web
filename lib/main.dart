@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
+import 'package:post_web/notif.dart';
 import 'package:post_web/routes.dart';
 import 'package:post_web/screen/landing_page/landing_page.dart';
 import 'package:post_web/screen/login_page/login_page.dart';
@@ -37,15 +39,23 @@ Future<void> main() async {
   await Hive.initFlutter();
   box = await Hive.openBox('boxSetting');
   SessionsUser.getUser();
+
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyB48e286_xyb3imd4HioBfzLjznIh_n3Io",
           authDomain: "post-212c8.firebaseapp.com",
           projectId: "post-212c8",
           messagingSenderId: "992209537475",
+          measurementId: "G-62MW0Q8QY0",
           // storageBucket: "gs://post-212c8.appspot.com",
           appId: "1:992209537475:web:9e9ce94d54c1f0261a9576"));
-
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true, badge: true, sound: true);
+  FirebaseMessaging.onMessageOpenedApp.listen(
+    Notif().showFlutterNotificatiOnOpenedApp,
+  );
+  FirebaseMessaging.onBackgroundMessage(
+      Notif().showFlutterNotificationOnBackground);
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(

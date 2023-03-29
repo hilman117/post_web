@@ -27,6 +27,6 @@ class GeneralData {
         "domain": domain,
         "admin": admin == null ? [] : List<dynamic>.from(admin!.map((x) => x)),
         "location":
-            location == null ? [] : List<dynamic>.from(location!.map((x) => x)),
+            location == null ? [] : List<String>.from(location!.map((x) => x)),
       };
 }

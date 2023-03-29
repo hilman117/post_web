@@ -65,30 +65,26 @@ class _RowTitleState extends State<RowTitle> {
                           height: 50.h,
                           child: Row(
                             children: [
-                              ChipFilter(
-                                text: valueDashboard.department == ""
+                              chipFilter(
+                                context,
+                                valueDashboard.department == ""
                                     ? "All departement"
                                     : valueDashboard.department,
-                                showCancelButton:
-                                    valueDashboard.department == ""
-                                        ? false
-                                        : true,
-                                clearFunction: () =>
-                                    controller.clearDepartementFilter(),
+                                valueDashboard.department == "" ? false : true,
+                                () => controller.clearDepartementFilter(),
                               ),
                               SizedBox(
                                 width: 10.w,
                               ),
-                              ChipFilter(
-                                text: valueDashboard.filterbyStatus == ""
+                              chipFilter(
+                                context,
+                                valueDashboard.filterbyStatus == ""
                                     ? "All Status"
                                     : valueDashboard.filterbyStatus,
-                                showCancelButton:
-                                    valueDashboard.filterbyStatus == ""
-                                        ? false
-                                        : true,
-                                clearFunction: () =>
-                                    controller.clearStatusFilter(),
+                                valueDashboard.filterbyStatus == ""
+                                    ? false
+                                    : true,
+                                () => controller.clearStatusFilter(),
                               ),
                             ],
                           ),
@@ -117,7 +113,8 @@ class _RowTitleState extends State<RowTitle> {
                               (index) => InkWell(
                                     onTap: () => controller.selectStatus(
                                         index, valueDashboard.status[index]),
-                                    child: FilterByStatus(
+                                    child: filterByStatus(
+                                      context: context,
                                       status: valueDashboard.status[index],
                                       index: index,
                                     ),
@@ -189,7 +186,7 @@ class _RowTitleState extends State<RowTitle> {
                 ),
                 SizedBox(height: 30.h),
                 //widget that showing title of the column
-                const TableTitle(),
+                tableTitle(context),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -199,7 +196,7 @@ class _RowTitleState extends State<RowTitle> {
                 SizedBox(
                   height: 20.h,
                 ),
-                StreamingTaskWidget(controller: controller)
+                streamTask(context)
               ],
             ),
           ),

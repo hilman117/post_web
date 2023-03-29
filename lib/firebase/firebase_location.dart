@@ -8,7 +8,7 @@ class FirebaseLocation {
   final db = FirebaseFirestore.instance;
   final user = Get.put(CUser());
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getLocation() {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getHotelData() {
     return FirebaseFirestore.instance
         .collection(hotelListCollection)
         .doc(user.data.hotelid)
@@ -19,7 +19,7 @@ class FirebaseLocation {
     await db.collection(hotelListCollection).doc(user.data.hotel).update({
       "location": FieldValue.arrayUnion([newLocation.toTitleCase()])
     });
-    getLocation();
+    getHotelData();
   }
 
   removeLocation(List currentLocation, int indexToRemove) async {
@@ -39,6 +39,6 @@ class FirebaseLocation {
         .collection(hotelListCollection)
         .doc(user.data.hotel)
         .update({"location": currentLocation});
-    getLocation();
+    getHotelData();
   }
 }

@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/notif.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
@@ -22,6 +24,10 @@ class _MainDashboardState extends State<MainDashboard>
     with TickerProviderStateMixin {
   @override
   void initState() {
+    // FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((message) {
+      Notif().showForgroundNotification(context, message);
+    });
     Provider.of<MainDashboardController>(context, listen: false)
         .getProfileData();
     Provider.of<MainDashboardController>(context, listen: false).generalData();
@@ -44,7 +50,7 @@ class _MainDashboardState extends State<MainDashboard>
               floatingActionButton: const FABWidget(),
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(size.height * 0.09),
-                  child: const AppbarDashboard()),
+                  child: appbarDashboard(context)),
               body: mainCtrl.pages[mainCtrl.menuSelected]),
         ),
         dashboarCtrl.isChatroomOpen == true && dashboarCtrl.taskModel != null
@@ -60,7 +66,7 @@ class _MainDashboardState extends State<MainDashboard>
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 50.w),
-                        child: const SelectedImage(),
+                        child: selectedImage(context),
                       ),
                     ],
                   ),
@@ -70,8 +76,7 @@ class _MainDashboardState extends State<MainDashboard>
                 ],
               )
             : const SizedBox(),
-        if (requestData.isEmpty && mainCtrl.userDetails == null)
-          const LoadingWidget()
+        if (requestData.isEmpty && mainCtrl.userDetails == null) loadingWidget()
       ],
     );
   }

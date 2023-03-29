@@ -28,8 +28,8 @@ class Task extends StatelessWidget {
         Provider.of<CreateController>(context, listen: false);
     return GestureDetector(
       child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-        margin: EdgeInsets.only(top: 5.h),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.r)),
+        margin: EdgeInsets.only(top: 5.sp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,12 +46,12 @@ class Task extends StatelessWidget {
             ),
             Expanded(
                 child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              padding: EdgeInsets.symmetric(horizontal: 5.sp),
+              margin: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
               height: 40.h,
               decoration: BoxDecoration(
-                border: Border.all(width: 0.5, color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 0.5.w, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(8.r),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.shade100,
@@ -66,14 +66,14 @@ class Task extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
+                      padding: EdgeInsets.symmetric(horizontal: 5.sp),
                       margin: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 10.h),
+                          horizontal: 10.sp, vertical: 10.sp),
                       height: 40.h,
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 0.5, color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                            width: 0.5.w, color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(8.r),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.grey.shade100,
@@ -133,7 +133,8 @@ class Task extends StatelessWidget {
                         positionSender: mainCtrl.userDetails!.position!,
                         imageProfileSender: mainCtrl.userDetails!.profileImage!,
                         senderName: mainCtrl.userDetails!.name!,
-                        colorUser: mainCtrl.userDetails!.userColor!);
+                        colorUser: mainCtrl.userDetails!.userColor!,
+                        listAdminEmail: mainCtrl.data!.admin!);
                     dashboardCtrl.clearSelectedDept();
                   },
                   icon: Icons.send_outlined,

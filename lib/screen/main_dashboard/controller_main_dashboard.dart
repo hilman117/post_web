@@ -65,8 +65,8 @@ class MainDashboardController with ChangeNotifier {
 
   GeneralData? data;
   generalData() {
-    var db = FirebaseLocation().getLocation();
-    db.then((value) {
+    var db = FirebaseLocation().getHotelData();
+    db.then((value) async {
       data = GeneralData.fromJson(value.data()!);
       notifyListeners();
     });

@@ -73,8 +73,7 @@ class SettingView extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (dataUser.isEmpty && dataDepartement.isEmpty)
-                  const LoadingWidget()
+                if (dataUser.isEmpty && dataDepartement.isEmpty) loadingWidget()
               ],
             ));
   }

@@ -14,208 +14,201 @@ import 'package:provider/provider.dart';
 
 import '../profile_view/profile_view.dart';
 
-class AppbarDashboard extends StatelessWidget {
-  const AppbarDashboard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final user = Get.put(CUser());
-    final size = MediaQuery.of(context).size;
-    final mainDashboardController =
-        Provider.of<MainDashboardController>(context, listen: false);
-    final theme = Theme.of(context);
-    return Consumer<MainDashboardController>(
-      builder: (context, value, child) => Container(
-          decoration: BoxDecoration(
-              color: theme.appBarTheme.backgroundColor,
-              boxShadow: [
-                BoxShadow(
-                    color: theme.canvasColor,
-                    blurRadius: 0.5,
-                    offset: const Offset(1.0, 0.1))
-              ]),
-          alignment: Alignment.center,
-          height: size.height * 0.09,
-          width: double.infinity,
-          child: LayoutBuilder(
-            builder: (p0, p1) => Padding(
-              padding: EdgeInsets.symmetric(horizontal: p1.maxWidth * 0.020),
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    user.data.hotel!,
-                    style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: theme.canvasColor),
-                  ),
-                  SizedBox(
-                    width: 50.w,
-                  ),
-                  SizedBox(
-                    width: 700.w,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: value.menuDashboard.length,
-                        itemBuilder: (context, index) => Container(
-                              alignment: Alignment.center,
-                              height: size.height * 0.09,
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: MouseRegion(
-                                onEnter: (event) =>
-                                    mainDashboardController.hoveringMenu(index),
-                                onExit: (event) =>
-                                    mainDashboardController.hoveringMenu(-1),
-                                child: InkWell(
-                                  onTap: () =>
-                                      mainDashboardController.selectMenu(index),
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 300),
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: (value.menuHovering ==
-                                                            index ||
-                                                        value.menuSelected ==
-                                                            index)
-                                                    ? mainColor2
-                                                    : Colors.transparent))),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          value.iconMenu[index],
-                                          color: (value.menuHovering == index ||
-                                                  value.menuSelected == index)
-                                              ? mainColor2
-                                              : theme.canvasColor,
-                                          size: 25.sp,
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Text(
-                                          value.menuDashboard[index],
-                                          style: TextStyle(
-                                              fontSize: 20.sp,
+Widget appbarDashboard(BuildContext context) {
+  final user = Get.put(CUser());
+  final size = MediaQuery.of(context).size;
+  final mainDashboardController =
+      Provider.of<MainDashboardController>(context, listen: false);
+  final theme = Theme.of(context);
+  return Consumer<MainDashboardController>(
+    builder: (context, value, child) => Container(
+        decoration:
+            BoxDecoration(color: theme.appBarTheme.backgroundColor, boxShadow: [
+          BoxShadow(
+              color: theme.canvasColor,
+              blurRadius: 0.5,
+              offset: const Offset(1.0, 0.1))
+        ]),
+        alignment: Alignment.center,
+        height: size.height * 0.09,
+        width: double.infinity,
+        child: LayoutBuilder(
+          builder: (p0, p1) => Padding(
+            padding: EdgeInsets.symmetric(horizontal: p1.maxWidth * 0.020),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  user.data.hotel!,
+                  style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                      color: theme.canvasColor),
+                ),
+                SizedBox(
+                  width: 50.w,
+                ),
+                SizedBox(
+                  width: 700.w,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: value.menuDashboard.length,
+                      itemBuilder: (context, index) => Container(
+                            alignment: Alignment.center,
+                            height: size.height * 0.09,
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: MouseRegion(
+                              onEnter: (event) =>
+                                  mainDashboardController.hoveringMenu(index),
+                              onExit: (event) =>
+                                  mainDashboardController.hoveringMenu(-1),
+                              child: InkWell(
+                                onTap: () =>
+                                    mainDashboardController.selectMenu(index),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
                                               color: (value.menuHovering ==
                                                           index ||
                                                       value.menuSelected ==
                                                           index)
                                                   ? mainColor2
-                                                  : theme.canvasColor,
-                                              fontWeight:
-                                                  value.menuSelected == index
-                                                      ? FontWeight.bold
-                                                      : FontWeight.normal),
-                                        ),
-                                      ],
-                                    ),
+                                                  : Colors.transparent))),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        value.iconMenu[index],
+                                        color: (value.menuHovering == index ||
+                                                value.menuSelected == index)
+                                            ? mainColor2
+                                            : theme.canvasColor,
+                                        size: 25.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        value.menuDashboard[index],
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            color: (value.menuHovering ==
+                                                        index ||
+                                                    value.menuSelected == index)
+                                                ? mainColor2
+                                                : theme.canvasColor,
+                                            fontWeight:
+                                                value.menuSelected == index
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            )),
-                  ),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        user.data.name!,
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                            color: theme.canvasColor),
+                            ),
+                          )),
+                ),
+                const Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      user.data.name!,
+                      style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                          color: theme.canvasColor),
+                    ),
+                    Text(
+                      user.data.position!,
+                      style:
+                          TextStyle(fontSize: 18.sp, color: theme.canvasColor),
+                    )
+                  ],
+                ),
+                SizedBox(width: p1.maxWidth * 0.005),
+                GestureDetector(
+                  onTap: () {
+                    Future.delayed(
+                      const Duration(milliseconds: 300),
+                      () => mainDashboardController.openProfileView(),
+                    );
+                    Navigator.of(context).push(HeroDialogRoute(
+                      builder: (context) => Hero(
+                        createRectTween: (begin, end) {
+                          return CustomRectTween(begin: begin!, end: end!);
+                        },
+                        tag: "profileView1",
+                        child: Center(child: ProfileView(p1: p1)),
                       ),
-                      Text(
-                        user.data.position!,
-                        style: TextStyle(
-                            fontSize: 18.sp, color: theme.canvasColor),
-                      )
-                    ],
-                  ),
-                  SizedBox(width: p1.maxWidth * 0.005),
-                  GestureDetector(
-                    onTap: () {
+                    ));
+                  },
+                  child: Hero(
+                    tag: "profileView1",
+                    createRectTween: (begin, end) {
                       Future.delayed(
                         const Duration(milliseconds: 300),
                         () => mainDashboardController.openProfileView(),
                       );
-                      Navigator.of(context).push(HeroDialogRoute(
-                        builder: (context) => Hero(
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin!, end: end!);
-                          },
-                          tag: "profileView1",
-                          child: Center(child: ProfileView(p1: p1)),
-                        ),
-                      ));
+                      return RectTween(
+                          begin: Rect.fromCenter(
+                              center: const Offset(600, 600),
+                              width: 100,
+                              height: 100),
+                          end: Rect.fromCenter(
+                              center: const Offset(1200, 20),
+                              width: 0,
+                              height: 0));
                     },
-                    child: Hero(
-                      tag: "profileView1",
-                      createRectTween: (begin, end) {
-                        Future.delayed(
-                          const Duration(milliseconds: 300),
-                          () => mainDashboardController.openProfileView(),
-                        );
-                        return RectTween(
-                            begin: Rect.fromCenter(
-                                center: const Offset(600, 600),
-                                width: 100,
-                                height: 100),
-                            end: Rect.fromCenter(
-                                center: const Offset(1200, 20),
-                                width: 0,
-                                height: 0));
-                      },
-                      child: SizedBox(
-                        child: PhotoProfileNetWork(
-                            lebar: p1.maxWidth * 0.015,
-                            tinggi: p1.maxWidth * 0.015,
-                            radius: p1.maxWidth * 0.015,
-                            urlImage: user.data.profileImage!),
+                    child: SizedBox(
+                      child: PhotoProfileNetWork(
+                          lebar: p1.maxWidth * 0.015,
+                          tinggi: p1.maxWidth * 0.015,
+                          radius: p1.maxWidth * 0.015,
+                          urlImage: user.data.profileImage!),
+                    ),
+                  ),
+                ),
+                SizedBox(width: p1.maxWidth * 0.01),
+                InkWell(
+                  onTap: () => mainDashboardController.changeThemeMode(),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 1000),
+                    child: value.isDarkMode
+                        ? const Icon(Icons.light_mode)
+                        : Icon(Icons.dark_mode_outlined,
+                            color: theme.iconTheme.color),
+                  ),
+                ),
+                SizedBox(width: p1.maxWidth * 0.01),
+                InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () => logoutDialog(context),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.logout_rounded,
+                        color: theme.iconTheme.color,
                       ),
-                    ),
+                      Text(
+                        "logout",
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            color: theme.iconTheme.color,
+                            fontWeight: FontWeight.normal),
+                      )
+                    ],
                   ),
-                  SizedBox(width: p1.maxWidth * 0.01),
-                  InkWell(
-                    onTap: () => mainDashboardController.changeThemeMode(),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 1000),
-                      child: value.isDarkMode
-                          ? const Icon(Icons.light_mode)
-                          : Icon(Icons.dark_mode_outlined,
-                              color: theme.iconTheme.color),
-                    ),
-                  ),
-                  SizedBox(width: p1.maxWidth * 0.01),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () => logoutDialog(context),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.logout_rounded,
-                          color: theme.iconTheme.color,
-                        ),
-                        Text(
-                          "logout",
-                          style: TextStyle(
-                              fontSize: 15.sp,
-                              color: theme.iconTheme.color,
-                              fontWeight: FontWeight.normal),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-          )),
-    );
-  }
+          ),
+        )),
+  );
 }
