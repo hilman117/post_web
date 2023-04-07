@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
+import 'package:provider/provider.dart';
 
 class YesButton extends StatelessWidget {
   const YesButton({
@@ -19,6 +21,7 @@ class YesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final value = context.watch<CreateController>();
     return Container(
       margin: EdgeInsets.only(bottom: 5.h),
       width: width ?? 150.w,
@@ -30,23 +33,28 @@ class YesButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               )),
           onPressed: callback,
-          child: Row(
-            mainAxisAlignment: icon != null
-                ? MainAxisAlignment.spaceEvenly
-                : MainAxisAlignment.center,
-            children: [
-              icon != null
-                  ? Icon(
-                      icon,
-                      size: 20.sp,
+          child: value.isLoding
+              ? SizedBox(
+                  height: 20.h,
+                  width: 20.w,
+                  child: const CircularProgressIndicator())
+              : Row(
+                  mainAxisAlignment: icon != null
+                      ? MainAxisAlignment.spaceEvenly
+                      : MainAxisAlignment.center,
+                  children: [
+                    icon != null
+                        ? Icon(
+                            icon,
+                            size: 20.sp,
+                          )
+                        : const SizedBox(),
+                    Text(
+                      nameButton,
+                      style: TextStyle(fontSize: fontSize ?? 20.sp),
                     )
-                  : const SizedBox(),
-              Text(
-                nameButton,
-                style: TextStyle(fontSize: fontSize ?? 20.sp),
-              )
-            ],
-          )),
+                  ],
+                )),
     );
   }
 }

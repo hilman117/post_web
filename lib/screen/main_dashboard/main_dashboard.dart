@@ -46,7 +46,7 @@ class _MainDashboardState extends State<MainDashboard>
         GestureDetector(
           onTap: () => dashboarCtrl.hideChatroom(),
           child: Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: const Color(0xffE8EEF8),
               floatingActionButton: const FABWidget(),
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(size.height * 0.09),

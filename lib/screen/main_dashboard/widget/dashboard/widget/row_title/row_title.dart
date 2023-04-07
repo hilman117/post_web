@@ -177,7 +177,8 @@ class _RowTitleState extends State<RowTitle> {
                                 SizedBox(
                                   width: 50.w,
                                 ),
-                                const SearchBox(),
+                                SizedBox(
+                                    width: 200.w, child: const SearchBox()),
                               ],
                             )),
                       )

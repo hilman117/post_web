@@ -25,7 +25,7 @@ class TitleSettings extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(25.r),
                 border: Border.all(color: Colors.grey.shade200)),
             child: Row(
               children: [

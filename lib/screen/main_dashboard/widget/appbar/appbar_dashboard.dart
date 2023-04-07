@@ -6,15 +6,21 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/custom_react_twin.dart';
 import 'package:post_web/hero_dialog_route.dart';
 import 'package:post_web/const.dart';
+import 'package:post_web/notif.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
-import 'package:post_web/screen/main_dashboard/widget/appbar/widget/logout_dialog.dart';
 
 import 'package:post_web/reusable_widget/photo_profile_network.dart';
+import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../models/departement.dart';
+import '../../../../models/task.dart';
 import '../profile_view/profile_view.dart';
 
 Widget appbarDashboard(BuildContext context) {
+  var requestData = Provider.of<List<TaskModel>>(context);
+  var data = Provider.of<List<Departement>>(context);
+  final event = Provider.of<ReportController>(context, listen: false);
   final user = Get.put(CUser());
   final size = MediaQuery.of(context).size;
   final mainDashboardController =
@@ -65,8 +71,18 @@ Widget appbarDashboard(BuildContext context) {
                               onExit: (event) =>
                                   mainDashboardController.hoveringMenu(-1),
                               child: InkWell(
-                                onTap: () =>
-                                    mainDashboardController.selectMenu(index),
+                                onTap: () async {
+                                  await mainDashboardController
+                                      .selectMenu(index);
+                                  if (value.menuSelected == 1) {
+                                    var listDepartement = data
+                                        .where((element) =>
+                                            element.isActive == true)
+                                        .toList();
+                                    event.getResultMostWidelyTitle(
+                                        requestData, listDepartement);
+                                  }
+                                },
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 300),
                                   decoration: BoxDecoration(
@@ -188,7 +204,12 @@ Widget appbarDashboard(BuildContext context) {
                 SizedBox(width: p1.maxWidth * 0.01),
                 InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () => logoutDialog(context),
+                  onTap: () => Notif().sendNotifToToken(
+                      "d-dq5CARF_hh7IRTKsCXgE:APA91bExlLGxzby2ZaZM7bzH-wOrNgeOXqMnq1H6dnfR7oMhV5GeRvRNjEGQEAlw4mazYem5d9cIOOnJgUPvXHTqCjVF-h57UIn8ryx92se1uu72V2gQT2yO9wb3gh9QQbdRlGh-gwdX",
+                      "ini title",
+                      "ini bodi",
+                      ""),
+                  // () => logoutDialog(context),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

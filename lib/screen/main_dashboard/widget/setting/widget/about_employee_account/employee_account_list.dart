@@ -44,7 +44,7 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
         height: 300.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(25.r),
           //   boxShadow: [
           //     BoxShadow(
           //       color: Colors.grey.withOpacity(0.5),

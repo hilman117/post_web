@@ -20,7 +20,7 @@ class AllLocation extends StatelessWidget {
       width: 300.w,
       height: 300.h,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(6)),
+          color: Colors.white, borderRadius: BorderRadius.circular(25.r)),
       child: Column(
         children: [
           const AddNewLocation(),

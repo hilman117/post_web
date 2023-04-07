@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GeneralPieChartBox extends StatefulWidget {
@@ -35,17 +36,28 @@ class PieChartBoxState extends State {
   @override
   Widget build(BuildContext context) {
     return Center(
+        child: FittedBox(
+      child: Container(
+        width: 700.w,
+        height: 500.h,
+        margin: EdgeInsets.all(10.sp),
+        padding: EdgeInsets.all(10.sp),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25.sp),
+        ),
         child: SfCircularChart(
+            margin: const EdgeInsets.all(0),
             tooltipBehavior: tooltipBehavior,
             palette: const [
-              Color(0xff1D9B88),
-              Color(0xff72CABD),
-              Color(0xff34BFAA),
-              Color(0xff23DFC3),
+              Color(0xff2E00EB),
+              Color(0xff59C4F8),
+              Color(0xff6438FB),
+              Color(0xff190793),
               Color(0xff85FBE9),
               Color(0xffDEFDF7),
             ],
-            title: ChartTitle(text: 'Sales by sales person'),
+            title: ChartTitle(text: 'Request Departements'),
             legend: Legend(isVisible: true),
             series: <PieSeries<_PieData, String>>[
               PieSeries<_PieData, String>(
@@ -56,130 +68,13 @@ class PieChartBoxState extends State {
                   yValueMapper: (_PieData data, _) => data.yData,
                   dataLabelMapper: (_PieData data, _) => data.text,
                   dataLabelSettings: const DataLabelSettings(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     isVisible: true,
                   )),
-            ]));
+            ]),
+      ),
+    ));
   }
-
-  // Widget build(BuildContext context) {
-  //   final size = MediaQuery.of(context).size;
-  //   return Container(
-  //       height: size.height * 0.3,
-  //       width: size.width * 0.35,
-  //       decoration: BoxDecoration(
-  //           boxShadow: const [
-  //             BoxShadow(
-  //                 blurRadius: 2, offset: Offset(1.0, 1.0), color: Colors.grey)
-  //           ],
-  //           color: Colors.white,
-  //           borderRadius: BorderRadius.circular(10),
-  //           border: Border.all(color: Colors.grey.shade200, width: 0.5)),
-  //       child: LayoutBuilder(
-  //         builder: (p0, p1) => Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           children: [
-  //             SizedBox(
-  //                 width: p1.maxWidth * 0.25,
-  //                 child: PieChartReport(
-  //                   fixSize: p1,
-  //                 )),
-  //             Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 Row(
-  //                   children: [
-  //                     const ContainerMark(
-  //                       color: Color(0xff0293ee),
-  //                     ),
-  //                     SizedBox(
-  //                       width: p1.maxWidth * 0.01,
-  //                     ),
-  //                     Text(
-  //                       "IT Support",
-  //                       style: TextStyle(
-  //                           fontSize: p1.maxWidth * 0.025, color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: p1.maxWidth * 0.01,
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const ContainerMark(
-  //                       color: Color(0xfff8b250),
-  //                     ),
-  //                     SizedBox(
-  //                       width: p1.maxWidth * 0.01,
-  //                     ),
-  //                     Text(
-  //                       "Front Office",
-  //                       style: TextStyle(
-  //                           fontSize: p1.maxWidth * 0.025, color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: p1.maxWidth * 0.01,
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const ContainerMark(
-  //                       color: Color(0xff845bef),
-  //                     ),
-  //                     SizedBox(
-  //                       width: p1.maxWidth * 0.01,
-  //                     ),
-  //                     Text(
-  //                       "Housekeeping",
-  //                       style: TextStyle(
-  //                           fontSize: p1.maxWidth * 0.025, color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: p1.maxWidth * 0.01,
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const ContainerMark(
-  //                       color: Color(0xff13d38e),
-  //                     ),
-  //                     SizedBox(
-  //                       width: p1.maxWidth * 0.01,
-  //                     ),
-  //                     Text(
-  //                       "Engineering",
-  //                       style: TextStyle(
-  //                           fontSize: p1.maxWidth * 0.025, color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: p1.maxWidth * 0.01,
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const ContainerMark(
-  //                       color: Colors.yellow,
-  //                     ),
-  //                     SizedBox(
-  //                       width: p1.maxWidth * 0.01,
-  //                     ),
-  //                     Text(
-  //                       "Room Service",
-  //                       style: TextStyle(
-  //                           fontSize: p1.maxWidth * 0.025, color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //               ],
-  //             )
-  //           ],
-  //         ),
-  //       ));
-  // }
 }
 
 class _PieData {

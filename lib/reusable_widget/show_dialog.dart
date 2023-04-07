@@ -47,6 +47,7 @@ class ShowDialog {
 
   Future loadingDialog(BuildContext context) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) => Center(
         child: Transform.scale(

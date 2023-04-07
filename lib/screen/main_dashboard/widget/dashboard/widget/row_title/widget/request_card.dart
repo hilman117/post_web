@@ -8,6 +8,7 @@ import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
 import 'package:post_web/reusable_widget/reopen_button.dart';
 import 'package:post_web/reusable_widget/photo_profile_network.dart';
+import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../models/departement.dart';
 import '../../../../../../../models/user.dart';
@@ -144,15 +145,15 @@ class _RequestCardState extends State<RequestCard>
                         padding: EdgeInsets.only(right: 10.w),
                         child: Text(
                           widget.taskModel.location!,
-                          style: theme.textTheme.bodyMedium,
+                          style: style18Normal,
                         ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
                         width: 200.w,
                         padding: EdgeInsets.only(right: 10.w),
-                        child: Text(widget.taskModel.title!,
-                            style: theme.textTheme.bodySmall),
+                        child:
+                            Text(widget.taskModel.title!, style: style18Normal),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -191,7 +192,7 @@ class _RequestCardState extends State<RequestCard>
                             widget.taskModel.receiver != ""
                                 ? widget.taskModel.receiver!
                                 : "-",
-                            style: theme.textTheme.bodySmall),
+                            style: style18Normal),
                       ),
                       Container(
                           alignment: Alignment.centerLeft,

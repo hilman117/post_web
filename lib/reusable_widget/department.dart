@@ -53,80 +53,73 @@ class _DepartmentState extends State<Department> {
           },
           child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            width: 250.w,
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            margin: EdgeInsets.all(10.sp),
+            width: 300.w,
+            height: 80.h,
             decoration: BoxDecoration(
-              color: isHover ? theme.hoverColor : Colors.transparent,
-              border: Border(
-                  left: widget.index == 0
-                      ? BorderSide.none
-                      : BorderSide(color: theme.canvasColor, width: 0.5.w),
-                  right: BorderSide(
-                      color: widget.index == widget.departements.length
-                          ? Colors.transparent
-                          : theme.canvasColor,
-                      width: 0.25.w)),
-            ),
-            child: SizedBox(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
+                color: isHover ? theme.hoverColor : Colors.white,
+                borderRadius: BorderRadius.circular(20.r)),
+            child: Stack(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: const Color(0xffE8EEF8),
+                      radius: 30.r,
+                      child: Image.asset(
                         widget.icon,
-                        width: 25.w,
+                        width: 27.w,
                       ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      SizedBox(
-                        width: 150.w,
-                        child: Text(
-                          widget.buttonName,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: value.selectedDepartment == widget.index
-                                ? Colors.green
-                                : theme.canvasColor,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 120.w,
+                          child: Text(
+                            widget.buttonName,
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                color: value.selectedDepartment == widget.index
+                                    ? Colors.green
+                                    : const Color(0xff8E99C0),
+                                fontWeight: FontWeight.normal),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.totalRequest.toString(),
-                        style: TextStyle(
-                            fontSize: 30.sp,
-                            color: value.selectedDepartment == widget.index
-                                ? Colors.green
-                                : theme.canvasColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      if (widget.newStatus != 0)
-                        Transform.scale(
-                          scale: 0.5,
-                          child: Chip(
-                              backgroundColor: Colors.red,
-                              label: Text(
-                                "New  ${widget.newStatus.toString()}",
-                                style: const TextStyle(
-                                    fontSize: 13, color: Colors.white),
-                              )),
+                        Text(
+                          widget.totalRequest.toString(),
+                          style: TextStyle(
+                              fontSize: 30.sp,
+                              color: value.selectedDepartment == widget.index
+                                  ? Colors.green
+                                  : theme.canvasColor,
+                              fontWeight: FontWeight.bold),
                         ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+                if (widget.newStatus != null && widget.newStatus != 0)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Transform.scale(
+                      scale: 1.sp,
+                      child: Chip(
+                          backgroundColor: Colors.red,
+                          label: Text(
+                            "New  ${widget.newStatus.toString()}",
+                            style:
+                                TextStyle(fontSize: 18.sp, color: Colors.white),
+                          )),
+                    ),
                   ),
-                ],
-              ),
+              ],
             ),
           ),
         ),

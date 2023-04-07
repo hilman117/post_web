@@ -24,7 +24,7 @@ class AllDepartmentRegistered extends StatelessWidget {
               // width: 500.w,
               height: 500.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(25.r),
                 color: Colors.white,
               ),
               child: Column(

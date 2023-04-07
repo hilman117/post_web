@@ -23,7 +23,7 @@ class SettingView extends StatelessWidget {
         builder: (context, value, child) => Stack(
               children: [
                 Container(
-                  color: const Color(0xffF9F7FF),
+                  color: const Color(0xffE8EEF8),
                   child: ListView(
                     children: [
                       Padding(

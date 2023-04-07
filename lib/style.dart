@@ -43,7 +43,8 @@ TextStyle style15Bold = TextStyle(
 TextStyle style18Bold = TextStyle(
     fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.black87);
 
-TextStyle style18Normal = TextStyle(fontSize: 18.sp, color: Colors.black87);
+TextStyle style18Normal = TextStyle(
+    fontSize: 18.sp, color: Colors.black87, fontWeight: FontWeight.normal);
 
 TextStyle style20Bold = TextStyle(
     fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.black87);
@@ -65,3 +66,5 @@ TextStyle style24SemiBold = TextStyle(
 
 TextStyle style24Normal = TextStyle(
     fontSize: 40.sp, fontWeight: FontWeight.normal, color: Colors.black87);
+
+const Color inActiveColor = Color(0xffE8EEF8);

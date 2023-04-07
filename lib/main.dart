@@ -54,6 +54,7 @@ Future<void> main() async {
   FirebaseMessaging.onMessageOpenedApp.listen(
     Notif().showFlutterNotificatiOnOpenedApp,
   );
+  // Notif().getToken().then((value) => print(value));
   FirebaseMessaging.onBackgroundMessage(
       Notif().showFlutterNotificationOnBackground);
   runApp(MultiProvider(

@@ -26,7 +26,7 @@ class Dashboard extends StatelessWidget {
     return Container(
         alignment: Alignment.topCenter,
         width: size.width,
-        color: theme.primaryColor,
+        color: const Color(0xffE8EEF8),
         child: LayoutBuilder(
           builder: (p0, p1) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -55,7 +55,7 @@ class Dashboard extends StatelessWidget {
                       ),
                       Expanded(
                         child: SizedBox(
-                            height: 70.h,
+                            height: 130.h,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: data.length,

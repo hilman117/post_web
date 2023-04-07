@@ -174,7 +174,9 @@ class CreateController with ChangeNotifier {
     if (admin.isNotEmpty) {
       for (var userAdmin in admin) {
         if (userAdmin[dept] != null) {
-          listAdminEmail = userAdmin[dept];
+          // ignore: avoid_print
+          print(userAdmin[dept]);
+          listAdminEmail = await userAdmin[dept];
         }
       }
       if (listAdminEmail.isNotEmpty) {
@@ -310,8 +312,8 @@ class CreateController with ChangeNotifier {
               context, listAdminEmail, departementSendTo, description.text, "");
 
           description.clear();
-          Navigator.of(context).pop();
           isLoding = false;
+          Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {
         // ignore: avoid_print

@@ -53,14 +53,14 @@ Widget messageWidget(
           chatModel.description != ""
               ? Text(
                   chatModel.description!,
-                  style: theme.textTheme.bodySmall,
+                  style: style18Normal,
                   overflow: TextOverflow.clip,
                 )
               : const SizedBox(),
           chatModel.commentBody != ""
               ? Text(
                   chatModel.commentBody!,
-                  style: theme.textTheme.bodySmall,
+                  style: style18Normal,
                   overflow: TextOverflow.clip,
                 )
               : const SizedBox(),

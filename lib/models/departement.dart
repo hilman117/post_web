@@ -4,6 +4,7 @@ class Departement {
       this.departementIcon,
       this.title,
       this.isActive,
+      this.color,
       this.totalRequest});
 
   bool? isActive;
@@ -11,9 +12,11 @@ class Departement {
   String? departementIcon;
   List<String>? title;
   int? totalRequest;
+  String? color;
 
   factory Departement.fromJson(Map<String, dynamic> json) => Departement(
         departement: json["departement"],
+        color: json["color"],
         isActive: json["isActive"],
         totalRequest: json["totalRequest"],
         departementIcon: json["departementIcon"],
@@ -22,6 +25,7 @@ class Departement {
 
   Map<String, dynamic> toJson() => {
         "departement": departement,
+        "color": color,
         "isActive": isActive,
         "totalRequest": totalRequest,
         "departementIcon": departementIcon,

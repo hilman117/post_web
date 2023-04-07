@@ -26,10 +26,22 @@ class Notif {
   void showForgroundNotification(BuildContext context, RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     // AndroidNotification? android = message.notification!.android;
-    if (notification != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(notification.title!)));
-    }
+    // if (notification != null) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       // dismissDirection: DismissDirection.horizontal,
+    //       // margin: const EdgeInsets.all(0),
+    //       // padding: const EdgeInsets.all(0),
+    //       showCloseIcon: true,
+    //       behavior: SnackBarBehavior.floating,
+    //       backgroundColor: Colors.white,
+    //       shape: RoundedRectangleBorder(
+    //           side: BorderSide(color: Colors.black45, width: 0.5.w),
+    //           borderRadius: BorderRadius.circular(6.r)),
+    //       elevation: 30.sp,
+    //       width: 300.w,
+    //       content: snackbarNotif(
+    //           notification.title!.toString(), notification.body!.toString())));
+    // }
     // ignore: avoid_print
     print('NOTIFICATION forground ' + notification!.title.toString());
   }
@@ -48,6 +60,7 @@ class Notif {
       "to": "/topics/$topic"
     };
     // print("----------------------------");
+    // ignore: avoid_print
     print(data);
     var respon = await http.post(
         Uri.parse("https://fcm.googleapis.com/fcm/send"),
