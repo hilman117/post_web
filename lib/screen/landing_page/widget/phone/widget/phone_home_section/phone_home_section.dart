@@ -28,15 +28,15 @@ class PhoneHomeSection extends StatelessWidget {
                               height: 400,
                               width: size.width,
                               color: mainColor,
-                              child: Image.asset("image/wavetop.png"),
+                              child: Image.asset("images/wavetop.png"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 400),
-                              child: Image.asset("image/shadowwave.png"),
+                              child: Image.asset("images/shadowwave.png"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 370),
-                              child: Image.asset("image/wavedown.png"),
+                              child: Image.asset("images/wavedown.png"),
                             ),
                             Positioned(
                               left: 20,
@@ -120,7 +120,7 @@ class PhoneHomeSection extends StatelessWidget {
                                             InkWell(
                                                 onTap: () {},
                                                 child: Image.asset(
-                                                  "image/apple.png",
+                                                  "images/apple.png",
                                                   width: p1.maxWidth * 0.2,
                                                 )),
                                             SizedBox(
@@ -129,7 +129,7 @@ class PhoneHomeSection extends StatelessWidget {
                                             InkWell(
                                                 onTap: () {},
                                                 child: Image.asset(
-                                                  "image/Google.png",
+                                                  "images/Google.png",
                                                   width: p1.maxWidth * 0.2,
                                                 )),
                                           ],
@@ -146,7 +146,7 @@ class PhoneHomeSection extends StatelessWidget {
                       Positioned(
                           top: 325,
                           left: p1.maxWidth * 0.30,
-                          child: Image.asset("image/mokap.png",
+                          child: Image.asset("images/mokap.png",
                               width: p1.maxWidth * 0.4)),
                     ],
                   ),

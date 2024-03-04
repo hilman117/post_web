@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +6,40 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/firebase/firebase_create_task.dart';
+import 'package:post_web/models/departement.dart';
 import 'package:post_web/notif.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../../../../../const.dart';
-import '../../../../../../../controller/c_user.dart';
+import '../../../../const.dart';
+import '../../../../controller/c_user.dart';
 
 class CreateController with ChangeNotifier {
   final user = Get.put(CUser());
+
+  void clearAllData() {
+    deptForRequest = null;
+    imageList.clear();
+    imageUrl.clear();
+  }
+
+  List<String> listTitle = [];
+  Departement? deptForRequest;
+  void selectDeptForRequest(Departement selectedDept) {
+    deptForRequest = selectedDept;
+    listTitle = selectedDept.title!;
+    notifyListeners();
+  }
+
+  bool focusDropDown = false;
+  bool focusLocation = false;
+  bool focusTitle = false;
+  getFocusDropDown({bool? dropDown, bool? title, bool? location}) {
+    focusDropDown = dropDown ?? false;
+    focusLocation = location ?? false;
+    focusTitle = title ?? false;
+    notifyListeners();
+  }
+
   //function for searching title and location on [CREATETASKDIALOG]
   String searchingTitle = "";
   String searchingLocation = "";
@@ -30,7 +54,6 @@ class CreateController with ChangeNotifier {
   searchingFocuse({bool? titleNewBool, bool? locationNewBool}) {
     isSearchingTitleFocus = titleNewBool ?? false;
     isSearchingLocationFocus = locationNewBool ?? false;
-    notifyListeners();
     // print("title $isSearchingTitleFocus");
     // print("location $isSearchingLocationFocus");
     notifyListeners();
@@ -179,50 +202,44 @@ class CreateController with ChangeNotifier {
           listAdminEmail = await userAdmin[dept];
         }
       }
-      if (listAdminEmail.isNotEmpty) {
-        for (var adminEmail in listAdminEmail) {
-          var adminData = await FirebaseFirestore.instance
-              .collection(userCollection)
-              .doc(adminEmail)
-              .get();
-          List adminToken = adminData.data()!["token"];
-          if (adminToken.isNotEmpty) {
-            for (var token in adminToken) {
-              listAdminTokens.add(token);
-              notifyListeners();
-            }
-            for (var adminToken in listAdminTokens) {
-              Notif().sendNotifToToken(
-                  adminToken, definedTitle, description, imageUrl);
-            }
-          }
-        }
-      }
+      // if (listAdminEmail.isNotEmpty) {
+      //   for (var adminEmail in listAdminEmail) {
+      //     var adminData = await FirebaseFirestore.instance
+      //         .collection(userCollection)
+      //         .doc(adminEmail)
+      //         .get();
+      //     List adminToken = adminData.data()!["token"];
+      //     if (adminToken.isNotEmpty) {
+      //       for (var token in adminToken) {
+      //         listAdminTokens.add(token);
+      //         notifyListeners();
+      //       }
+      //       for (var adminToken in listAdminTokens) {
+      //         Notif().sendNotifToToken(
+      //             adminToken, definedTitle, description, imageUrl);
+      //       }
+      //     }
+      //   }
+      // }
     }
     notifyListeners();
   }
 
   bool isLoding = false;
   var db = FirebaseCreateTask();
-  final uid = const Uuid().v1();
-  Future<void> createTask(
-      {required BuildContext context,
-      required List<dynamic> listAdminEmail,
-      required String departementSendTo,
-      required String hotelName,
-      required TextEditingController description,
-      required String emailSender,
-      required String colorUser,
-      required String deptSender,
-      required String positionSender,
-      required String imageProfileSender,
-      required String senderName}) async {
+  Future<void> createTask({
+    required BuildContext context,
+    required List<dynamic> listAdminEmail,
+    Departement? selectedDept,
+    required TextEditingController description,
+  }) async {
+    String idTask = generateUniqueId().toString();
     if (definedTitle == "") {
       ShowDialog().errorDialog(context, "Title is empty");
     } else if (definedLocation == "") {
       ShowDialog().errorDialog(context, "Location is empty");
-    } else if (departementSendTo == "") {
-      ShowDialog().errorDialog(context, "Location is empty");
+    } else if (deptForRequest == null) {
+      ShowDialog().errorDialog(context, "Department is empty");
     } else {
       isLoding = true;
       notifyListeners();
@@ -234,14 +251,13 @@ class CreateController with ChangeNotifier {
           imageList.forEach((imageToUpload) async {
             String imageExtension = imageName.split('.').last;
 
-            firebase_storage.Reference ref =
-                FirebaseStorage.instanceFor(bucket: bucketStorage).ref(
-                    "${user.data.hotelid}/${user.data.uid} + ${DateTime.now().toString()}.$imageExtension");
-            final metadata =
-                firebase_storage.SettableMetadata(contentType: "image/jpeg");
-            firebase_storage.UploadTask uploadImages =
-                ref.putData(imageToUpload, metadata);
-            await uploadImages.whenComplete(() => null);
+            var ref = FirebaseStorage.instance.ref(
+                "${user.data.hotelid}/${user.data.uid} + ${DateTime.now().toString()}.$imageExtension");
+            // Specify content type as image/jpeg
+            var metadata =
+                firebase_storage.SettableMetadata(contentType: 'image/jpeg');
+            // Upload image data using putData with specified metadata
+            await ref.putData(imageToUpload, metadata);
             await ref.getDownloadURL().then((value) async {
               imageUrl.add(value);
               notifyListeners();
@@ -249,32 +265,40 @@ class CreateController with ChangeNotifier {
                 imageList.clear();
                 await db.createTask(
                     context: context,
-                    hotelName: hotelName,
-                    assigned: departementSendTo,
+                    hotelName: user.data.hotelid!,
+                    assigned: deptForRequest!.departement!,
                     image: imageUrl,
                     description: description.text,
                     emailReceiver: "",
-                    emailSender: emailSender,
-                    from: deptSender,
-                    id: uid,
+                    emailSender: user.data.email!,
+                    from: user.data.department!,
+                    id: idTask,
                     location: definedLocation,
-                    positionSender: positionSender,
-                    profileImageSender: imageProfileSender,
+                    positionSender: user.data.position!,
+                    profileImageSender: user.data.profileImage!,
                     receiver: "",
-                    sendTo: departementSendTo,
-                    sender: senderName,
+                    sendTo: deptForRequest!.departement!,
+                    sender: user.data.name!,
                     setDate: _newDate,
                     setTime: selectedTime,
                     time: DateTime.now().toString(),
                     title: definedTitle,
-                    colorUser: colorUser,
-                    status:
-                        selectedTime != "" || _newDate != "" ? "To Do" : "New");
-                Notif().sendNotifToTopic(departementSendTo.removeAllWhitespace,
-                    definedTitle, description.text);
+                    colorUser: user.data.userColor!,
+                    status: "New",
+                    closeTime: '',
+                    createRequest: user.data.createRequest!,
+                    requestDone: user.data.closeRequest!,
+                    resolusi: '',
+                    iconDepartement: deptForRequest!.departementIcon!);
+                Notif().sendNotifToTopic(
+                    deptForRequest!.departement!.removeAllWhitespace,
+                    definedTitle,
+                    description.text);
+                // ignore: use_build_context_synchronously
                 await getListOfAdminToken(context, listAdminEmail,
-                    departementSendTo, description.text, "");
+                    deptForRequest!.departement!, description.text, "");
                 description.clear();
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
                 isLoding = false;
               }
@@ -283,36 +307,43 @@ class CreateController with ChangeNotifier {
         } else {
           await db.createTask(
               context: context,
-              hotelName: hotelName,
-              assigned: departementSendTo,
-              image: [],
+              hotelName: user.data.hotelid!,
+              assigned: deptForRequest!.departement!,
+              image: imageUrl,
               description: description.text,
               emailReceiver: "",
-              emailSender: emailSender,
-              from: deptSender,
-              id: uid,
+              emailSender: user.data.email!,
+              from: user.data.department!,
+              id: idTask,
               location: definedLocation,
-              positionSender: positionSender,
-              profileImageSender: imageProfileSender,
+              positionSender: user.data.position!,
+              profileImageSender: user.data.profileImage!,
               receiver: "",
-              sendTo: departementSendTo,
-              sender: senderName,
+              sendTo: deptForRequest!.departement!,
+              sender: user.data.name!,
               setDate: _newDate,
               setTime: selectedTime,
               time: DateTime.now().toString(),
               title: definedTitle,
-              colorUser: colorUser,
-              status: selectedTime != "" || _newDate != "" ? "To Do" : "New");
+              colorUser: user.data.userColor!,
+              status: "New",
+              closeTime: '',
+              createRequest: user.data.createRequest!,
+              requestDone: user.data.closeRequest!,
+              resolusi: '',
+              iconDepartement: deptForRequest!.departementIcon!);
 
           Notif().sendNotifToTopic(
-              departementSendTo.toLowerCase().removeAllWhitespace,
+              deptForRequest!.departement!.toLowerCase().removeAllWhitespace,
               definedTitle,
               description.text);
-          await getListOfAdminToken(
-              context, listAdminEmail, departementSendTo, description.text, "");
+          // ignore: use_build_context_synchronously
+          await getListOfAdminToken(context, listAdminEmail,
+              deptForRequest!.departement!, description.text, "");
 
           description.clear();
           isLoding = false;
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {

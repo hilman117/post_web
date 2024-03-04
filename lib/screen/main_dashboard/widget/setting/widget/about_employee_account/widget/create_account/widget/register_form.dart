@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:post_web/style.dart';
 
 class FormRegister extends StatelessWidget {
   const FormRegister({
@@ -29,6 +28,7 @@ class FormRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: width ?? double.infinity,
       height: 70.h,
@@ -37,7 +37,10 @@ class FormRegister extends StatelessWidget {
         children: [
           Text(
             label,
-            style: style18Normal,
+            style: TextStyle(
+                fontSize: 18.sp,
+                color: theme.canvasColor,
+                fontWeight: FontWeight.normal),
           ),
           SizedBox(
             height: 4.h,
@@ -52,7 +55,10 @@ class FormRegister extends StatelessWidget {
                 onChanged: onChanged,
                 controller: textController,
                 obscureText: false,
-                style: style15Normal,
+                style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.normal,
+                    color: theme.canvasColor),
                 cursorWidth: 1,
                 cursorHeight: 15.h,
                 cursorColor: Colors.black,

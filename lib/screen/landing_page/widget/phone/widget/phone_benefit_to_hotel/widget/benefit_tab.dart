@@ -25,14 +25,14 @@ class BenefitTablet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Point(
-                        imageIcon: "image/eficiency.png",
+                        imageIcon: "images/eficiency.png",
                         title: "Efficiency",
                         subtitle: eficiency,
                         color: mainColor,
                         size: p1,
                       ),
                       Point(
-                        imageIcon: "image/mobile_staff.png",
+                        imageIcon: "images/mobile_staff.png",
                         title: "Mobile Staﬀ",
                         subtitle: mobileStaff,
                         color: secondaryColor,
@@ -53,14 +53,14 @@ class BenefitTablet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Point(
-                        imageIcon: "image/accessanywhere.png",
+                        imageIcon: "images/accessanywhere.png",
                         title: "Access from Anywhere",
                         subtitle: accessAnywhere,
                         color: mainColor,
                         size: p1,
                       ),
                       Point(
-                        imageIcon: "image/easy_communication.png",
+                        imageIcon: "images/easy_communication.png",
                         title: "Communication",
                         subtitle: communication,
                         color: secondaryColor,
@@ -81,7 +81,7 @@ class BenefitTablet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Point(
-                        imageIcon: "image/ticketmanagement.png",
+                        imageIcon: "images/ticketmanagement.png",
                         title: "Ticket Management",
                         subtitle: ticketManagement,
                         color: mainColor,

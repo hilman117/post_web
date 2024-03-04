@@ -1,15 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/close_task_dialog.dart';
 import 'package:post_web/reusable_widget/reopen_button.dart';
-import 'package:post_web/reusable_widget/photo_profile_network.dart';
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../../models/departement.dart';
 import '../../../../../../../models/user.dart';
 import '../../../controller_dashboard.dart';
@@ -108,34 +108,14 @@ class _RequestCardState extends State<RequestCard>
                       Container(
                         alignment: Alignment.centerLeft,
                         width: 280.w,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 10.w),
-                              child: InkWell(
-                                onTap: () => controller.showProfileSender(
-                                    context: context,
-                                    taskModel: widget.taskModel),
-                                child: PhotoProfileNetWork(
-                                    lebar: 25.w,
-                                    tinggi: 25.h,
-                                    radius: 25.sp,
-                                    urlImage:
-                                        widget.taskModel.profileImageSender!),
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(widget.taskModel.sender!,
-                                  style: theme.textTheme.bodySmall),
-                            ),
-                          ],
-                        ),
+                        child: Text(widget.taskModel.sender!,
+                            style: theme.textTheme.bodySmall),
                       ),
                       Container(
                         alignment: Alignment.center,
                         width: 70.w,
                         child: Image.asset(
-                          "image/${widget.taskModel.sendTo}.png",
+                          widget.taskModel.iconDepartement!,
                           width: 35.w,
                         ),
                       ),
@@ -145,15 +125,15 @@ class _RequestCardState extends State<RequestCard>
                         padding: EdgeInsets.only(right: 10.w),
                         child: Text(
                           widget.taskModel.location!,
-                          style: style18Normal,
+                          style: theme.textTheme.bodySmall,
                         ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
                         width: 200.w,
                         padding: EdgeInsets.only(right: 10.w),
-                        child:
-                            Text(widget.taskModel.title!, style: style18Normal),
+                        child: Text(widget.taskModel.title!,
+                            style: theme.textTheme.bodySmall),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -180,7 +160,7 @@ class _RequestCardState extends State<RequestCard>
                       ),
                       Container(
                         alignment: Alignment.center,
-                        width: 200.w,
+                        width: 150.w,
                         child: statusWidget(
                             context: context, status: widget.taskModel.status!),
                       ),
@@ -192,33 +172,24 @@ class _RequestCardState extends State<RequestCard>
                             widget.taskModel.receiver != ""
                                 ? widget.taskModel.receiver!
                                 : "-",
-                            style: style18Normal),
+                            style: theme.textTheme.bodySmall),
                       ),
                       Container(
                           alignment: Alignment.centerLeft,
-                          width: 200.w,
+                          width: 300.w,
                           child: widget.taskModel.status == "Close"
                               ? ReopenButton(idTask: widget.taskModel.id!)
                               : Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Tooltip(
-                                      message: 'Accept',
-                                      child: ActionButton(
+                                    ActionButton(
                                         callback: () =>
                                             functionChatCtrl.accepTask(
                                                 context, widget.taskModel.id!),
                                         color: Colors.green,
-                                        widget: Icon(
-                                          Icons.check,
-                                          size: 20.sp,
-                                        ),
-                                      ),
-                                    ),
-                                    Tooltip(
-                                      message: "Assign",
-                                      child: ActionButton(
+                                        widget: "Accept"),
+                                    ActionButton(
                                         callback: () async {
                                           await functionChatCtrl.cleaList();
                                           if (dataTeam.isEmpty ||
@@ -227,36 +198,21 @@ class _RequestCardState extends State<RequestCard>
                                                 .loadingDialog(context);
                                           } else {
                                             return assignTaskDialog(
-                                                context,
-                                                widget.taskModel.id!,
-                                                widget.taskModel.title!,
-                                                widget.taskModel.location!);
+                                                context, widget.taskModel);
                                           }
                                         },
                                         color: Colors.blue,
-                                        widget: Icon(
-                                          Icons.assignment,
-                                          size: 20.sp,
-                                        ),
-                                      ),
-                                    ),
-                                    Tooltip(
-                                      message: "Close",
-                                      child: ActionButton(
+                                        widget: "Assign"),
+                                    ActionButton(
                                         callback: () => closeTaskDialog(
-                                            context, widget.taskModel.id!),
+                                            context, widget.taskModel),
                                         color: Colors.grey,
-                                        widget: Icon(
-                                          Icons.close,
-                                          size: 20.sp,
-                                        ),
-                                      ),
-                                    ),
+                                        widget: "Close"),
                                   ],
                                 )),
                       Container(
                         alignment: Alignment.center,
-                        width: 200.w,
+                        width: 150.w,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,19 +276,20 @@ class ActionButton extends StatelessWidget {
   }) : super(key: key);
 
   final VoidCallback callback;
-  final Widget widget;
+  final String widget;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 65.w,
-      height: 30.h,
-      child: OutlinedButton(
-          style: OutlinedButton.styleFrom(foregroundColor: color),
-          onPressed: callback,
-          child: widget),
-    );
+    return SizedBox(
+        // alignment: Alignment.center,
+        // width: 80.w,
+        height: 40.h,
+        child: TextButton(
+            onPressed: callback,
+            child: Text(
+              widget,
+              style: TextStyle(fontSize: 18.sp),
+            )));
   }
 }

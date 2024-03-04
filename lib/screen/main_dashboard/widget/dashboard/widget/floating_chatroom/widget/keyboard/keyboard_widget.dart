@@ -1,32 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/const.dart';
+import 'package:post_web/models/task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../../../reusable_widget/texfield.dart';
 import 'widget/send_more_button.dart';
 
 class KeyboardWidget extends StatelessWidget {
-  const KeyboardWidget({
-    Key? key,
-    required this.idTask,
-    required this.titleTask,
-    required this.locationTask,
-    required this.status,
-  }) : super(key: key);
+  const KeyboardWidget({Key? key, required this.task}) : super(key: key);
 
-  final String idTask;
-  final String titleTask;
-  final String locationTask;
-  final String status;
+  final TaskModel task;
   static final TextEditingController commentText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final event = Provider.of<ChatroomControlller>(context, listen: false);
+    final theme = Theme.of(context);
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(bottom: 5.h, left: 5.w),
+      margin: EdgeInsets.only(bottom: 20.h, left: 5.w),
       width: double.infinity,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,28 +27,39 @@ class KeyboardWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-                height: 50.h,
+                height: 45.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                 ),
                 // height: 40.h,
-                child: TexfieldWidget(
-                  // height: 40.h,
+                child: CupertinoTextField(
+                  autofocus: true,
                   maxLines: 5,
-                  hintText: "type here...",
-                  bgCOlor: Colors.white,
-                  fontHeight: 18.h,
+                  minLines: 1,
                   controller: commentText,
-                  searchFunction: (value) => event.typingTextToSend(value),
+                  placeholder: "Type here...",
+                  placeholderStyle: TextStyle(
+                      fontSize: 18.sp,
+                      color: Colors.grey.shade300,
+                      fontWeight: FontWeight.normal),
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
+                  onChanged: (value) => event.typingTextToSend(value),
+                  cursorColor: mainColor,
                 )),
+          ),
+          SizedBox(
+            width: 10.w,
           ),
           SendAndMoreButton(
             commentText: commentText,
-            idTask: idTask,
-            locationTask: locationTask,
-            titleTask: titleTask,
-            status: status,
-          )
+            task: task,
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
         ],
       ),
     );

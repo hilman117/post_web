@@ -130,7 +130,7 @@ class _PhotoGridState extends State<PhotoGrid> {
                     alignment: Alignment.center,
                     color: Colors.black54,
                     child: Text(
-                      '+' + remaining.toString(),
+                      '+$remaining',
                       style: TextStyle(fontSize: 32.sp, color: Colors.white),
                     ),
                   ),

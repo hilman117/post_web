@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-const Color mainColor = Color(0xff3152D9);
+const Color mainColor = Color(0xff3100F9);
 const Color mainColor2 = Color(0xff0071B1);
 const Color secondaryColor = Color(0xff0FD0B6);
 const Color colorTextCard = Colors.black54;
@@ -43,23 +45,23 @@ const String communication =
     "Communicate easily across every department while on the go";
 
 const List<String> departementIcon = [
-  "image/Engineering.png",
-  "image/Entertainment.png",
-  "image/Front Office.png",
-  "image/IT Support.png",
-  "image/Room Service.png",
-  "image/Housekeeping.png",
-  "image/Butler.png",
-  "image/Concierge.png",
-  "image/entertain-2.png",
-  "image/guard.png",
-  "image/hr-manager.png",
-  "image/laundry.png",
-  "image/hotel-bell.png",
-  "image/kitchen-utensils.png",
-  "image/police.png",
-  "image/chef.png",
-  "image/menu.png"
+  "images/Engineering.png",
+  "images/Entertainment.png",
+  "images/Front Office.png",
+  "images/IT Support.png",
+  "images/Room Service.png",
+  "images/Housekeeping.png",
+  "images/Butler.png",
+  "images/Concierge.png",
+  "images/entertain-2.png",
+  "images/guard.png",
+  "images/hr-manager.png",
+  "images/laundry.png",
+  "images/hotel-bell.png",
+  "images/kitchen-utensils.png",
+  "images/police.png",
+  "images/chef.png",
+  "images/menu.png"
 ];
 
 const List<String> role = [
@@ -98,3 +100,19 @@ const List<String> role = [
   "Fitness Trainer",
   "Engineering Attendant"
 ];
+
+//id for tasks
+int generateUniqueId() {
+  int timestamp = DateTime.now().millisecondsSinceEpoch;
+  int randomDigits =
+      Random().nextInt(10000); // Ganti 1000000 sesuai kebutuhan digit acak
+
+  return int.parse('$timestamp$randomDigits');
+}
+
+//id for notifikasi
+int generateId() {
+  int randomDigits = Random().nextInt(32); // Ganti  sesuai kebutuhan digit acak
+
+  return int.parse('$randomDigits');
+}

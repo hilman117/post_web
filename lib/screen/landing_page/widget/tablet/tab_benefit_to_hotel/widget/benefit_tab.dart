@@ -16,9 +16,9 @@ class BenefitTablet extends StatelessWidget {
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 500),
             opacity: pixels > 2874 ? 1 : 0,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Point(
                     imageIcon: "image/eficiency.png",
                     title: "Efficiency",
@@ -45,9 +45,9 @@ class BenefitTablet extends StatelessWidget {
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 500),
             opacity: pixels > 3104 ? 1 : 0,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Point(
                     imageIcon: "image/easy_communication.png",
                     title: "Communication",

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -8,19 +9,14 @@ class ShowDialog {
   Future alerDialog(BuildContext context, String text) {
     return showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
+        content: Text(text),
         actions: [
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "Retry",
-                style: style11Normal,
-              ))
+          CupertinoButton(
+            child: const Text("Close"),
+            onPressed: () => Navigator.of(context).pop(),
+          )
         ],
-        title: Text(
-          text,
-          style: style20Normal,
-        ),
       ),
     );
   }
@@ -57,6 +53,20 @@ class ShowDialog {
           ),
         ),
       ),
+    );
+  }
+
+  Future loadingDataReport(BuildContext context) {
+    final theme = Theme.of(context);
+    return showDialog(
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      context: context,
+      builder: (context) => Center(
+          child: Text(
+        "Sedang memuat data...",
+        style: TextStyle(fontSize: 35.sp, color: theme.canvasColor),
+      )),
     );
   }
 

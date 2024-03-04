@@ -12,7 +12,7 @@ class CustomTheme {
       primaryColor: Colors.grey.shade50,
       canvasColor: Colors.black87,
       hoverColor: Colors.grey.shade200,
-      scaffoldBackgroundColor: Colors.blue.shade50,
+      scaffoldBackgroundColor: const Color(0xffE8EEF8),
       textTheme: TextTheme(
           displayLarge: style24SemiBold,
           displaySmall: style20Bold,
@@ -27,10 +27,10 @@ class CustomTheme {
     fontFamily: 'SF Pro Display',
     brightness: Brightness.dark,
     canvasColor: const Color(0xffC7CED3),
-    hoverColor: const Color(0xff192127),
+    hoverColor: Colors.black45,
     cardColor: const Color(0xff0F1519),
     primaryColor: const Color(0xff192127),
-    scaffoldBackgroundColor: const Color(0xff192127),
+    scaffoldBackgroundColor: const Color(0xff293237),
     textTheme: TextTheme(
         displayLarge: TextStyle(
             fontSize: 40.sp, fontWeight: FontWeight.bold, color: Colors.white),

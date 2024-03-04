@@ -8,7 +8,7 @@ Widget boxRow(
     bool textAligncenter = false,
     Color? color,
     FontWeight? fontWeight,
-    Alignment alignment = Alignment.center}) {
+    Alignment alignment = Alignment.bottomCenter}) {
   return Container(
     alignment: alignment,
     width: width,

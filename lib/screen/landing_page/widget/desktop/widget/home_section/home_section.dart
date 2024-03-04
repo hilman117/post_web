@@ -24,16 +24,16 @@ class HomeSection extends StatelessWidget {
               width: size.width,
               color: mainColor,
               child: LayoutBuilder(
-                builder: (p0, p1) => Image.asset("image/wavetop.png"),
+                builder: (p0, p1) => Image.asset("images/wavetop.png"),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 780),
-              child: Image.asset("image/shadowwave.png"),
+              child: Image.asset("images/shadowwave.png"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 750),
-              child: Image.asset("image/wavedown.png"),
+              child: Image.asset("images/wavedown.png"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 100, left: 100, right: 100),
@@ -105,7 +105,7 @@ class HomeSection extends StatelessWidget {
                                 InkWell(
                                     onTap: () {},
                                     child: Image.asset(
-                                      "image/apple.png",
+                                      "images/apple.png",
                                       width: p1.maxWidth * 0.2,
                                     )),
                                 SizedBox(
@@ -114,7 +114,7 @@ class HomeSection extends StatelessWidget {
                                 InkWell(
                                     onTap: () {},
                                     child: Image.asset(
-                                      "image/Google.png",
+                                      "images/Google.png",
                                       width: p1.maxWidth * 0.2,
                                     )),
                               ],
@@ -123,7 +123,7 @@ class HomeSection extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      Image.asset("image/mokap.png", width: p1.maxWidth * 0.4)
+                      Image.asset("images/mokap.png", width: p1.maxWidth * 0.4)
                     ],
                   ),
                 ),

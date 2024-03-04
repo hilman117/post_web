@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
-import 'package:post_web/style.dart';
 import 'package:provider/provider.dart';
 
 import 'widget/add_departments.dart';
@@ -17,6 +16,7 @@ class AllDepartmentRegistered extends StatelessWidget {
     var data = Provider.of<List<Departement>>(context);
     final settingController =
         Provider.of<SettingsController>(context, listen: false);
+    final theme = Theme.of(context);
     return Consumer<SettingsController>(
         builder: (context, value, child) => Container(
               // margin: EdgeInsets.only(left: 100.w),
@@ -25,16 +25,16 @@ class AllDepartmentRegistered extends StatelessWidget {
               height: 500.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.r),
-                color: Colors.white,
+                color: theme.primaryColor,
               ),
               child: Column(
                 children: [
                   const AddNewDepartement(),
                   Expanded(
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: theme.primaryColor,
+                        borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(7),
                             bottomRight: Radius.circular(7)),
                       ),
@@ -67,7 +67,11 @@ class AllDepartmentRegistered extends StatelessWidget {
                                             // height: 20.h,
                                             child: Text(
                                               departement.departement!,
-                                              style: style18Normal,
+                                              style: TextStyle(
+                                                  fontSize: 18.sp,
+                                                  color: theme.canvasColor,
+                                                  fontWeight:
+                                                      FontWeight.normal),
                                             ),
                                           ),
                                           const Spacer(),
@@ -75,13 +79,7 @@ class AllDepartmentRegistered extends StatelessWidget {
                                             scale: 0.5,
                                             child: Switch.adaptive(
                                               value: departement.isActive!,
-                                              onChanged: (value) =>
-                                                  settingController
-                                                      .activateSwith(
-                                                          context,
-                                                          departement
-                                                              .departement!,
-                                                          value),
+                                              onChanged: (value) {},
                                             ),
                                           ),
                                           InkWell(
@@ -103,6 +101,9 @@ class AllDepartmentRegistered extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 25.h,
+                  )
                 ],
               ),
             ));

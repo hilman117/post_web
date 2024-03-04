@@ -40,7 +40,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Task Management For All Departments",
                     subTitle: forAllDepartment,
-                    imageIcon: "image/for-all-department.png",
+                    imageIcon: "images/for-all-department.png",
                     position: 139),
                 const SizedBox(
                   height: 30,
@@ -51,7 +51,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Easy-to-use Mobile App",
                     subTitle: easyToUse,
-                    imageIcon: "image/easy-to-use.png"),
+                    imageIcon: "images/easy-to-use.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -60,7 +60,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Analysis Report",
                     subTitle: analysReport,
-                    imageIcon: "image/analisys-report.png",
+                    imageIcon: "images/analisys-report.png",
                     position: 496),
                 const SizedBox(
                   height: 30,
@@ -71,7 +71,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Auto-dispatch Request",
                     subTitle: autoDispatch,
-                    imageIcon: "image/dispatch-request.png"),
+                    imageIcon: "images/dispatch-request.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -85,7 +85,7 @@ class PhoneFeatures extends StatelessWidget {
                       width: size.width * 0.4,
                       child: LayoutBuilder(
                         builder: (p0, p1) => Image.asset(
-                          "image/mokap.png",
+                          "images/mokap.png",
                           width: p1.maxWidth * 1,
                         ),
                       ),
@@ -100,7 +100,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Scheduled Maintenance",
                     subTitle: maintananceSchedule,
-                    imageIcon: "image/schedule_maintainance.png",
+                    imageIcon: "images/schedule_maintainance.png",
                     position: 1052),
                 const SizedBox(
                   height: 30,
@@ -111,7 +111,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "13 languages",
                     subTitle: multiLanguage,
-                    imageIcon: "image/13-language.png"),
+                    imageIcon: "images/13-language.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -120,7 +120,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Escalation Rules",
                     subTitle: escalationRule,
-                    imageIcon: "image/escalation.png",
+                    imageIcon: "images/escalation.png",
                     position: 1250),
                 const SizedBox(
                   height: 30,
@@ -131,7 +131,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Multiple Property Management",
                     subTitle: multiProperty,
-                    imageIcon: "image/multi-property.png"),
+                    imageIcon: "images/multi-property.png"),
                 const SizedBox(
                   height: 30,
                 ),
@@ -140,7 +140,7 @@ class PhoneFeatures extends StatelessWidget {
                     p1: p1,
                     title: "Web desktop",
                     subTitle: webDesktop,
-                    imageIcon: "image/web-destop.png",
+                    imageIcon: "images/web-destop.png",
                     position: 1497),
               ],
             ),

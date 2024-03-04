@@ -16,20 +16,17 @@ Widget bubbleChat(
     required ChatModel chatModel,
     required List<ChatModel> listMessage,
     required int index}) {
-  DateTime convertedTimeStampToDatetime =
-      DateTime.parse(chatModel.time!.toDate().toString());
-  var dateChat =
-      DateFormat("MMM d, ''yy'").format(convertedTimeStampToDatetime);
+  // DateTime convertedTimeStampToDatetime =
+  //     DateTime.parse(chatModel.time!.toDate().toString());
+  var dateChat = DateFormat("MMM d, ''yy'").format(chatModel.time!);
   bool isVisible = false;
   if (listMessage.length - 1 == index) {
     isVisible = true;
   } else {
     var previousChat = listMessage[index + 1];
     var currentChat = listMessage[index];
-    var previousTime = DateFormat("MMM d, ''yy'")
-        .format(DateTime.parse(previousChat.time!.toDate().toString()));
-    var currentTime = DateFormat("MMM d, ''yy'")
-        .format(DateTime.parse(currentChat.time!.toDate().toString()));
+    var previousTime = DateFormat("MMM d, ''yy'").format(previousChat.time!);
+    var currentTime = DateFormat("MMM d, ''yy'").format(currentChat.time!);
     if (currentTime != previousTime) {
       isVisible = true;
     }
@@ -98,7 +95,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: "${chatModel.accepted!} has accept this request",
               icons: Icons.check_circle,
               iconColor: Colors.green,
@@ -118,7 +115,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage:
                   "${chatModel.sender} has assigned this task to ${chatModel.assignTo}",
               icons: Icons.assignment,
@@ -139,7 +136,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.hold!,
               icons: Icons.pause,
               iconColor: Colors.grey,
@@ -159,7 +156,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.newlocation!,
               icons: Icons.edit_location_alt,
               iconColor: Colors.blue,
@@ -179,7 +176,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.scheduleDelete!,
               icons: Icons.delete_outlined,
               iconColor: Colors.red,
@@ -199,7 +196,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.setDate!,
               icons: Icons.schedule_outlined,
               iconColor: Colors.blue,
@@ -219,7 +216,7 @@ Widget bubbleChat(
               chatModel.resume == "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.titleChange!,
               icons: Icons.edit,
               iconColor: Colors.grey,
@@ -239,7 +236,7 @@ Widget bubbleChat(
               chatModel.resume != "")
           ? actionBubble(
               context: context,
-              time: convertedTimeStampToDatetime.toString(),
+              time: chatModel.time.toString(),
               actionMessage: chatModel.resume!,
               icons: Icons.play_arrow_rounded,
               iconColor: mainColor2,

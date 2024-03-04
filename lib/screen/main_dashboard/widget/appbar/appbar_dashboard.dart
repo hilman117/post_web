@@ -1,45 +1,32 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/instance_manager.dart';
+import 'package:popover/popover.dart';
 import 'package:post_web/controller/c_user.dart';
-
-import 'package:post_web/custom_react_twin.dart';
-import 'package:post_web/hero_dialog_route.dart';
-import 'package:post_web/const.dart';
-import 'package:post_web/notif.dart';
+import 'package:post_web/reusable_widget/show_dialog.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
-
-import 'package:post_web/reusable_widget/photo_profile_network.dart';
-import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
+import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../models/departement.dart';
-import '../../../../models/task.dart';
-import '../profile_view/profile_view.dart';
+import 'widget/logout_dialog.dart';
 
 Widget appbarDashboard(BuildContext context) {
-  var requestData = Provider.of<List<TaskModel>>(context);
-  var data = Provider.of<List<Departement>>(context);
-  final event = Provider.of<ReportController>(context, listen: false);
+  final event = Provider.of<MainDashboardController>(context, listen: false);
+
   final user = Get.put(CUser());
   final size = MediaQuery.of(context).size;
-  final mainDashboardController =
-      Provider.of<MainDashboardController>(context, listen: false);
   final theme = Theme.of(context);
-  return Consumer<MainDashboardController>(
-    builder: (context, value, child) => Container(
-        decoration:
-            BoxDecoration(color: theme.appBarTheme.backgroundColor, boxShadow: [
-          BoxShadow(
-              color: theme.canvasColor,
-              blurRadius: 0.5,
-              offset: const Offset(1.0, 0.1))
-        ]),
+  return Consumer2<MainDashboardController, DashboardController>(
+    builder: (context, value, value2, child) => Container(
+        decoration: BoxDecoration(
+          color: theme.scaffoldBackgroundColor,
+        ),
         alignment: Alignment.center,
         height: size.height * 0.09,
         width: double.infinity,
-        child: LayoutBuilder(
-          builder: (p0, p1) => Padding(
+        child: LayoutBuilder(builder: (p0, p1) {
+          return Padding(
             padding: EdgeInsets.symmetric(horizontal: p1.maxWidth * 0.020),
             child: Row(
               children: [
@@ -61,138 +48,258 @@ Widget appbarDashboard(BuildContext context) {
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: value.menuDashboard.length,
-                      itemBuilder: (context, index) => Container(
-                            alignment: Alignment.center,
-                            height: size.height * 0.09,
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: MouseRegion(
-                              onEnter: (event) =>
-                                  mainDashboardController.hoveringMenu(index),
-                              onExit: (event) =>
-                                  mainDashboardController.hoveringMenu(-1),
-                              child: InkWell(
-                                onTap: () async {
-                                  await mainDashboardController
-                                      .selectMenu(index);
-                                  if (value.menuSelected == 1) {
-                                    var listDepartement = data
-                                        .where((element) =>
-                                            element.isActive == true)
-                                        .toList();
-                                    event.getResultMostWidelyTitle(
-                                        requestData, listDepartement);
-                                  }
-                                },
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 300),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: (value.menuHovering ==
-                                                          index ||
-                                                      value.menuSelected ==
-                                                          index)
-                                                  ? mainColor2
-                                                  : Colors.transparent))),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        value.iconMenu[index],
-                                        color: (value.menuHovering == index ||
-                                                value.menuSelected == index)
-                                            ? mainColor2
-                                            : theme.canvasColor,
-                                        size: 25.sp,
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        value.menuDashboard[index],
-                                        style: TextStyle(
-                                            fontSize: 20.sp,
-                                            color: (value.menuHovering ==
-                                                        index ||
-                                                    value.menuSelected == index)
-                                                ? mainColor2
-                                                : theme.canvasColor,
-                                            fontWeight:
-                                                value.menuSelected == index
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                      itemBuilder: (context, index) {
+                        if (index == 0 &&
+                            user.data.department == "Housekeeping") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () => event.selectMenu(
+                                  index, value.menuDashboard[index]),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
                             ),
-                          )),
+                          );
+                        }
+                        if (index == 0 &&
+                            user.data.department == "Engineering") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () => event.selectMenu(
+                                  index, value.menuDashboard[index]),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 0 &&
+                            user.data.accountType == "Administrator") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () => event.selectMenu(
+                                  index, value.menuDashboard[index]),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 1 &&
+                            user.data.accountType == "Administrator") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () => event.selectMenu(
+                                  index, value.menuDashboard[index]),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 2 &&
+                            user.data.department == "Housekeeping") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () => event.selectMenu(
+                                  index, value.menuDashboard[index]),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 3 &&
+                            user.data.department == "Housekeeping") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () async {
+                                // ShowDialog().loadingDialog(context);
+                                await event.selectMenu(
+                                    index, value.menuDashboard[index]);
+                                // var listDepartement = data
+                                //     .where(
+                                //         (element) => element.isActive == true)
+                                //     .toList();
+                                // await eventDashboard.getHistoryTask();
+                                // await eventReport.getResultMostWidelyTitle(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getMost10CreatorRequest(
+                                //     dataEmployees, value2.allTaskData);
+                                // await eventReport.dailyChartData(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getPopularTitle(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getPopularLocation(
+                                //     value2.allTaskData, value.data!);
+                                // eventReport.getTopReceiver(
+                                //     value2.allTaskData, dataEmployees);
+                                // // ignore: use_build_context_synchronously
+                                // Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 3 &&
+                            user.data.department == "Engineering") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () async {
+                                ShowDialog().loadingDialog(context);
+                                await event.selectMenu(
+                                    index, value.menuDashboard[index]);
+                                // var listDepartement = data
+                                //     .where(
+                                //         (element) => element.isActive == true)
+                                //     .toList();
+                                // // ignore: use_build_context_synchronously
+                                // await value2.getHistoryTask();
+                                // await eventReport.getResultMostWidelyTitle(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getMost10CreatorRequest(
+                                //     context, value2.allTaskData);
+                                // await eventReport.dailyChartData(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getPopularTitle(
+                                //     value2.allTaskData, listDepartement);
+                                // await eventReport.getPopularLocation(
+                                //     value2.allTaskData, value.data!);
+                                // eventReport.getTopReceiver(
+                                //     value2.allTaskData, dataEmployees);
+                                // // ignore: use_build_context_synchronously
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        if (index == 3 &&
+                            user.data.accountType == "Administrator") {
+                          return MouseRegion(
+                            onEnter: (pointer) => event.hoveringMenu(index),
+                            onExit: (pointer) => event.hoveringMenu(-1),
+                            child: InkWell(
+                              onTap: () async {
+                                ShowDialog().loadingDialog(context);
+                                await event.selectMenu(
+                                    index, value.menuDashboard[index]);
+                                // var listDepartement = data
+                                //     .where(
+                                //         (element) => element.isActive == true)
+                                //     .toList();
+                                // // ignore: use_build_context_synchronously
+                                // await eventDashboard.getHistoryTask();
+                                // await eventDashboard
+                                //     .getAllTask()
+                                //     .then((val) async {
+                                //   await eventReport.getResultMostWidelyTitle(
+                                //       val, listDepartement);
+                                //   // ignore: use_build_context_synchronously
+                                //   eventReport.getMost10CreatorRequest(
+                                //       context, val);
+                                //   await eventReport.dailyChartData(
+                                //       val, listDepartement);
+                                //   await eventReport.getPopularTitle(
+                                //       val, listDepartement);
+                                //   await eventReport.getPopularLocation(
+                                //       val, value.data!);
+                                //   eventReport.getTopReceiver(
+                                //       val, dataEmployees);
+                                // });
+
+                                // // ignore: use_build_context_synchronously
+                                // Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.09,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: value.menuWidget(context, index)),
+                            ),
+                          );
+                        }
+                        return const SizedBox();
+                      }),
                 ),
                 const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      user.data.name!,
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                          color: theme.canvasColor),
-                    ),
-                    Text(
-                      user.data.position!,
-                      style:
-                          TextStyle(fontSize: 18.sp, color: theme.canvasColor),
-                    )
-                  ],
-                ),
-                SizedBox(width: p1.maxWidth * 0.005),
                 GestureDetector(
                   onTap: () {
-                    Future.delayed(
-                      const Duration(milliseconds: 300),
-                      () => mainDashboardController.openProfileView(),
+                    showPopover(
+                      context: context,
+                      bodyBuilder: (context) => const Text("data"),
+                      onPop: () => print('Popover was popped!'),
+                      direction: PopoverDirection.bottom,
+                      width: 200,
+                      height: 400,
+                      arrowHeight: 15.h,
+                      arrowWidth: 30.w,
                     );
-                    Navigator.of(context).push(HeroDialogRoute(
-                      builder: (context) => Hero(
-                        createRectTween: (begin, end) {
-                          return CustomRectTween(begin: begin!, end: end!);
-                        },
-                        tag: "profileView1",
-                        child: Center(child: ProfileView(p1: p1)),
-                      ),
-                    ));
                   },
-                  child: Hero(
-                    tag: "profileView1",
-                    createRectTween: (begin, end) {
-                      Future.delayed(
-                        const Duration(milliseconds: 300),
-                        () => mainDashboardController.openProfileView(),
-                      );
-                      return RectTween(
-                          begin: Rect.fromCenter(
-                              center: const Offset(600, 600),
-                              width: 100,
-                              height: 100),
-                          end: Rect.fromCenter(
-                              center: const Offset(1200, 20),
-                              width: 0,
-                              height: 0));
-                    },
-                    child: SizedBox(
-                      child: PhotoProfileNetWork(
-                          lebar: p1.maxWidth * 0.015,
-                          tinggi: p1.maxWidth * 0.015,
-                          radius: p1.maxWidth * 0.015,
-                          urlImage: user.data.profileImage!),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        user.data.name!,
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                            color: theme.canvasColor),
+                      ),
+                      Text(
+                        user.data.position!,
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: theme.canvasColor,
+                            fontWeight: FontWeight.normal),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(width: p1.maxWidth * 0.01),
                 InkWell(
-                  onTap: () => mainDashboardController.changeThemeMode(),
+                  onTap: () => event.changeThemeMode(),
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 1000),
                     child: value.isDarkMode
@@ -204,12 +311,8 @@ Widget appbarDashboard(BuildContext context) {
                 SizedBox(width: p1.maxWidth * 0.01),
                 InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () => Notif().sendNotifToToken(
-                      "d-dq5CARF_hh7IRTKsCXgE:APA91bExlLGxzby2ZaZM7bzH-wOrNgeOXqMnq1H6dnfR7oMhV5GeRvRNjEGQEAlw4mazYem5d9cIOOnJgUPvXHTqCjVF-h57UIn8ryx92se1uu72V2gQT2yO9wb3gh9QQbdRlGh-gwdX",
-                      "ini title",
-                      "ini bodi",
-                      ""),
-                  // () => logoutDialog(context),
+                  onTap: () => logoutDialog(context),
+                  // onTap: () => value.dashboard(value.userDetails!.department!),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -229,7 +332,7 @@ Widget appbarDashboard(BuildContext context) {
                 )
               ],
             ),
-          ),
-        )),
+          );
+        })),
   );
 }

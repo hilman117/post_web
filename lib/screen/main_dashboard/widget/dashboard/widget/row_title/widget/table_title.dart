@@ -33,7 +33,7 @@ Widget tableTitle(BuildContext context) {
       ),
       Container(
         alignment: Alignment.center,
-        width: 200.w,
+        width: 150.w,
         child: Text("Status", style: theme.textTheme.displayMedium),
       ),
       Container(
@@ -43,12 +43,12 @@ Widget tableTitle(BuildContext context) {
       ),
       Container(
         alignment: Alignment.center,
-        width: 200.w,
+        width: 250.w,
         child: Text("Action", style: theme.textTheme.displayMedium),
       ),
       Container(
         alignment: Alignment.center,
-        width: 200.w,
+        width: 150.w,
         child: Text("Time", style: theme.textTheme.displayMedium),
       ),
     ],

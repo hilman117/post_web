@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +11,7 @@ import 'package:acronym/acronym.dart';
 import 'package:post_web/extension/string_extention.dart';
 import 'package:post_web/const.dart';
 import '../reusable_widget/show_dialog.dart';
+import '../style.dart';
 
 class FirebaseAccount with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -41,12 +46,19 @@ class FirebaseAccount with ChangeNotifier {
       required TextEditingController email,
       required TextEditingController password,
       required TextEditingController firstName,
-      required TextEditingController lastName,
       required String userPosition,
       required String userDepartement,
       required String accountType,
-      required String domain,
-      required String colorUser}) async {
+      required String domain}) async {
+    var color = userColor..shuffle();
+    int index = Random().nextInt(userColor.length);
+    // print(email.text);
+    // print(password.text);
+    // print(firstName.text);
+    // print(userPosition);
+    // print(userDepartement);
+    // print(accountType);
+    // print(domain);
     if (email.text == "") {
       return ShowDialog().alerDialog(context!, "Please to complete the email");
     }
@@ -77,8 +89,7 @@ class FirebaseAccount with ChangeNotifier {
             .collection(userCollection)
             .doc(email.text.toLowerCase() + domain)
             .set({
-          "name":
-              "(${deptCode.toUpperCase()}) ${firstName.text.toTitleCase()} ${lastName.text.toTitleCase()}",
+          "name": "(${deptCode.toUpperCase()}) ${firstName.text.toTitleCase()}",
           "position": userPosition,
           "hotelid": user.data.hotel,
           "department": userDepartement,
@@ -93,9 +104,10 @@ class FirebaseAccount with ChangeNotifier {
           'ReceiveNotifWhenClose': true,
           'isOnDuty': true,
           'sendChatNotif': true,
+          'isActive': true,
           'token': [],
           "profileImage": "",
-          "userColor": colorUser,
+          "userColor": color[index],
           "accountType": accountType,
           "createdAt": DateTime.now()
         });
@@ -109,7 +121,6 @@ class FirebaseAccount with ChangeNotifier {
         email.clear();
         password.clear();
         firstName.clear();
-        lastName.clear();
         notifyListeners();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -194,7 +205,7 @@ class FirebaseAccount with ChangeNotifier {
   deleteAccount(BuildContext context, String email) async {
     isLoadingDelete = true;
     if (isLoadingDelete) {
-      await db.collection("users").doc(email).delete();
+      await db.collection("users").doc(email).update({"isActive": false});
       isLoadingDelete = false;
       isSuccessDelete = true;
       notifyListeners();

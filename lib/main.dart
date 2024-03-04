@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl_browser.dart';
 import 'package:post_web/models/departement.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
@@ -17,7 +21,7 @@ import 'package:post_web/screen/main_dashboard/main_dashboard.dart';
 import 'package:post_web/screen/landing_page/landing_page_controller.dart';
 import 'package:post_web/screen/login_page/controller_login_page.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/controller_dashboard.dart';
-import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
+import 'package:post_web/screen/main_dashboard/widget/create_task/controller_create_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/controller_report.dart';
@@ -28,6 +32,8 @@ import 'package:provider/provider.dart';
 import 'controller/c_user.dart';
 import 'firebase/firebase_account.dart';
 import 'firebase/firebase_stream_data.dart';
+import 'models/general_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Box? box;
 final db = FirebaseStreamData();
@@ -35,26 +41,25 @@ final db = FirebaseStreamData();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FirebaseDatabase.instance.setPersistenceEnabled(true);
-  // Intl.systemLocale = await findSystemLocale();
+  Intl.systemLocale = await findSystemLocale();
   await Hive.initFlutter();
   box = await Hive.openBox('boxSetting');
   SessionsUser.getUser();
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyB48e286_xyb3imd4HioBfzLjznIh_n3Io",
-          authDomain: "post-212c8.firebaseapp.com",
-          projectId: "post-212c8",
-          messagingSenderId: "992209537475",
-          measurementId: "G-62MW0Q8QY0",
-          // storageBucket: "gs://post-212c8.appspot.com",
-          appId: "1:992209537475:web:9e9ce94d54c1f0261a9576"));
+          apiKey: "AIzaSyDh5x64nAT5Ja88aVmAUDGcbs1cedog8Oo",
+          authDomain: "post-app-d6f0c.firebaseapp.com",
+          projectId: "post-app-d6f0c",
+          storageBucket: "post-app-d6f0c.appspot.com",
+          messagingSenderId: "487915190018",
+          appId: "1:487915190018:web:969bc7a8bc79af90cdb41b",
+          measurementId: "G-BBR78C18JX"));
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
   FirebaseMessaging.onMessageOpenedApp.listen(
     Notif().showFlutterNotificatiOnOpenedApp,
   );
-  // Notif().getToken().then((value) => print(value));
   FirebaseMessaging.onBackgroundMessage(
       Notif().showFlutterNotificationOnBackground);
   runApp(MultiProvider(
@@ -97,11 +102,12 @@ Future<void> main() async {
           create: (BuildContext context) => db.getDepartementData(),
           initialData: const [],
         ),
-        // StreamProvider<GeneralData>(
-        //   create: (BuildContext context) => db.streamGeneralData(),
-        //   initialData: GeneralData(),
-        // ),
+        StreamProvider<GeneralData>(
+          create: (BuildContext context) => db.streamGeneralData(),
+          initialData: GeneralData(),
+        ),
         StreamProvider<List<UserDetails>>(
+          catchError: (context, error) => [],
           create: (BuildContext context) => db.streamEmployeeData(),
           initialData: const [],
         ),
@@ -118,14 +124,16 @@ Future<void> main() async {
               locale,
               supportedLocales,
             ) {
+              print(locale);
+              print(supportedLocales);
               if (supportedLocales.contains(Locale(locale!.languageCode))) {
                 return locale;
               } else {
                 return const Locale('en', '');
               }
             },
-            // localizationsDelegates: AppLocalizations.localizationsDelegates,
-            // supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: CustomTheme.lightTheme,
             darkTheme: CustomTheme.darkTheme,
             themeMode: context.watch<MainDashboardController>().isDarkMode
@@ -175,6 +183,6 @@ class _MyAppState extends State<MyApp> {
 
 //  tabletScreen: 768
 
-// desktopScreen : 657 
+// desktopScreen : 657
 
-// phoneScreen : 
+// phoneScreen :

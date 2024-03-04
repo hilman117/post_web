@@ -39,9 +39,9 @@ class PhonePreviewSection extends StatelessWidget {
                     width: p1.maxWidth * 1,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("image/videomage.jpg"),
+                            image: AssetImage("images/videomage.jpg"),
                             fit: BoxFit.cover)),
-                    child: Lottie.asset("image/play.json",
+                    child: Lottie.asset("images/play.json",
                         width: p1.maxWidth * 0.050)),
               ],
             ),

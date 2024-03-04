@@ -35,7 +35,7 @@ class AppBarDesktop extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "image/icon.png",
+                      "images/icon.png",
                       width: p1.maxWidth * 0.1,
                       height: p1.maxHeight * 0.8,
                     ),

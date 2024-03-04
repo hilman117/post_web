@@ -26,8 +26,7 @@ showDepartementOption(BuildContext context) {
               if (departement.isActive == true) {
                 return InkWell(
                   onTap: () {
-                    controller.selectdepartement(
-                        departement.departement!, index);
+                    controller.selectdepartement(departement, index);
                     if (value.selecteddepartement != "") {
                       mainDashboard
                           .getDepartementDetail(departement.departement!);

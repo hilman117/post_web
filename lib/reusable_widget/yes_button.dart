@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
-import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/controller/controller_create_task.dart';
+import 'package:post_web/screen/main_dashboard/widget/create_task/controller_create_task.dart';
 import 'package:provider/provider.dart';
 
-class YesButton extends StatelessWidget {
-  const YesButton({
-    Key? key,
-    this.width,
-    required this.nameButton,
-    this.callback,
-    this.icon,
-    this.fontSize,
-  }) : super(key: key);
-  final double? width;
-  final String nameButton;
-  final VoidCallback? callback;
-  final IconData? icon;
-  final double? fontSize;
-
-  @override
-  Widget build(BuildContext context) {
-    final value = context.watch<CreateController>();
-    return Container(
+Widget yesButton(
+    {required BuildContext context,
+    required String nameButton,
+    double? width,
+    VoidCallback? callback,
+    IconData? icon,
+    double? fontSize}) {
+  return Consumer<CreateController>(
+    builder: (context, value, child) => Container(
       margin: EdgeInsets.only(bottom: 5.h),
       width: width ?? 150.w,
       child: ElevatedButton(
@@ -55,6 +45,6 @@ class YesButton extends StatelessWidget {
                     )
                   ],
                 )),
-    );
-  }
+    ),
+  );
 }

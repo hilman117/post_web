@@ -13,6 +13,7 @@ Widget actionBubble(
     required IconData icons,
     required Color iconColor,
     required ChatModel chatModel}) {
+  final theme = Theme.of(context);
   final user = Get.put(CUser());
   bool isMe = chatModel.senderemail == user.data.email ? true : false;
   Widget action = Row(
@@ -25,7 +26,10 @@ Widget actionBubble(
                 width: 450.w,
                 child: SelectableText(
                   actionMessage,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                   // overflow: TextOverflow.clip,
                   textAlign: TextAlign.end,
                 ),
@@ -52,7 +56,10 @@ Widget actionBubble(
                 width: 450.w,
                 child: SelectableText(
                   actionMessage,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                   // overflow: TextOverflow.clip,
                   textAlign: TextAlign.start,
                 ),

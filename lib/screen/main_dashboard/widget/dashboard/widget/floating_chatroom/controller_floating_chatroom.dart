@@ -9,12 +9,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
+import 'package:image_downloader_web/image_downloader_web.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/firebase/firebase_action_task.dart';
 import 'package:post_web/reusable_widget/show_dialog.dart';
+
+import '../../../../../../models/task.dart';
 
 class ChatroomControlller with ChangeNotifier {
   var db = FirebaseActionTask();
@@ -79,6 +82,7 @@ class ChatroomControlller with ChangeNotifier {
       isAcceptProgress = true;
       notifyListeners();
       await db.acceptTask(context, idTask);
+      // ignore: use_build_context_synchronously
       addNewAcceptedTotal(context, 1);
       newStatus("Accepted");
       isAcceptProgress = false;
@@ -111,20 +115,36 @@ class ChatroomControlller with ChangeNotifier {
     }
   }
 
+  String finishingTime(TaskModel task) {
+    var timeCreate = task.time;
+    var diffTime = DateTime.now().difference(timeCreate!);
+    if (diffTime.inHours > 24) {
+      return "${diffTime.inDays} day";
+    } else if (diffTime.inDays > 1) {
+      return "${diffTime.inDays} days";
+    } else if (diffTime.inMinutes > 60) {
+      int sisaMenit = diffTime.inMinutes % 60;
+      return "${diffTime.inHours} hour $sisaMenit m";
+    } else if (diffTime.inHours > 1) {
+      int sisaMenit = diffTime.inMinutes % 60;
+      return "${diffTime.inHours} hours $sisaMenit m";
+    }
+    return "${diffTime.inMinutes} mnt";
+  }
+
   bool isCloseProgress = false;
-  closeTask(BuildContext context, String idTask,
+  closeTask(BuildContext context, TaskModel task,
       TextEditingController commentBody) async {
     try {
       isCloseProgress = true;
-      notifyListeners();
-      await db.closeTask(context, idTask, commentBody);
+      await db.closeTask(context, task.id!, commentBody, finishingTime(task));
+      // ignore: use_build_context_synchronously
       addNewCLoseTotal(context, 1);
       newStatus("Close");
       isCloseProgress = false;
       notifyListeners();
     } catch (e) {
       isCloseProgress = false;
-      notifyListeners();
       print(e);
     }
   }
@@ -256,6 +276,7 @@ class ChatroomControlller with ChangeNotifier {
       textToSend = "";
       notifyListeners();
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ShowDialog().errorDialog(context, "Something went wong!");
       isSendCommentProgress = false;
       notifyListeners();
@@ -284,6 +305,7 @@ class ChatroomControlller with ChangeNotifier {
 
   cleaList() {
     assignTo.clear();
+    searchText = "";
     notifyListeners();
   }
 
@@ -295,6 +317,7 @@ class ChatroomControlller with ChangeNotifier {
       notifyListeners();
       await db.assignTask(context, idTask, assignTo);
       newStatus("Assigned");
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
       cleaList();
       search.clear();
@@ -352,6 +375,7 @@ class ChatroomControlller with ChangeNotifier {
     notifyListeners();
     print("Hasil: $result");
     if (result == true) {
+      // ignore: use_build_context_synchronously
       showDownLoadResult(context: context, resultText: "Image saved success!");
     }
   }
@@ -363,9 +387,9 @@ class ChatroomControlller with ChangeNotifier {
     // notifyListeners();
   }
 
-  // Future<void> downloadImage() async {
-  //   if (currentImage != "") {
-  //     await WebImageDownloader.downloadImageFromWeb();
-  //   }
-  // }
+  Future<void> downloadImage() async {
+    if (currentImage != "") {
+      await WebImageDownloader.downloadImageFromWeb(currentImage);
+    }
+  }
 }

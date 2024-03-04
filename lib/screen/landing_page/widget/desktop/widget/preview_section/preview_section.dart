@@ -36,9 +36,9 @@ class PreviewSection extends StatelessWidget {
                 width: 700,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("image/videomage.jpg"),
+                        image: AssetImage("images/videomage.jpg"),
                         fit: BoxFit.cover)),
-                child: Lottie.asset("image/play.json", width: 82)),
+                child: Lottie.asset("images/play.json", width: 82)),
           ],
         ),
       ),

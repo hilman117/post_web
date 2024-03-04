@@ -4,26 +4,23 @@ import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_
 import 'package:provider/provider.dart';
 
 import '../../../../../../../../../models/departement.dart';
-import '../../../../../../../../../style.dart';
 
-class GroupList extends StatelessWidget {
-  const GroupList({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var dataGroup = Provider.of<List<Departement>>(context, listen: false);
-    var value = context.watch<ChatroomControlller>();
-    final controller = Provider.of<ChatroomControlller>(context, listen: false);
-    return Expanded(
+Widget groupList(BuildContext context) {
+  var dataGroup = Provider.of<List<Departement>>(context, listen: false);
+  final controller = Provider.of<ChatroomControlller>(context, listen: false);
+  final theme = Theme.of(context);
+  return Consumer<ChatroomControlller>(
+    builder: (context, value, child) => Expanded(
       child: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Group:",
-              style: style20Bold,
+              style: TextStyle(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: theme.canvasColor),
             ),
             SizedBox(
               height: 10.h,
@@ -40,7 +37,7 @@ class GroupList extends StatelessWidget {
                                   .toString()
                                   .toLowerCase()
                                   .contains(value.searchText.toLowerCase()) ||
-                          value.searchText == "") {
+                          value.searchText.isEmpty) {
                         return InkWell(
                           onTap: () {
                             if (value.assignTo.contains(item.departement)) {
@@ -56,7 +53,8 @@ class GroupList extends StatelessWidget {
                                 Transform.scale(
                                   scale: 0.6,
                                   child: Checkbox(
-                                    side: const BorderSide(width: 0.7),
+                                    side: BorderSide(
+                                        width: 0.7, color: theme.canvasColor),
                                     value: value.assignTo
                                             .contains(item.departement)
                                         ? true
@@ -75,7 +73,10 @@ class GroupList extends StatelessWidget {
                                 ),
                                 Text(
                                   item.departement!,
-                                  style: style18Normal,
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      color: theme.canvasColor,
+                                      fontWeight: FontWeight.normal),
                                 ),
                               ],
                             ),
@@ -91,6 +92,6 @@ class GroupList extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }

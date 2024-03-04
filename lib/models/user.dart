@@ -10,10 +10,12 @@ class UserDetails {
   String? uid;
   String? hotelid;
   String? accountType;
+  List<String>? token;
   bool? receiveNotifWhenAccepted;
   bool? receiveNotifWhenClose;
   bool? isOnDuty;
   bool? sendChatNotif;
+  bool? isActive;
   int? acceptRequest;
   int? closeRequest;
   int? createRequest;
@@ -36,7 +38,9 @@ class UserDetails {
       this.createRequest,
       this.isOnDuty,
       this.sendChatNotif,
-      this.accountType});
+      this.isActive,
+      this.accountType,
+      this.token});
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
         userColor: json['userColor'],
@@ -56,7 +60,9 @@ class UserDetails {
         createRequest: json["createRequest"],
         isOnDuty: json["isOnDuty"],
         sendChatNotif: json["sendChatNotif"],
+        isActive: json["isActive"],
         accountType: json["accountType"],
+        token: List<String>.from(json["token"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,7 +82,9 @@ class UserDetails {
         'createRequest': createRequest,
         'sendChatNotif': sendChatNotif,
         'isOnDuty': isOnDuty,
+        'isActive': isActive,
         'department': department,
         'accountType': accountType,
+        "token": token == null ? [] : List<dynamic>.from(token!.map((x) => x)),
       };
 }

@@ -13,6 +13,7 @@ class InputDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,6 +24,7 @@ class InputDescriptionWidget extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(width: 0.5, color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
+              color: theme.scaffoldBackgroundColor,
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.shade100,
@@ -37,9 +39,9 @@ class InputDescriptionWidget extends StatelessWidget {
               maxLines: null,
               textInputAction: TextInputAction.newline,
               keyboardType: TextInputType.multiline,
-              cursorColor: mainColor2,
+              cursorColor: mainColor,
               cursorHeight: 20.h,
-              style: TextStyle(fontSize: 20.sp),
+              style: TextStyle(fontSize: 20.sp, color: theme.canvasColor),
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Description...",

@@ -48,12 +48,13 @@ class PhoneDashBoardAndReports extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset("image/report.png", width: p1.maxWidth * 0.3),
+                      Image.asset("images/report.png",
+                          width: p1.maxWidth * 0.3),
                       RightPoint(
                         title: "Realtime",
                         subtitle:
                             "Real time dashboards for operators to view pending and closed requests",
-                        imageIcon: "image/accessanywhere.png",
+                        imageIcon: "images/accessanywhere.png",
                         color: mainColor,
                         textboxSize: p1.maxWidth * 0.3,
                         imageIconSize: p1.maxWidth * 0.1,
@@ -79,13 +80,14 @@ class PhoneDashBoardAndReports extends StatelessWidget {
                         title: "Analytics",
                         subtitle:
                             "Report shows analytics for request families, departments, location, etc",
-                        imageIcon: "image/analisys-report.png",
+                        imageIcon: "images/analisys-report.png",
                         color: mainColor,
                         textBoxSize: p1.maxWidth * 0.3,
                         imageIconSize: p1.maxWidth * 0.1,
                         left: MainAxisAlignment.start,
                       ),
-                      Image.asset("image/report.png", width: p1.maxWidth * 0.3),
+                      Image.asset("images/report.png",
+                          width: p1.maxWidth * 0.3),
                     ],
                   ),
                 ),

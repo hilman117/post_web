@@ -5,6 +5,7 @@ import 'package:post_web/models/task.dart';
 import 'package:post_web/models/user.dart';
 import '../../models/departement.dart';
 import '../const.dart';
+import '../models/general_data.dart';
 
 class FirebaseStreamData {
   final db = FirebaseFirestore.instance;
@@ -20,13 +21,13 @@ class FirebaseStreamData {
             .toList());
   }
 
-  // Stream<GeneralData> streamGeneralData() {
-  //   return db
-  //       .collection(hotelListCollection)
-  //       .doc(user.data.hotel)
-  //       .snapshots()
-  //       .map((snapshot) => GeneralData.fromJson(snapshot.data()!));
-  // }
+  Stream<GeneralData> streamGeneralData() {
+    return db
+        .collection(hotelListCollection)
+        .doc(user.data.hotel)
+        .snapshots()
+        .map((snapshot) => GeneralData.fromJson(snapshot.data()!));
+  }
 
   Stream<List<UserDetails>> streamEmployeeData() {
     return db
@@ -42,6 +43,7 @@ class FirebaseStreamData {
         .collection(hotelListCollection)
         .doc(user.data.hotel)
         .collection(taskCollection)
+        .where("status", isNotEqualTo: "Close")
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((data) => TaskModel.fromJson(data.data()))

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_web/const.dart';
+import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/create_task_dialog/widget/task_request/task.dart';
 import 'package:provider/provider.dart';
 
-import 'controller/controller_create_task.dart';
-
 createTaskDialog(BuildContext context) {
+  final theme = Theme.of(context);
   return showDialog(
     barrierColor: Colors.transparent,
     context: context,
@@ -15,13 +15,16 @@ createTaskDialog(BuildContext context) {
       return CustomDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
-          child: Consumer<CreateController>(
-            builder: (context, value, child) => Container(
+          child: Consumer<MainDashboardController>(
+            builder: (context, mainCtrl, child) => Container(
               // alignment: Alignment.bottomCenter,
-              height: 700.h,
+              height: 800.h,
               width: 700.w,
               decoration: BoxDecoration(
-                  color: mainColor2, borderRadius: BorderRadius.circular(6.r)),
+                  color: mainCtrl.isDarkMode
+                      ? theme.scaffoldBackgroundColor
+                      : mainColor,
+                  borderRadius: BorderRadius.circular(6.r)),
               child: Column(
                 children: [
                   Padding(
@@ -50,7 +53,7 @@ createTaskDialog(BuildContext context) {
                   ),
                   Expanded(
                       child:
-                          Container(color: Colors.white, child: const Task()))
+                          Container(color: Colors.white, child: task(context)))
                 ],
               ),
             ),

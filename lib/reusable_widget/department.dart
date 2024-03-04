@@ -58,7 +58,7 @@ class _DepartmentState extends State<Department> {
             width: 300.w,
             height: 80.h,
             decoration: BoxDecoration(
-                color: isHover ? theme.hoverColor : Colors.white,
+                color: isHover ? theme.hoverColor : theme.cardColor,
                 borderRadius: BorderRadius.circular(20.r)),
             child: Stack(
               children: [
@@ -85,9 +85,7 @@ class _DepartmentState extends State<Department> {
                             widget.buttonName,
                             style: TextStyle(
                                 fontSize: 20.sp,
-                                color: value.selectedDepartment == widget.index
-                                    ? Colors.green
-                                    : const Color(0xff8E99C0),
+                                color: widget.color,
                                 fontWeight: FontWeight.normal),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -96,9 +94,7 @@ class _DepartmentState extends State<Department> {
                           widget.totalRequest.toString(),
                           style: TextStyle(
                               fontSize: 30.sp,
-                              color: value.selectedDepartment == widget.index
-                                  ? Colors.green
-                                  : theme.canvasColor,
+                              color: widget.color,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -109,15 +105,14 @@ class _DepartmentState extends State<Department> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Transform.scale(
-                      scale: 1.sp,
-                      child: Chip(
+                        scale: 1.sp,
+                        child: CircleAvatar(
                           backgroundColor: Colors.red,
-                          label: Text(
-                            "New  ${widget.newStatus.toString()}",
-                            style:
-                                TextStyle(fontSize: 18.sp, color: Colors.white),
-                          )),
-                    ),
+                          child: Text(
+                            "${widget.newStatus}",
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        )),
                   ),
               ],
             ),

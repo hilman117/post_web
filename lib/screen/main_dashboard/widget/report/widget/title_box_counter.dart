@@ -7,6 +7,8 @@ Widget titleBoxCounter(
     {required BuildContext context,
     required String boxLabel,
     required String label,
+    required String item,
+    required int lengthData,
     IconData? iconData,
     required List data}) {
   final theme = Theme.of(context);
@@ -16,7 +18,7 @@ Widget titleBoxCounter(
       margin: EdgeInsets.all(10.sp),
       padding: EdgeInsets.all(10.sp),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.primaryColor,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: LayoutBuilder(
@@ -94,7 +96,7 @@ Widget titleBoxCounter(
               child: SizedBox(
                 width: p1.maxWidth,
                 child: ListView.builder(
-                    itemCount: data.length,
+                    itemCount: lengthData,
                     itemBuilder: (context, index) {
                       data.sort((a, b) => b["total"].compareTo(a["total"]));
                       return Container(
@@ -109,7 +111,7 @@ Widget titleBoxCounter(
                                 padding: EdgeInsets.symmetric(horizontal: 3.sp),
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  data[index]["title"],
+                                  data[index][item].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       color: theme.canvasColor,
@@ -121,7 +123,7 @@ Widget titleBoxCounter(
                                 fonsize: 18.sp,
                                 p1: p1,
                                 theme: theme,
-                                value: data[index]["total"])
+                                value: data[index]["total"].toString())
                           ],
                         ),
                       );

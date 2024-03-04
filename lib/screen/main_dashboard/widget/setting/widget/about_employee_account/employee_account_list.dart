@@ -5,28 +5,17 @@ import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
-import 'package:post_web/style.dart';
-import 'package:post_web/reusable_widget/photo_profile_network.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../../../../../firebase/firebase_account.dart';
-import '../../../../../../reusable_widget/texfield.dart';
+
 import 'widget/create_account/create_account.dart';
 import 'widget/create_account/widget/delete_pop_up.dart';
 import 'widget/edit_employee_profile/edit_employee_profile.dart';
 
-class EmployeeAccountList extends StatefulWidget {
+class EmployeeAccountList extends StatelessWidget {
   const EmployeeAccountList({Key? key}) : super(key: key);
-
-  @override
-  State<EmployeeAccountList> createState() => _EmployeeAccountListState();
-}
-
-class _EmployeeAccountListState extends State<EmployeeAccountList> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +25,16 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
         Provider.of<SettingsController>(context, listen: false);
     final controllerAccount =
         Provider.of<FirebaseAccount>(context, listen: false);
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 0.h),
       child: Container(
         width: double.infinity,
         alignment: Alignment.bottomCenter,
-        height: 300.h,
+        height: 500.h,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.primaryColor,
           borderRadius: BorderRadius.circular(25.r),
-          //   boxShadow: [
-          //     BoxShadow(
-          //       color: Colors.grey.withOpacity(0.5),
-          //       spreadRadius: 2,
-          //       blurRadius: 3,
-          //       offset: const Offset(0, 0), // changes position of shadow
-          //     ),
-          //   ],
         ),
         child: Column(
           children: [
@@ -66,16 +48,21 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                       children: [
                         Text(
                           "Your Team Members",
-                          style: style18Bold,
+                          style: TextStyle(
+                              fontSize: 35.sp,
+                              fontWeight: FontWeight.bold,
+                              color: theme.canvasColor),
                         ),
                         Text(
                           user.data.hotel!,
-                          style: style15Normal,
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.normal,
+                              color: theme.canvasColor),
                         ),
                       ],
                     ),
                     const Spacer(),
-                    const TexfieldWidget(),
                     SizedBox(
                       width: 50.w,
                     ),
@@ -91,12 +78,13 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                               context,
                             );
                           },
-                          child: Text(
-                            "Add team member",
-                            style: TextStyle(fontSize: 15.sp),
-                          ),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: mainColor2),
+                          child: Text(
+                            "Add team member",
+                            style:
+                                TextStyle(fontSize: 15.sp, color: Colors.white),
+                          ),
                         ),
                       ),
                     )
@@ -105,8 +93,8 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
             Expanded(
               child: Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor,
                   ),
                   child: ListView.builder(
                       itemCount: data.length,
@@ -117,7 +105,10 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                           return Center(
                             child: Text(
                               "No data",
-                              style: style18Normal,
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: theme.canvasColor,
+                                  fontWeight: FontWeight.normal),
                             ),
                           );
                         }
@@ -129,11 +120,17 @@ class _EmployeeAccountListState extends State<EmployeeAccountList> {
                         return Center(
                           child: Text(
                             "Loading data...",
-                            style: style18Normal,
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: theme.canvasColor,
+                                fontWeight: FontWeight.normal),
                           ),
                         );
                       })),
             ),
+            SizedBox(
+              height: 20.h,
+            )
           ],
         ),
       ),
@@ -153,17 +150,10 @@ class EmployeeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ListTile(
       title: Row(
         children: [
-          PhotoProfileNetWork(
-              lebar: 25.w,
-              tinggi: 25.h,
-              radius: 25.sp,
-              urlImage: employee.profileImage!),
-          SizedBox(
-            width: 15.w,
-          ),
           SizedBox(
             width: 350.w,
             child: Column(
@@ -171,11 +161,17 @@ class EmployeeTile extends StatelessWidget {
               children: [
                 Text(
                   employee.name!,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                 ),
                 Text(
                   employee.email!,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                 )
               ],
             ),
@@ -185,7 +181,10 @@ class EmployeeTile extends StatelessWidget {
             width: 150.w,
             child: Text(
               employee.department!,
-              style: style18Normal,
+              style: TextStyle(
+                  fontSize: 18.sp,
+                  color: theme.canvasColor,
+                  fontWeight: FontWeight.normal),
             ),
           ),
           Container(
@@ -195,7 +194,7 @@ class EmployeeTile extends StatelessWidget {
               employee.accountType!,
               style: TextStyle(
                   fontSize: 18.sp,
-                  color: Colors.black87,
+                  color: theme.canvasColor,
                   fontStyle: FontStyle.italic),
             ),
           ),
@@ -221,6 +220,7 @@ class EmployeeTile extends StatelessWidget {
                   currentEmail: employee.email!,
                   currentDepartement: employee.department!,
                 );
+                // ignore: use_build_context_synchronously
                 editEmployeeProfile(context, employee);
               },
               child: const Text(

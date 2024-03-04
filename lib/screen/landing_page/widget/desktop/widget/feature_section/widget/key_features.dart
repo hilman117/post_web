@@ -52,7 +52,7 @@ class KeyFeatures extends StatelessWidget {
                             LeftPoint(
                               title: "Task Management For All Departments",
                               subtitle: forAllDepartment,
-                              imageIcon: "image/for-all-department.png",
+                              imageIcon: "images/for-all-department.png",
                               color: mainColor,
                               textBoxSize: p1.maxWidth * 0.75,
                               imageIconSize: p1.maxWidth * 0.15,
@@ -64,7 +64,7 @@ class KeyFeatures extends StatelessWidget {
                             LeftPoint(
                               title: "Easy-to-use Mobile App",
                               subtitle: easyToUse,
-                              imageIcon: "image/easy-to-use.png",
+                              imageIcon: "images/easy-to-use.png",
                               textBoxSize: p1.maxWidth * 0.75,
                               color: secondaryColor,
                               imageIconSize: p1.maxWidth * 0.15,
@@ -76,7 +76,7 @@ class KeyFeatures extends StatelessWidget {
                             LeftPoint(
                               title: "Analysis Report",
                               subtitle: analysReport,
-                              imageIcon: "image/analisys-report.png",
+                              imageIcon: "images/analisys-report.png",
                               textBoxSize: p1.maxWidth * 0.75,
                               color: mainColor,
                               imageIconSize: p1.maxWidth * 0.15,
@@ -90,7 +90,7 @@ class KeyFeatures extends StatelessWidget {
                                 : LeftPoint(
                                     title: "Auto-dispatch Request",
                                     subtitle: autoDispatch,
-                                    imageIcon: "image/dispatch-request.png",
+                                    imageIcon: "images/dispatch-request.png",
                                     textBoxSize: p1.maxWidth * 0.75,
                                     color: secondaryColor,
                                     imageIconSize: p1.maxWidth * 0.15,
@@ -124,7 +124,7 @@ class KeyFeatures extends StatelessWidget {
                       width: size.width * 0.2,
                       child: LayoutBuilder(
                         builder: (p0, p1) => Image.asset(
-                          "image/mockup123.png",
+                          "images/mockup123.png",
                           width: p1.maxWidth * 1,
                         ),
                       ),
@@ -156,7 +156,7 @@ class KeyFeatures extends StatelessWidget {
                           RightPoint(
                             title: "Scheduled Maintenance",
                             subtitle: maintananceSchedule,
-                            imageIcon: "image/schedule_maintainance.png",
+                            imageIcon: "images/schedule_maintainance.png",
                             color: secondaryColor,
                             textboxSize: p1.maxWidth * 0.75,
                             imageIconSize: p1.maxWidth * 0.15,
@@ -168,7 +168,7 @@ class KeyFeatures extends StatelessWidget {
                             imageIconSize: p1.maxWidth * 0.15,
                             title: "13 languages",
                             subtitle: multiLanguage,
-                            imageIcon: "image/13-language.png",
+                            imageIcon: "images/13-language.png",
                             color: mainColor,
                             textboxSize: p1.maxWidth * 0.75,
                           ),
@@ -180,7 +180,7 @@ class KeyFeatures extends StatelessWidget {
                             textboxSize: p1.maxWidth * 0.75,
                             title: "Escalation Rules",
                             subtitle: escalationRule,
-                            imageIcon: "image/escalation.png",
+                            imageIcon: "images/escalation.png",
                             color: secondaryColor,
                           ),
                           const SizedBox(
@@ -190,7 +190,7 @@ class KeyFeatures extends StatelessWidget {
                             imageIconSize: p1.maxWidth * 0.15,
                             title: "Multiple Property Management",
                             subtitle: multiProperty,
-                            imageIcon: "image/multi-property.png",
+                            imageIcon: "images/multi-property.png",
                             color: mainColor,
                             textboxSize: p1.maxWidth * 0.75,
                           ),
@@ -201,7 +201,7 @@ class KeyFeatures extends StatelessWidget {
                             imageIconSize: p1.maxWidth * 0.15,
                             title: "Full Cloud Platform",
                             subtitle: cloud,
-                            imageIcon: "image/cloud-system.png",
+                            imageIcon: "images/cloud-system.png",
                             color: secondaryColor,
                             textboxSize: p1.maxWidth * 0.75,
                           ),
@@ -214,7 +214,7 @@ class KeyFeatures extends StatelessWidget {
                                   textboxSize: p1.maxWidth * 0.75,
                                   title: "Web desktop",
                                   subtitle: webDesktop,
-                                  imageIcon: "image/web-destop.png",
+                                  imageIcon: "images/web-destop.png",
                                   color: mainColor,
                                   imageIconSize: p1.maxWidth * 0.15,
                                 )
@@ -238,7 +238,7 @@ class KeyFeatures extends StatelessWidget {
                         builder: (p0, p1) => LeftPoint(
                           title: "Auto-dispatch Request",
                           subtitle: autoDispatch,
-                          imageIcon: "image/dispatch-request.png",
+                          imageIcon: "images/dispatch-request.png",
                           textBoxSize: p1.maxWidth * 0.75,
                           color: secondaryColor,
                           imageIconSize: p1.maxWidth * 0.15,
@@ -253,7 +253,7 @@ class KeyFeatures extends StatelessWidget {
                           textboxSize: p1.maxWidth * 0.75,
                           title: "Web desktop",
                           subtitle: webDesktop,
-                          imageIcon: "image/web-destop.png",
+                          imageIcon: "images/web-destop.png",
                           color: mainColor,
                           imageIconSize: p1.maxWidth * 0.15,
                         ),

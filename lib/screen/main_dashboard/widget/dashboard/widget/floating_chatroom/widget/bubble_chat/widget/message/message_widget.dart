@@ -13,7 +13,7 @@ Widget messageWidget(
     required BoxConstraints p2,
     required ChatModel chatModel,
     required List<ChatModel> listMessage}) {
-  DateTime convertedTimeStampToDatetime = chatModel.time!.toDate();
+  // DateTime convertedTimeStampToDatetime = chatModel.time!.toDate();
   var color = int.parse(chatModel.colorUser!);
   final theme = Theme.of(context);
   bool isVisible = false;
@@ -53,14 +53,20 @@ Widget messageWidget(
           chatModel.description != ""
               ? Text(
                   chatModel.description!,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                   overflow: TextOverflow.clip,
                 )
               : const SizedBox(),
           chatModel.commentBody != ""
               ? Text(
                   chatModel.commentBody!,
-                  style: style18Normal,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: theme.canvasColor,
+                      fontWeight: FontWeight.normal),
                   overflow: TextOverflow.clip,
                 )
               : const SizedBox(),
@@ -85,7 +91,7 @@ Widget messageWidget(
       children: [
         isMe
             ? Text(
-                DateFormat.Hm().format(convertedTimeStampToDatetime),
+                DateFormat.Hm().format(chatModel.time!),
                 style: chatTime,
               )
             : bubble,
@@ -93,7 +99,7 @@ Widget messageWidget(
         isMe
             ? bubble
             : Text(
-                DateFormat.Hm().format(convertedTimeStampToDatetime),
+                DateFormat.Hm().format(chatModel.time!),
                 style: chatTime,
               )
       ],

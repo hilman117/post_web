@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:post_web/models/popular_model.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/row_title/widget/search_box.dart';
 
 import 'row_box.dart';
@@ -8,6 +9,7 @@ Widget popularBoxCounter(
     {required BuildContext context,
     required String labelBox,
     required String label,
+    required List<PopularModel> data,
     IconData? iconData,
     bool? withSearchBox = false,
     double? width}) {
@@ -19,7 +21,7 @@ Widget popularBoxCounter(
         margin: EdgeInsets.all(10.sp),
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.primaryColor,
           borderRadius: BorderRadius.circular(25.r),
         ),
         child: LayoutBuilder(
@@ -133,54 +135,61 @@ Widget popularBoxCounter(
                 child: SizedBox(
                   width: p1.maxWidth,
                   child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) => Container(
-                      alignment: Alignment.center,
-                      height: p1.maxHeight * 0.085,
-                      width: p1.maxWidth,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 3.sp),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Main lobby",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: theme.canvasColor,
-                                    fontSize: 18.sp),
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        data.sort((a, b) => b.total!.compareTo(a.total!));
+                        var item = data[index];
+                        if (item.total == 0) {
+                          return const SizedBox();
+                        }
+                        return Container(
+                          alignment: Alignment.center,
+                          height: p1.maxHeight * 0.085,
+                          width: p1.maxWidth,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 3.sp),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    item.itemName!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        color: theme.canvasColor,
+                                        fontSize: 18.sp),
+                                  ),
+                                ),
                               ),
-                            ),
+                              rowBox(
+                                  alignment: Alignment.center,
+                                  fonsize: 18.sp,
+                                  p1: p1,
+                                  theme: theme,
+                                  value: item.total!.toString()),
+                              rowBox(
+                                  alignment: Alignment.center,
+                                  fonsize: 18.sp,
+                                  p1: p1,
+                                  theme: theme,
+                                  value: item.closed.toString()),
+                              rowBox(
+                                  alignment: Alignment.center,
+                                  fonsize: 18.sp,
+                                  p1: p1,
+                                  theme: theme,
+                                  value: item.resolutionTime!),
+                              rowBox(
+                                  alignment: Alignment.center,
+                                  fonsize: 18.sp,
+                                  p1: p1,
+                                  theme: theme,
+                                  value: item.ratePercent!)
+                            ],
                           ),
-                          rowBox(
-                              alignment: Alignment.center,
-                              fonsize: 18.sp,
-                              p1: p1,
-                              theme: theme,
-                              value: "2372"),
-                          rowBox(
-                              alignment: Alignment.center,
-                              fonsize: 18.sp,
-                              p1: p1,
-                              theme: theme,
-                              value: "2313"),
-                          rowBox(
-                              alignment: Alignment.center,
-                              fonsize: 18.sp,
-                              p1: p1,
-                              theme: theme,
-                              value: "4h 9mnt"),
-                          rowBox(
-                              alignment: Alignment.center,
-                              fonsize: 18.sp,
-                              p1: p1,
-                              theme: theme,
-                              value: "99.02%")
-                        ],
-                      ),
-                    ),
-                  ),
+                        );
+                      }),
                 ),
               )
             ],

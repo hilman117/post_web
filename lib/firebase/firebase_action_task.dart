@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +32,7 @@ class FirebaseActionTask {
       "emailReceiver": user.data.email,
       "comment": FieldValue.arrayUnion([
         {
-          "timeSent": DateTime.now(),
+          "timeSent": DateTime.now().toString(),
           'accepted': user.data.name,
           'colorUser': "",
           'assignTask': "",
@@ -44,7 +46,7 @@ class FirebaseActionTask {
           'senderemail': user.data.email,
           'setDate': '',
           'setTime': '',
-          'time': DateTime.now(),
+          'time': DateTime.now().toString(),
           'titleChange': "",
           'newlocation': "",
           'hold': "",
@@ -80,7 +82,7 @@ class FirebaseActionTask {
       'isFading': true,
       "comment": FieldValue.arrayUnion([
         {
-          "timeSent": DateTime.now(),
+          "timeSent": DateTime.now().toString(),
           'accepted': "",
           'colorUser': user.data.userColor,
           'assignTask': "",
@@ -94,7 +96,7 @@ class FirebaseActionTask {
           'senderemail': user.data.email,
           'setDate': '',
           'setTime': '',
-          'time': DateTime.now(),
+          'time': DateTime.now().toString(),
           'titleChange': "",
           'newlocation': "",
           'hold': "",
@@ -124,7 +126,7 @@ class FirebaseActionTask {
   }
 
   closeTask(BuildContext context, String idTask,
-      TextEditingController commentBody) async {
+      TextEditingController commentBody, String resolusi) async {
     try {
       await db
           .collection(hotelListCollection)
@@ -136,9 +138,10 @@ class FirebaseActionTask {
         'isFading': true,
         "receiver": "${user.data.name}",
         "emailReceiver": user.data.email,
+        "resolusi": resolusi,
         "comment": FieldValue.arrayUnion([
           {
-            "timeSent": DateTime.now(),
+            "timeSent": DateTime.now().toString(),
             'accepted': "",
             'colorUser': user.data.userColor,
             'assignTask': "",
@@ -154,7 +157,7 @@ class FirebaseActionTask {
             'senderemail': user.data.email,
             'setDate': '',
             'setTime': '',
-            'time': DateTime.now(),
+            'time': DateTime.now().toString(),
             'titleChange': "",
             'newlocation': "",
             'hold': "",
@@ -195,7 +198,7 @@ class FirebaseActionTask {
         "emailReceiver": user.data.email,
         "comment": FieldValue.arrayUnion([
           {
-            "timeSent": DateTime.now(),
+            "timeSent": DateTime.now().toString(),
             'accepted': "",
             'colorUser': user.data.userColor,
             'assignTask': "",
@@ -209,7 +212,7 @@ class FirebaseActionTask {
             'senderemail': user.data.email,
             'setDate': '',
             'setTime': '',
-            'time': DateTime.now(),
+            'time': DateTime.now().toString(),
             'titleChange': "",
             'newlocation': "",
             'hold': "",
@@ -359,7 +362,7 @@ class FirebaseActionTask {
         "emailReceiver": user.data.email,
         "comment": FieldValue.arrayUnion([
           {
-            "timeSent": DateTime.now(),
+            "timeSent": DateTime.now().toString(),
             'accepted': "",
             'colorUser': user.data.userColor,
             'assignTask': "",
@@ -373,7 +376,7 @@ class FirebaseActionTask {
             'senderemail': user.data.email,
             'setDate': '',
             'setTime': '',
-            'time': DateTime.now(),
+            'time': DateTime.now().toString(),
             'titleChange': "",
             'newlocation': "",
             'hold': "",

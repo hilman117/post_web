@@ -8,19 +8,16 @@ import 'package:post_web/screen/main_dashboard/widget/setting/widget/about_locat
 import 'package:provider/provider.dart';
 import 'widget/location_item.dart';
 
-class AllLocation extends StatelessWidget {
-  const AllLocation({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      width: 300.w,
-      height: 300.h,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(25.r)),
+Widget locationSection(BuildContext context) {
+  final theme = Theme.of(context);
+  return Container(
+    alignment: Alignment.bottomCenter,
+    width: 300.w,
+    height: 300.h,
+    decoration: BoxDecoration(
+        color: theme.primaryColor, borderRadius: BorderRadius.circular(25.r)),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           const AddNewLocation(),
@@ -49,8 +46,7 @@ class AllLocation extends StatelessWidget {
                           child: Text("No data found"),
                         );
                       }
-                      var list = (snapshot.data!.data()
-                          as Map<String, dynamic>)['location'] as List;
+                      var list = snapshot.data!.data()!['location'] as List;
                       if (list.isEmpty) {
                         return const Center(
                           child: Text("No data found"),
@@ -107,6 +103,6 @@ class AllLocation extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
+    ),
+  );
 }

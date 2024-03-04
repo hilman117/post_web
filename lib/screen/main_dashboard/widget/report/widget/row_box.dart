@@ -17,7 +17,7 @@ Widget rowBox(
       value,
       style: TextStyle(
           fontWeight: fontWeight ?? FontWeight.normal,
-          color: color ?? Colors.black,
+          color: color ?? theme.canvasColor,
           fontSize: fonsize ?? p1.maxWidth * 0.03),
       textAlign: TextAlign.center,
     ),

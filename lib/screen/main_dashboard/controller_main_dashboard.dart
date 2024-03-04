@@ -1,31 +1,100 @@
+// ignore_for_file: avoid_print
+
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:post_web/firebase/firebase_location.dart';
 import 'package:post_web/firebase/firebase_profile.dart';
 import 'package:post_web/firebase/firebase_title.dart';
 import 'package:post_web/models/general_data.dart';
+import 'package:post_web/models/task.dart';
+import 'package:post_web/models/title_model.dart';
 import 'package:post_web/models/user.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/report/report.dart';
+import 'package:post_web/screen/main_dashboard/widget/setting/controller_settings.dart';
 
 import 'package:post_web/screen/main_dashboard/widget/setting/setting.dart';
+import 'package:provider/provider.dart';
 
+import '../../const.dart';
 import '../../models/departement.dart';
 
 class MainDashboardController with ChangeNotifier {
-  int _menuSelected = 1;
+  int _menuSelected = 0;
   int get menuSelected => _menuSelected;
   int menuHovering = -1;
+  String menu = "Dashboard";
 
-  List<Widget> pages = [const Dashboard(), const Report(), const SettingView()];
-  List<String> menuDashboard = ["Dashboard", "Report", "Admin"];
+  Widget pagesSelected(BuildContext context, List<TaskModel> tasksList,
+      List<Departement> listDep) {
+    final setting = Provider.of<SettingsController>(context, listen: false);
+    if (menu == "Admin") {
+      setting.changeDeptForLfStorage(data!.deptToStoreLF!);
+      return const SettingView();
+    } else if (menu == "Report") {
+      return Report(listDept: listDep);
+    } else {
+      return Dashboard(tasksList: tasksList);
+    }
+    // return const SettingView();
+  }
+
+  // List<Widget> pages = [const Dashboard(), const Report(), const SettingView()];
+  List<String> menuDashboard = [
+    "Dashboard",
+    "Admin",
+    "Lost and Found",
+    "Report",
+  ];
+
   List<IconData> iconMenu = [
     Icons.dashboard_outlined,
+    Icons.admin_panel_settings_outlined,
+    Icons.location_disabled,
     Icons.analytics_outlined,
-    Icons.admin_panel_settings_outlined
   ];
+
+  Widget menuWidget(BuildContext context, int index) {
+    final theme = Theme.of(context);
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: (menuHovering == index || menuSelected == index)
+                      ? mainColor
+                      : Colors.transparent))),
+      child: Row(
+        children: [
+          Icon(
+            iconMenu[index],
+            color: (menuHovering == index || menuSelected == index)
+                ? mainColor
+                : theme.canvasColor,
+            size: 25.sp,
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Text(
+            menuDashboard[index],
+            style: TextStyle(
+                fontSize: 20.sp,
+                color: (menuHovering == index || menuSelected == index)
+                    ? mainColor
+                    : theme.canvasColor,
+                fontWeight: menuSelected == index
+                    ? FontWeight.bold
+                    : FontWeight.normal),
+          ),
+        ],
+      ),
+    );
+  }
+
   bool _isProfileViewOpen = false;
   bool get isProfileViewOpen => _isProfileViewOpen;
 
@@ -34,8 +103,9 @@ class MainDashboardController with ChangeNotifier {
     notifyListeners();
   }
 
-  selectMenu(int value) {
+  selectMenu(int value, String selectedMenu) {
     _menuSelected = value;
+    menu = selectedMenu;
     if (value == 3) {}
     // Get.back();
     notifyListeners();
@@ -64,11 +134,14 @@ class MainDashboardController with ChangeNotifier {
   }
 
   GeneralData? data;
+  List<TitlesModel> titles = [];
   generalData() {
     var db = FirebaseLocation().getHotelData();
     db.then((value) async {
       data = GeneralData.fromJson(value.data()!);
-      notifyListeners();
+      List listTitle = value.data()!["titles"];
+      titles = listTitle.map((e) => TitlesModel.fromJson(e)).toList();
+      print(titles);
     });
   }
 
@@ -129,7 +202,6 @@ class MainDashboardController with ChangeNotifier {
       getProfileData();
       notifyListeners();
     } catch (e) {
-      // ignore: avoid_print
       print(e);
     }
   }

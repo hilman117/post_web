@@ -43,7 +43,7 @@ class Notif {
     //           notification.title!.toString(), notification.body!.toString())));
     // }
     // ignore: avoid_print
-    print('NOTIFICATION forground ' + notification!.title.toString());
+    print('NOTIFICATION forground ${notification!.title}');
   }
 
 //to subscribe topic

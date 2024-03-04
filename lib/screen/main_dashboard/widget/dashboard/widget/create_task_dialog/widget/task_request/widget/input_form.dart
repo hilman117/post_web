@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../../const.dart';
-import '../../../../../../../../../style.dart';
 
 class InputForm extends StatelessWidget {
   const InputForm({
@@ -30,6 +29,7 @@ class InputForm extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           height: 40.h,
           decoration: BoxDecoration(
+            color: Colors.grey.shade300,
             border: Border.all(width: 0.5, color: Colors.grey.shade300),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
@@ -45,7 +45,10 @@ class InputForm extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: style18Normal,
+                style: TextStyle(
+                    fontSize: 18.sp,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal),
               ),
               isEmpty! == false
                   ? InkWell(

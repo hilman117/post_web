@@ -31,7 +31,7 @@ class AppBarPhoneScreen extends StatelessWidget {
                   width: 5,
                 ),
                 Image.asset(
-                  "image/icon.png",
+                  "images/icon.png",
                   width: p1.maxWidth * 0.1,
                 ),
                 SizedBox(

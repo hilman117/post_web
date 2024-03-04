@@ -70,7 +70,7 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
                     width: 1000.w,
                     child: IconButton(
                         splashRadius: 25.sp,
-                        onPressed: () => event.saveNetworkImage(context),
+                        onPressed: () => event.downloadImage(),
                         icon: Icon(
                           Icons.download,
                           color: Colors.white,

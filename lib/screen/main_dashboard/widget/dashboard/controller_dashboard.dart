@@ -1,10 +1,13 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
+import 'package:post_web/firebase/firebase_get_task_data.dart';
+import 'package:post_web/main.dart';
+import 'package:post_web/models/departement.dart';
 import 'package:post_web/models/task.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/row_title/widget/pop_up_profile_sender.dart';
 
@@ -26,9 +29,9 @@ class DashboardController with ChangeNotifier {
   final List<String> _departmentSet = [];
   List<String> get departmentSet => _departmentSet;
 
-  int _statusSelected = -1;
+  int _statusSelected = 0;
   int get statusSelected => _statusSelected;
-  String _filterbyStatus = "";
+  String _filterbyStatus = "Open";
   String get filterbyStatus => _filterbyStatus;
   List<String> status = ["Open", "Close", "Assigned", "Hold"];
 
@@ -37,6 +40,17 @@ class DashboardController with ChangeNotifier {
 
   bool _isChatroomOpen = false;
   bool get isChatroomOpen => _isChatroomOpen;
+
+  List<TaskModel> historyTask = [];
+  bool loadCloseTasks = false;
+  Future<List<TaskModel>> getHistoryTask() async {
+    await FirebaseGetTaskData()
+        .getHistoryTask()
+        .then((value) => historyTask = value);
+    // ignore: use_build_context_synchronously
+    notifyListeners();
+    return historyTask;
+  }
 
 //hoveirng function
   int indexHovering = -1;
@@ -59,8 +73,10 @@ class DashboardController with ChangeNotifier {
   }
 
   String selecteddepartement = "";
-  selectdepartement(String departement, int selected) {
-    selecteddepartement = departement;
+  Departement? deptSelected;
+  selectdepartement(Departement departement, int selected) {
+    selecteddepartement = departement.departement!;
+    deptSelected = departement;
     selectedDepartement = selected;
     Get.back(canPop: true);
     notifyListeners();
@@ -68,6 +84,7 @@ class DashboardController with ChangeNotifier {
 
   void clearSelectedDept() {
     selecteddepartement = "";
+    deptSelected = null;
     notifyListeners();
   }
 
@@ -109,8 +126,8 @@ class DashboardController with ChangeNotifier {
   }
 
   clearStatusFilter() {
-    _statusSelected = -1;
-    _filterbyStatus = "";
+    _statusSelected = 0;
+    _filterbyStatus = "Open";
     notifyListeners();
   }
 
@@ -128,9 +145,12 @@ class DashboardController with ChangeNotifier {
   }
 
   // to filter card that showing only by spesific status that user will choose by below function
-  selectStatus(int value, String getStatus) {
+  selectStatus(BuildContext context, int value, String getStatus) {
     _statusSelected = value;
-    _filterbyStatus = value < 0 ? "" : getStatus;
+    _filterbyStatus = getStatus;
+    if (_statusSelected == 1) {
+      getHistoryTask();
+    }
     notifyListeners();
   }
 
@@ -159,15 +179,6 @@ class DashboardController with ChangeNotifier {
   //[Pop up profile sender]
   //scaletransitioin animation
   //this method is called in pop up profile sender profile
-
-  //to get to know position where the user click, the  value will be used for the positioin where the animation come
-  double dx = 0;
-  double dy = 0;
-  getOnClickPosition(PointerHoverEvent event) {
-    dx = event.position.dx;
-    dy = event.position.dy;
-    notifyListeners();
-  }
 
   OverlayState? overlay;
   OverlayEntry? entry;

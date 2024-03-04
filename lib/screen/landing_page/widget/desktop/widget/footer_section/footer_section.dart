@@ -19,7 +19,7 @@ class FooterSection extends StatelessWidget {
         width: double.maxFinite,
         child: Column(
           children: [
-            Image.asset("image/footerwave.png"),
+            Image.asset("images/footerwave.png"),
             Container(
               width: double.maxFinite,
               decoration: BoxDecoration(
@@ -141,7 +141,7 @@ class FooterSection extends StatelessWidget {
                               InkWell(
                                   onTap: () {},
                                   child: Image.asset(
-                                    "image/Apple.png",
+                                    "images/Apple.png",
                                     width: p1.maxWidth * 0.1,
                                   )),
                               const SizedBox(
@@ -150,7 +150,7 @@ class FooterSection extends StatelessWidget {
                               InkWell(
                                   onTap: () {},
                                   child: Image.asset(
-                                    "image/Google.png",
+                                    "images/Google.png",
                                     width: p1.maxWidth * 0.1,
                                   )),
                             ],

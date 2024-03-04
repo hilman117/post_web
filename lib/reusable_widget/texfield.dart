@@ -13,6 +13,7 @@ class TexfieldWidget extends StatelessWidget {
     this.fontHeight,
     this.focusNode,
     this.maxLines,
+    this.isAutoFocus,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -24,6 +25,7 @@ class TexfieldWidget extends StatelessWidget {
   final String? hintText;
   final FocusNode? focusNode;
   final int? maxLines;
+  final bool? isAutoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class TexfieldWidget extends StatelessWidget {
               color: bgCOlor ?? Colors.grey.shade200),
           // padding: const EdgeInsets.only(left: 3),
           child: TextFormField(
+            // autofocus: isAutoFocus!,
             focusNode: focusNode,
             onChanged: searchFunction,
             controller: controller,

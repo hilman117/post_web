@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:post_web/controller/c_user.dart';
 import 'package:post_web/models/chat_model.dart';
 import 'package:post_web/models/task.dart';
-import 'package:post_web/const.dart';
 import 'package:post_web/screen/main_dashboard/controller_main_dashboard.dart';
 import 'package:post_web/screen/main_dashboard/widget/dashboard/widget/floating_chatroom/controller_floating_chatroom.dart';
 import 'package:post_web/style.dart';
@@ -44,7 +43,6 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
   Widget build(BuildContext context) {
     final controller = Provider.of<DashboardController>(context, listen: false);
     final chatCtrl = Provider.of<ChatroomControlller>(context, listen: false);
-    final mainCtrl = context.watch<MainDashboardController>();
     final theme = Theme.of(context);
     return Positioned(
       right: 20.w,
@@ -54,16 +52,11 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
         child: Container(
           // alignment: Alignment.bottomCenter,
           decoration: BoxDecoration(
-              color: mainColor.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.r),
-                  topRight: Radius.circular(10.r)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.shade300,
-                    blurRadius: 2,
-                    offset: const Offset(01, 01))
-              ]),
+            color: const Color(0xffE8EEF8),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.r),
+                topRight: Radius.circular(10.r)),
+          ),
           height: 900.h,
           width: 600.w,
           child: Column(
@@ -81,7 +74,7 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                           height: 50.h,
                           width: 30.w,
                           child: Image.asset(
-                            "image/${widget.taskModel.sendTo}.png",
+                            "${widget.taskModel.iconDepartement}",
                             width: 30.w,
                             height: 30.h,
                           ),
@@ -213,17 +206,22 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                               ChatModel comments =
                                                   chatModel[index];
 
-                                              return bubbleChat(
-                                                context: context,
-                                                p2: p2,
-                                                isMe: comments.senderemail ==
-                                                        mainCtrl
-                                                            .userDetails!.email
-                                                    ? true
-                                                    : false,
-                                                chatModel: comments,
-                                                listMessage: chatModel,
-                                                index: index,
+                                              return Consumer<
+                                                  MainDashboardController>(
+                                                builder:
+                                                    (context, value, child) =>
+                                                        bubbleChat(
+                                                  context: context,
+                                                  p2: p2,
+                                                  isMe: comments.senderemail ==
+                                                          value.userDetails!
+                                                              .email
+                                                      ? true
+                                                      : false,
+                                                  chatModel: comments,
+                                                  listMessage: chatModel,
+                                                  index: index,
+                                                ),
                                               );
                                             });
                                       }
@@ -241,10 +239,7 @@ class _FloatingChatroomState extends State<FloatingChatroom> {
                                           idTask: widget.taskModel.id!),
                                     )
                                   : KeyboardWidget(
-                                      idTask: widget.taskModel.id!,
-                                      titleTask: widget.taskModel.title!,
-                                      locationTask: widget.taskModel.location!,
-                                      status: widget.taskModel.status!,
+                                      task: widget.taskModel,
                                     ))
                     ],
                   ),

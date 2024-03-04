@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +31,13 @@ class LoginController with ChangeNotifier {
   String get getEmail => _getEmail;
   final String _getPassword = box!.get('password') ?? '';
   String get getPassword => _getPassword;
+  bool loadingSignInProgress = false;
 
-  isSaveValue(bool value) {
+  isSaveValue() {
     _isSave = !_isSave;
     box!.putAll({'isSave': _isSave});
     notifyListeners();
   }
-
-  List<String> listToken = [];
 
   Future signIn(BuildContext context, String email, String password) async {
     if (email.isEmpty || !email.contains("@")) {
@@ -46,20 +47,8 @@ class LoginController with ChangeNotifier {
       return ShowDialog().alerDialog(context, "Password is empty");
     } else {
       try {
-        isLoading = true;
+        loadingSignInProgress = true;
         notifyListeners();
-        if (isLoading) {
-          ShowDialog().loadingDialog(context);
-        }
-        notifyListeners();
-        if (_isSave) {
-          await box!.putAll({'email': email});
-          await box!.putAll({'password': password});
-        } else {
-          box!.delete('email');
-          box!.delete('password');
-          notifyListeners();
-        }
         await auth.signInWithEmailAndPassword(
             email: email.removeAllWhitespace,
             password: password.removeAllWhitespace);
@@ -71,31 +60,38 @@ class LoginController with ChangeNotifier {
           userDetails =
               UserDetails.fromJson(userDoc.data() as Map<String, dynamic>);
           SessionsUser.saveUser(userDetails!);
-          String token = await Notif().getToken();
-          listToken.clear();
-          listToken.add(token);
-          await FirebaseFirestore.instance
-              .collection("users")
-              .doc(auth.currentUser!.email)
-              .update({"token": FieldValue.arrayUnion(listToken)});
-          //funtion to get general setting administrator
+          //this logic is to set that only admin can access the admin panel
+          if (userDetails!.accountType == "Non-admin") {
+            auth.signOut();
+            loadingSignInProgress = false;
+            notifyListeners();
+            ShowDialog()
+                .alerDialog(context, "Only admin that allowed to login");
+          } else {
+            Notif().subscribeTopic(
+                userDetails!.department!.toLowerCase().removeAllWhitespace);
+            // event.dashboard(userDetails!.department!);
 
-          isLoading = false;
-          notifyListeners();
-          Navigator.pushReplacementNamed(context, Routes.mainDashBoard);
+            Navigator.pushReplacementNamed(context, Routes.mainDashBoard);
+            loadingSignInProgress = false;
+            notifyListeners();
+          }
         }
       } on FirebaseAuthException catch (e) {
         // print(e);
         if (e.code == 'user-not-found') {
-          ShowDialog().alerDialog(context, "No user found for");
-          isLoading = false;
+          loadingSignInProgress = false;
           notifyListeners();
+          Navigator.pop(context);
+          ShowDialog().alerDialog(context, "No user found for $email");
         } else if (e.code == 'wrong-password') {
-          ShowDialog().alerDialog(context, "Please provide valid password");
-          isLoading = false;
+          loadingSignInProgress = false;
           notifyListeners();
+          Navigator.pop(context);
+          ShowDialog().alerDialog(context, "Please provide valid password");
         }
       }
     }
+    notifyListeners();
   }
 }
